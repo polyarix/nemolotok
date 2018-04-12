@@ -11,7 +11,6 @@ jQuery('.item_destroy').click(function(e){
                 _token: jQuery('meta[name="csrf-token"]').attr('content')
             },
             success: function(response){
-                console.log(response);
                 if(response === true) {
                     jQuery(elem).parent().parent().hide();
                 } else {

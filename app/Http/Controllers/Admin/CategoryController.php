@@ -50,7 +50,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.category.show', [
+            'category' => Category::where('id', $id)->get()->first()
+        ]);
     }
 
     /**
@@ -61,7 +63,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.category.edit', [
+            'category' => Category::where('id', $id)->get()->first()
+        ]);
     }
 
     /**
@@ -71,9 +75,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->update(['name' => $request->get('name')]);
+        return redirect()->route('admin.category.index');
     }
 
     /**

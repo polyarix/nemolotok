@@ -5,7 +5,7 @@
     <div class="card-body card-block">
         <div class="form-group">
             <label for="company" class=" form-control-label">Category</label>
-            <input type="text"  name="name" placeholder="Enter category name" class="form-control">
+            <input type="text"  name="name" placeholder="Enter category name" value="{{$category->name or ''}}" class="form-control">
         </div>
     </div>
 </div>
