@@ -11,10 +11,16 @@
 |
 */
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth'], 'as' => 'admin.'], function() {
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
-    Route::resource('category', 'CategoryController', ['as' => 'admin']);
-    Route::resource('news', 'NewsController', ['as' => 'admin']);
+    Route::get('category/', 'CategoryViewController@index')->name('category.view.index');
+    Route::get('category/create', 'CategoryViewController@create')->name('category.view.create');
+    Route::post('category/store', 'CategoryViewController@store')->name('category.view.store');
+    Route::get('category/edit/{id}', 'CategoryViewController@edit')->name('category.view.edit');
+    Route::put('category/{id}', 'CategoryViewController@update')->name('category.view.update');
+    Route::get('category/show/{id}', 'CategoryViewController@show')->name('category.view.show');
+
+//    Route::resource('news', 'NewsController', ['as' => 'admin']);
 });
 
 Route::get('/', function () {

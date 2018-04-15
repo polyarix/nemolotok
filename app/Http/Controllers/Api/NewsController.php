@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index', [
-            'categories' => Category::all(),
-        ]);
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        //
     }
 
     /**
@@ -38,8 +35,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create(['name' => $request->get('name')]);
-        return redirect()->route('admin.category.index');
+        //
     }
 
     /**
@@ -50,9 +46,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return view('admin.category.show', [
-            'category' => Category::where('id', $id)->get()->first()
-        ]);
+        //
     }
 
     /**
@@ -63,9 +57,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.category.edit', [
-            'category' => Category::where('id', $id)->get()->first()
-        ]);
+        //
     }
 
     /**
@@ -75,10 +67,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->update(['name' => $request->get('name')]);
-        return redirect()->route('admin.category.index');
+        //
     }
 
     /**
@@ -89,12 +80,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::where('id', $id)->delete();
-
-        if(!Category::where('id', $id)->count()){
-            return \GuzzleHttp\json_encode(true);
-        }
-
-        return \GuzzleHttp\json_encode(false);
+        //
     }
 }

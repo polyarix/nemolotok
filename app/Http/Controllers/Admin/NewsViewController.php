@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\News;
-use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class NewsController extends Controller
+class NewsViewController extends Controller
 {
     /**
      * Display a listing of the resource.

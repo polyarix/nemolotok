@@ -13,15 +13,15 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="{{route('dashboard.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="{{route('admin.dashboard.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
                 <h3 class="menu-title">Basic</h3>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-laptop"></i>Content</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-th-list"></i><a href="{{route('admin.category.index')}}">Categories</a></li>
-                        <li><i class="fa fa-th-list"></i><a href="{{route('admin.news.index')}}">News articles</a></li>
+                        <li><i class="fa fa-th-list"></i><a href="{{route('admin.category.view.index')}}">Categories</a></li>
+                        {{--<li><i class="fa fa-th-list"></i><a href="{{route('admin.news.index')}}">News articles</a></li>--}}
                     </ul>
                 </li>
                 {{--<h3 class="menu-title">UI elements</h3><!-- /.menu-title -->--}}

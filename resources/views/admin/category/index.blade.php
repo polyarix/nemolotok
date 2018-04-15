@@ -3,7 +3,7 @@
 @section('content')
     <div class="col-lg-12">
         <div class="text-right">
-            <button type="button" class="btn btn-primary" onclick="location='{{route('admin.category.create')}}'"
+            <button type="button" class="btn btn-primary" onclick="location='{{route('admin.category.view.create')}}'"
                     title="create new category"><i
                         class="fa fa-plus"></i>
             </button>
@@ -41,13 +41,13 @@
                                         <td>{{$category->updated_at or ''}}</td>
                                         <td class="text-left">
                                             <button type="button" class="btn btn-primary"
-                                                    onclick="location='{{route('admin.category.show', ['category' => $category])}}'">
+                                                    onclick="location='{{route('admin.category.view.show', ['category' => $category->id])}}'">
                                                 <i class="fa fa-eye"></i></button>
                                             <button type="button" class="btn btn-success"
-                                                    onclick="location='{{route('admin.category.edit', ['category' => $category])}}'">
+                                                    onclick="location='{{route('admin.category.view.edit', ['category' => $category->id])}}'">
                                                 <i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger item_destroy"
-                                                    data-url="{{ route('admin.category.destroy', ['id' => $category->id]) }}">
+                                                    data-url="{{ route('api.category.destroy', ['id' => $category->id]) }}">
                                                 <i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
