@@ -24,5 +24,10 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function(){
     Route::put('categories/{id}', 'CategoryController@update')->name('category.update');
     Route::delete('categories/{id}', 'CategoryController@destroy')->name('category.destroy');
 
+
+
 });
 
+Route::group(['as' => 'api.'], function() {
+    Route::post('register', 'Auth\RegisterController@register')->name('register');
+});
