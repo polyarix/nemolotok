@@ -9,14 +9,12 @@ use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
+        if (\Gate::allows('has_api_token', auth()->user())) {
+            dd(auth()->user()->api_token);
+        }
         $client = new Client();
-//        $data = $client->request('POST', route('api.register'), [
-//         RequestOptions::JSON => '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
-//        ]);
-//        dd($data->getStatusCode());
         $data = $client->request('GET', route('api.category.index'));
         return view('admin.category.index', [
             'categories' => json_decode($data->getBody())
