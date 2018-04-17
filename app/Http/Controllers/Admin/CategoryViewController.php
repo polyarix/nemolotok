@@ -11,14 +11,16 @@ class CategoryViewController extends Controller
 {
     public function index(Request $request)
     {
-        if (\Gate::allows('has_api_token', auth()->user())) {
-            dd(auth()->user()->api_token);
-        }
-        $client = new Client();
-        $data = $client->request('GET', route('api.category.index'));
-        return view('admin.category.index', [
-            'categories' => json_decode($data->getBody())
-        ]);
+//        if(\Gate::allows('index-category')){
+            $client = new Client();
+            $data = $client->request('GET', route('api.category.index'));
+            dd($data->getStatusCode());
+            return view('admin.category.index', [
+                'categories' => json_decode($data->getBody())
+            ]);
+//        }
+
+//        return redirect()->back()->with(['message' => 'У вас недостаточно прав']);
     }
 
 

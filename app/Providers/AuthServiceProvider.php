@@ -24,6 +24,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
-        $this->registerPolicies();
+        $this->registerPolicies($gate);
+        $gate->define('index-category', function(User $user){
+            return false;
+        });
     }
 }
