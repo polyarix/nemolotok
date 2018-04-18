@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <form action="{{route('admin.news.update', ['article' => $article])}}" method="post">
+    <form action="{{route('admin.news.update', ['article' => $article->id])}}" method="post">
         <div class="col-lg-12">
             <div class="text-right">
                 <button type="button" class="btn btn-primary" onclick="location='{{ \URL::previous() }}'" title="back"><i

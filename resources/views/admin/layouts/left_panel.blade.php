@@ -21,7 +21,7 @@
                         <i class="menu-icon fa fa-laptop"></i>Content</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-th-list"></i><a href="{{route('admin.category.view.index')}}">Categories</a></li>
-                        {{--<li><i class="fa fa-th-list"></i><a href="{{route('admin.news.index')}}">News articles</a></li>--}}
+                        <li><i class="fa fa-th-list"></i><a href="{{route('admin.news.index')}}">News articles</a></li>
                     </ul>
                 </li>
                 {{--<h3 class="menu-title">UI elements</h3><!-- /.menu-title -->--}}

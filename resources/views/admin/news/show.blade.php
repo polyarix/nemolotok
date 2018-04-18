@@ -27,8 +27,8 @@
                                 <tr>
                                     <th>Categories</th>
                                     <td>
-                                        @foreach($article_categories as $item)
-                                            <span class="badge-dark">{{$categories->where('id', $item->category_id)->first()->name or ''}}</span>
+                                        @foreach($categories as $category)
+                                            <span class="badge-dark">{{$category->name}}</span>
                                         @endforeach
                                     </td>
                                 </tr>

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiRequest;
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,11 +10,11 @@ class CategoryViewController extends Controller
 {
     public function index()
     {
-            $data = ApiRequest::request('GET', route('api.category.index'));
+        $data = ApiRequest::request('GET', route('api.category.index'));
 
-            return view('admin.category.index', [
-                'categories' => json_decode($data->getBody())
-            ]);
+        return view('admin.category.index', [
+            'categories' => json_decode($data->getBody())
+        ]);
     }
 
 
@@ -56,10 +54,10 @@ class CategoryViewController extends Controller
         return redirect()->route('admin.category.view.index');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $data = ApiRequest::request('DELETE', route('api.category.destroy', ['id' => $id]));
 
-        return \GuzzleHttp\json_encode($data->getStatusCode());
+        return json_encode($data->getStatusCode());
     }
 }

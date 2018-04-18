@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
         Route::put('category/{id}', 'CategoryViewController@update')->name('category.view.update');
         Route::get('category/show/{id}', 'CategoryViewController@show')->name('category.view.show');
         Route::delete('category/destroy/{id}', 'CategoryViewController@destroy')->name('category.view.destroy');
-//    Route::resource('news', 'NewsController', ['as' => 'admin']);
+        Route::resource('news', 'NewsViewController');
 });
 
 Route::get('/', function () {

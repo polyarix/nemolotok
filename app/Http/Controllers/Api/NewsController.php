@@ -2,84 +2,89 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Category;
+use App\Models\News;
+use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return News::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        if($article = News::create(['title' => $request->get('title'),'content' => $request->get('content')])) {
+            $article->categories = $this->writeCategories($request, $article->id);
+        }
+
+        return $article;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $article = News::findOrFail($id);
+        if($article) {
+            $category_list = [];
+            $news_category_collection = NewsCategory::where('article_id', $article->id)->get();
+            foreach($news_category_collection as $item)
+            {
+                $category_list[] = Category::where('id', $item->category_id)->firstOrFail();
+            }
+            $article->article_categories = $news_category_collection;
+            $article->categories = $category_list;
+
+            return $article;
+        }
+
+        return 500;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $article = News::findOrFail($id);
+        $article->update([
+            'title' => $request->get('title'),
+            'content' => $request->get('content'),
+        ]);
+
+        NewsCategory::where('article_id', $id)->delete();
+
+        $article->categories = $this->writeCategories($request, $article->id);
+
+        return $article;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $article = News::findOrFail($id);
+        NewsCategory::where('id',$article->id)->delete();
+        $article->delete();
+        return 204;
+    }
+
+    protected function writeCategories($request, $article_id)
+    {
+        $categories_list = [];
+        if(count($request->get('categories'))){
+            foreach($request->get('categories') as $category) {
+               NewsCategory::create([
+                    'category_id' => $category,
+                    'article_id' => $article_id
+                ]);
+               $categories_list[] = Category::where('id', $category)->firstOrFail();
+            }
+        }
+
+        return $categories_list;
+    }
+
+    protected function getCategories($article_id)
+    {
+
     }
 }
