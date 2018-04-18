@@ -12,7 +12,7 @@ jQuery('.item_destroy').click(function(e){
             },
             success: function(response){
                 console.log(response);
-                if(response === 204) {
+                if(response === 200) {
                     jQuery(elem).parent().parent().hide();
                 } else {
                     alert('Something wrong. Try again.');

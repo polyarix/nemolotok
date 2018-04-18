@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ApiRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
@@ -9,18 +10,13 @@ use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-//        if(\Gate::allows('index-category')){
-            $client = new Client();
-            $data = $client->request('GET', route('api.category.index'));
-            dd($data->getStatusCode());
+            $data = ApiRequest::request('GET', route('api.category.index'));
+
             return view('admin.category.index', [
                 'categories' => json_decode($data->getBody())
             ]);
-//        }
-
-//        return redirect()->back()->with(['message' => 'У вас недостаточно прав']);
     }
 
 
@@ -31,15 +27,15 @@ class CategoryViewController extends Controller
 
     public function store(Request $request)
     {
-        $client = new Client();
-        $client->request('POST', route('api.category.store'), [RequestOptions::JSON => $request->only(['name'])]);
+        ApiRequest::request('POST', route('api.category.store'), $request);
+
         return redirect()->route('admin.category.view.index');
     }
 
     public function show($id)
     {
-        $client = new Client();
-        $data = $client->request('GET', route('api.category.show', ['id' => $id]));
+        $data = ApiRequest::request('GET', route('api.category.show', ['id' => $id]));
+
         return view('admin.category.show', [
             'category' => json_decode($data->getBody())
         ]);
@@ -47,8 +43,8 @@ class CategoryViewController extends Controller
 
     public function edit($id)
     {
-        $client = new Client();
-        $data = $client->request('GET', route('api.category.show', ['id' => $id]));
+        $data = ApiRequest::request('GET', route('api.category.show', ['id' => $id]));
+
         return view('admin.category.edit', [
             'category' => json_decode($data->getBody())
         ]);
@@ -56,10 +52,14 @@ class CategoryViewController extends Controller
 
     public function update(Request $request, $id)
     {
-        $client = new Client();
-        $client->request('PUT', route('api.category.update', $id), [
-            RequestOptions::JSON => $request->all()
-        ]);
+        ApiRequest::request('PUT', route('api.category.update', $id), $request);
         return redirect()->route('admin.category.view.index');
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $data = ApiRequest::request('DELETE', route('api.category.destroy', ['id' => $id]));
+
+        return \GuzzleHttp\json_encode($data->getStatusCode());
     }
 }

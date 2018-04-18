@@ -47,7 +47,7 @@
                                                     onclick="location='{{route('admin.category.view.edit', ['category' => $category->id])}}'">
                                                 <i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger item_destroy"
-                                                    data-url="{{ route('api.category.destroy', ['id' => $category->id]) }}">
+                                                    data-url="{{ route('admin.category.view.destroy', ['id' => $category->id]) }}">
                                                 <i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>

@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Api', 'as' => 'api.'], function(){
+Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => 'auth:api'], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/{id}', 'CategoryController@show')->name('category.show');
     Route::post('categories', 'CategoryController@store')->name('category.store');
@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function(){
     Route::delete('categories/{id}', 'CategoryController@destroy')->name('category.destroy');
 });
 
-Route::group(['as' => 'api.'], function() {
+Route::group(['as' => 'api.', 'middleware' => 'auth:api'], function() {
     Route::post('register', 'Auth\RegisterController@register')->name('register');
     Route::post('login', 'Auth\LoginController@login')->name('login');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');

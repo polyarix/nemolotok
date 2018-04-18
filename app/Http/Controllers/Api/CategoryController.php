@@ -11,12 +11,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if(\Gate::allows('index-api-category')){
-            return Category::all();
-        } else {
-            return Response::json(['message'=>'у Вас недостаточно прав'], 403);
-        }
-
+       return Category::all();
     }
 
 
