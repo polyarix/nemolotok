@@ -21,7 +21,8 @@ class RolePermissionsSeeder extends Seeder
         $guest_role_id = \App\Role::where('name', 'guest')->firstOrFail()->id;
         $editor_role_id = \App\Role::where('name', 'editor')->firstOrFail()->id;
 
-        $category_prefix = \App\Http\Controllers\Api\CategoryController::class;
+        $category_api_prefix = \App\Http\Controllers\Api\CategoryController::class;
+        $category_view_prefix = \App\Http\Controllers\Admin\CategoryViewController::class;
         $news_view_prefix = \App\Http\Controllers\Admin\NewsViewController::class;
         $news_api_prefix = \App\Http\Controllers\Api\NewsController::class;
 
@@ -42,9 +43,9 @@ class RolePermissionsSeeder extends Seeder
 
         $editor_permissions_array = [
             \App\Http\Controllers\Admin\DashboardController::class . '@index',
+            $category_api_prefix . '@index',
             $news_api_prefix . '@index',
             $news_api_prefix . '@show',
-            $news_api_prefix . '@edit',
             $news_api_prefix . '@update',
             $news_view_prefix . '@index',
             $news_view_prefix . '@show',

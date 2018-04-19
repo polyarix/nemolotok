@@ -14,7 +14,6 @@ class NewsViewController extends Controller
 
     public function index(Request $request)
     {
-        $routes = \Route::getRoutes();
         $data = ApiRequest::request('GET', route('api.news.index'), $request);
         return view('admin.news.index', [
             'articles' => json_decode($data->getBody())

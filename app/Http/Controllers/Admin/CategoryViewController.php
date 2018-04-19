@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Access;
 use App\Helpers\ApiRequest;
 use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Http\Request;
@@ -9,21 +10,8 @@ use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-//        $route_collection = \Route::getRoutes();
-
-//        foreach($route_collection as $item)
-//        {
-//            if(preg_match('~(admin|api)~', $item->getPrefix())) {
-//                echo $item->getName() . '  =====  '.$item->uri() . '  =====  '. $item->getActionName() .'<br />';
-//            }
-//
-//        }
-//        die();
-//        dd(CategoryController::class . '@index');
-//        dd(\Route::getRoutes('admin.category.view.index'));
-//        dd(route('admin.category.view.index'));
         $data = ApiRequest::request('GET', route('api.category.index'));
 
         return view('admin.category.index', [

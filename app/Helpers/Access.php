@@ -26,7 +26,7 @@ class Access
     protected static function isAccess($action_name)
     {
         $user_id = \Auth::user()->id;
-        $current_action_id = Permission::where('action_name', $action_name)->first()->id;
+        $current_action_id = Permission::where('action_name', trim($action_name))->first()->id;
         $user_role_id = UserRole::where('user_id', $user_id)->firstOrFail()->id;
 
         if(RolePermission::where('role_id', $user_role_id)->where('permission_id', $current_action_id)->count() > 0) {
