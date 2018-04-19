@@ -45,7 +45,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -60,7 +60,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -75,7 +75,8 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $user->generateToken();
-//        return \Response::json(\Route::getCurrentRoute()->getPrefix());
-        return \Response::json(['data' => $user->toArray()], 201);
+        if (preg_match('~admin~', \Response::json(\Route::getCurrentRoute()->getPrefix()))) {
+            return \Response::json(['data' => $user->toArray()], 201);
+        }
     }
 }

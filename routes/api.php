@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api',
     Route::delete('news/{id}', 'NewsController@destroy')->name('news.destroy');
 });
 
-Route::group(['as' => 'api.', 'middleware' => 'auth:api'], function() {
+Route::group(['as' => 'api.'], function() {
     Route::post('register', 'Auth\RegisterController@register')->name('register');
     Route::post('login', 'Auth\LoginController@loginApi')->name('login');
     Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');
