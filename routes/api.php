@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 })->name('api.user');
 
-Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => 'auth:api'], function(){
+Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api', 'permissions']], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/{id}', 'CategoryController@show')->name('category.show');
     Route::post('categories', 'CategoryController@store')->name('category.store');
@@ -33,6 +33,6 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => 'auth:api'],
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:api'], function() {
     Route::post('register', 'Auth\RegisterController@register')->name('register');
-    Route::post('login', 'Auth\LoginController@login')->name('login');
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::post('login', 'Auth\LoginController@loginApi')->name('login');
+    Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');
 });

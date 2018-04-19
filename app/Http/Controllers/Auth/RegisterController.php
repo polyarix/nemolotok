@@ -75,7 +75,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $user->generateToken();
-
+//        return \Response::json(\Route::getCurrentRoute()->getPrefix());
         return \Response::json(['data' => $user->toArray()], 201);
     }
 }

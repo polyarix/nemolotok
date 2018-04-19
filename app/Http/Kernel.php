@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckPermissions;
 use App\Http\Middleware\CheckRoles;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -61,6 +62,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'roles' => \App\Http\Middleware\CheckRoles::class
+        'permissions' => CheckPermissions::class,
     ];
 }
