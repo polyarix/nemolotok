@@ -14,5 +14,6 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 mix.scripts([
-    'resources/assets/js/admin/delete.js'
+    'resources/assets/js/admin/delete.js',
+    'resources/assets/js/admin/search.js'
 ], 'public/js/admin/actions.js');

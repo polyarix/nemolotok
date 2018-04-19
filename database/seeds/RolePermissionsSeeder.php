@@ -33,6 +33,7 @@ class RolePermissionsSeeder extends Seeder
         ];
 
         $guest_permissions_array = [
+            \App\Http\Controllers\Admin\DashboardController::class . '@index',
             $news_api_prefix . '@index',
             $news_api_prefix . '@show',
             $news_view_prefix . '@index',
@@ -40,6 +41,7 @@ class RolePermissionsSeeder extends Seeder
         ];
 
         $editor_permissions_array = [
+            \App\Http\Controllers\Admin\DashboardController::class . '@index',
             $news_api_prefix . '@index',
             $news_api_prefix . '@show',
             $news_api_prefix . '@edit',

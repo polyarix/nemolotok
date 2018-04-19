@@ -10,9 +10,10 @@ use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return News::all();
+        $news = News::filter($request);
+        return $news;
     }
 
     public function store(Request $request)
