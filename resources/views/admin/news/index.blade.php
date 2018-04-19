@@ -37,9 +37,15 @@
                                         <td>{{$article->created_at or ''}}</td>
                                         <td>{{$article->updated_at or ''}}</td>
                                         <td class="text-left">
-                                            <button type="button" class="btn btn-primary" onclick="location='{{route('admin.news.show', ['article' => $article->id])}}'"><i class="fa fa-eye"></i></button>
-                                            <button type="button" class="btn btn-success" onclick="location='{{route('admin.news.edit', ['article' => $article->id])}}'"><i class="fa fa-pencil"></i></button>
-                                            <button type="button" class="btn btn-danger item_destroy" data-url="{{ route('admin.news.destroy', ['id' => $article->id]) }}"><i class="fa fa-trash"></i></button>
+                                            @if(\App\Helpers\Access::hasRouteAccess('admin.news.show'))
+                                                <button type="button" class="btn btn-primary" onclick="location='{{route('admin.news.show', ['article' => $article->id])}}'"><i class="fa fa-eye"></i></button>
+                                            @endif
+                                            @if(\App\Helpers\Access::hasRouteAccess('admin.news.edit'))
+                                                <button type="button" class="btn btn-success" onclick="location='{{route('admin.news.edit', ['article' => $article->id])}}'"><i class="fa fa-pencil"></i></button>
+                                            @endif
+                                            @if(\App\Helpers\Access::hasRouteAccess('admin.news.destroy'))
+                                                <button type="button" class="btn btn-danger item_destroy" data-url="{{ route('admin.news.destroy', ['id' => $article->id]) }}"><i class="fa fa-trash"></i></button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Permission;
+use App\Models\RolePermission;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -45,4 +47,5 @@ class User extends Authenticatable
 
         return false;
     }
+
 }

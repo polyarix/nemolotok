@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\Access;
 use App\Models\Permission;
 use App\Models\RolePermission;
+use App\User;
 use App\UserRole;
 use Closure;
 
@@ -18,12 +20,7 @@ class CheckPermissions
      */
     public function handle($request, Closure $next)
     {
-        $user_id = \Auth::user()->id;
-
-        $current_action_id = Permission::where('action_name', \Route::getCurrentRoute()->getActionName())->first()->id;
-        $user_role_id = UserRole::where('user_id', $user_id)->firstOrFail()->id;
-
-        if(RolePermission::where('role_id', $user_role_id)->where('permission_id', $current_action_id)->count() > 0) {
+        if(Access::check()) {
             return $next($request);
         }
 

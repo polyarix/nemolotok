@@ -17,6 +17,10 @@ jQuery('.item_destroy').click(function(e){
                 } else {
                     alert('Something wrong. Try again.');
                 }
+            },
+
+            success: function(response){
+                console.log();
             }
         });
     }
