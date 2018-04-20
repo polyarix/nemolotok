@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 /**
  * @SWG\Swagger(
- *     basePath="/api/news",
+ *     basePath="",
  *     host="nemolotok.loc",
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0",
- *         title="NewsController",
+ *         title="Api documentation",
  *     ),
  *     @SWG\Definition(
  *         definition="Error",
@@ -40,7 +40,7 @@ class NewsController extends Controller
      *
      * @SWG\Get(
      *     path="/api/news",
-     *     description="Returns news.",
+     *     description="Getting all articles",
      *     operationId="api.news.index",
      *     produces={"application/json"},
      *     tags={"NewsController"},
@@ -115,7 +115,7 @@ class NewsController extends Controller
      *
      * @SWG\Get(
      *     path="/api/news/{articleId}",
-     *     description="Creating articles",
+     *     description="Get one article",
      *     operationId="api.news.show",
      *     produces={"application/json"},
      *     tags={"NewsController"},
@@ -164,7 +164,7 @@ class NewsController extends Controller
      *
      * @SWG\Put(
      *     path="/api/news/{articleId}",
-     *     description="Creating articles",
+     *     description="Editing article",
      *     operationId="api.news.update",
      *     produces={"application/json"},
      *     tags={"NewsController"},
@@ -222,7 +222,7 @@ class NewsController extends Controller
      *
      * @SWG\Delete(
      *     path="/api/news/{articleId}",
-     *     description="Creating articles",
+     *     description="Deleting one article",
      *     operationId="api.news.update",
      *     produces={"application/json"},
      *     tags={"NewsController"},
