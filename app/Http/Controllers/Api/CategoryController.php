@@ -9,6 +9,29 @@ use Response;
 
 class CategoryController extends Controller
 {
+    /**
+     * Display a listing of the index method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="/api/category",
+     *     description="Returns news.",
+     *     operationId="api.news.index",
+     *     produces={"application/json"},
+     *     tags={"CategoryController"},
+     *     @SWG\Parameter(
+     *     name="api_token",
+     *     in="query",
+     *     description="api token",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function index()
     {
        return Category::all();

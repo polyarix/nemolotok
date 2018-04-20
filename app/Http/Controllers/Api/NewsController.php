@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 /**
  * @SWG\Swagger(
- *     basePath="",
- *     host="http://nemolotok.loc",
+ *     basePath="/api/news",
+ *     host="nemolotok.loc",
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0",
- *         title="News",
+ *         title="NewsController",
  *     ),
  *     @SWG\Definition(
  *         definition="Error",
@@ -34,32 +34,71 @@ class NewsController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the index method
      *
      * @return \Illuminate\Http\JsonResponse
      *
      * @SWG\Get(
-     *     path="api/news",
-     *     description="Returns news overview.",
+     *     path="/api/news",
+     *     description="Returns news.",
      *     operationId="api.news.index",
      *     produces={"application/json"},
-     *     tags={"articles"},
-     *     @SWG\Response(
-     *         response=200,
-     *         description="News"
-     *     ),
-     *     @SWG\Response(
-     *         response=401,
-     *         description="Unauthorized action.",
-     *     )
+     *     tags={"NewsController"},
+     *     @SWG\Parameter(
+     *     name="api_token",
+     *     in="query",
+     *     description="api token",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
      * )
      */
     public function index(Request $request)
     {
         $news = News::filter($request);
-        return $news;
+        return json_encode($news);
     }
 
+    /**
+     * Display a listing of the store method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Post(
+     *     path="/api/news",
+     *     description="Creating articles",
+     *     operationId="api.news.store",
+     *     produces={"application/json"},
+     *     tags={"NewsController"},
+     *     @SWG\Parameter(
+     *          name="api_token",
+     *          in="query",
+     *          description="api token",
+     *          required=true,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="title",
+     *          in="query",
+     *          description="title",
+     *          required=false,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="content",
+     *          in="query",
+     *          description="content",
+     *          required=false,
+     *          type="string"
+     *     ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function store(Request $request)
     {
         if($article = News::create(['title' => $request->get('title'),'content' => $request->get('content')])) {
@@ -69,6 +108,36 @@ class NewsController extends Controller
         return $article;
     }
 
+    /**
+     * Display a listing of the show method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="/api/news/{articleId}",
+     *     description="Creating articles",
+     *     operationId="api.news.show",
+     *     produces={"application/json"},
+     *     tags={"NewsController"},
+     *     @SWG\Parameter(
+     *          name="api_token",
+     *          in="query",
+     *          description="api token",
+     *          required=true,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="articleId",
+     *          in="path",
+     *          description="id",
+     *          required=true,
+     *          type="integer"
+     *     ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function show($id)
     {
         $article = News::findOrFail($id);
@@ -88,7 +157,50 @@ class NewsController extends Controller
         return 500;
     }
 
-
+    /**
+     * Display a listing of the update method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Put(
+     *     path="/api/news/{articleId}",
+     *     description="Creating articles",
+     *     operationId="api.news.update",
+     *     produces={"application/json"},
+     *     tags={"NewsController"},
+     *     @SWG\Parameter(
+     *          name="api_token",
+     *          in="query",
+     *          description="api token",
+     *          required=true,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="articleId",
+     *          in="path",
+     *          description="id",
+     *          required=true,
+     *          type="integer"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="title",
+     *          in="query",
+     *          description="title",
+     *          required=false,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="content",
+     *          in="query",
+     *          description="content",
+     *          required=false,
+     *          type="string"
+     *     ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function update(Request $request, $id)
     {
         $article = News::findOrFail($id);
@@ -103,7 +215,36 @@ class NewsController extends Controller
 
         return $article;
     }
-
+    /**
+     *  Display a listing of the destroy method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Delete(
+     *     path="/api/news/{articleId}",
+     *     description="Creating articles",
+     *     operationId="api.news.update",
+     *     produces={"application/json"},
+     *     tags={"NewsController"},
+     *     @SWG\Parameter(
+     *          name="api_token",
+     *          in="query",
+     *          description="api token",
+     *          required=true,
+     *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="articleId",
+     *          in="path",
+     *          description="id",
+     *          required=true,
+     *          type="integer"
+     *     ),
+     *   @SWG\Response(response=204, description="successful delet operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function destroy($id)
     {
         $article = News::findOrFail($id);

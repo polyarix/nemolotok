@@ -12,15 +12,15 @@ jQuery('.item_destroy').click(function(e){
             },
             success: function(response){
                 console.log(response);
-                if(response === 200) {
+                if(parseInt(response) === 200) {
                     jQuery(elem).parent().parent().hide();
                 } else {
                     alert('Something wrong. Try again.');
                 }
             },
 
-            success: function(response){
-                console.log();
+            error: function(response){
+                console.log(response);
             }
         });
     }

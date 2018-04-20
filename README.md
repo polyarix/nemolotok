@@ -38,13 +38,13 @@ For admin-user access:
 editor user access:
 ===================
 
-*login: editor@editor.com
+* login: editor@editor.com
 
-*password: editor
+* password: editor
 
 
 guest user access:
 ==================
-*login: guest@guest.com
+* login: guest@guest.com
 
-*password: guest
+* password: guest
