@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
@@ -7,9 +6,54 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+/**
+ * @SWG\Swagger(
+ *     basePath="",
+ *     host="http://nemolotok.loc",
+ *     schemes={"http"},
+ *     @SWG\Info(
+ *         version="1.0",
+ *         title="News",
+ *     ),
+ *     @SWG\Definition(
+ *         definition="Error",
+ *         required={"code", "message"},
+ *         @SWG\Property(
+ *             property="code",
+ *             type="integer",
+ *             format="int32"
+ *         ),
+ *         @SWG\Property(
+ *             property="message",
+ *             type="string"
+ *         )
+ *     )
+ * )
+ */
 class NewsController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="api/news",
+     *     description="Returns news overview.",
+     *     operationId="api.news.index",
+     *     produces={"application/json"},
+     *     tags={"articles"},
+     *     @SWG\Response(
+     *         response=200,
+     *         description="News"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthorized action.",
+     *     )
+     * )
+     */
     public function index(Request $request)
     {
         $news = News::filter($request);

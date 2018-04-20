@@ -11,7 +11,9 @@ class Access
     public static function check()
     {
         $action_name = \Route::getCurrentRoute()->getActionName();
-
+        if($action_name == 'L5Swagger\Http\Controllers\SwaggerController@api') {
+            return true;
+        }
         return self::isAccess($action_name);
     }
 
