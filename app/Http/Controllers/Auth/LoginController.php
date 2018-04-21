@@ -21,23 +21,43 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
-
+    /**
+     * Display a listing of the loginApi method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Post(
+     *     path="/api/login",
+     *     description="Login",
+     *     operationId="api.loginApi",
+     *     produces={"application/json"},
+     *     tags={"Login"},
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="user email",
+     *     required=true,
+     *     type="string",
+     *     format="email"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="password",
+     *     in="formData",
+     *     description="password",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function loginApi(Request $request)
     {
         $this->validateLogin($request);
@@ -53,7 +73,29 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
-
+    /**
+     * Display a listing of the logoutApi method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Post(
+     *     path="/api/logout",
+     *     description="Logout",
+     *     operationId="api.loginApi",
+     *     produces={"application/json"},
+     *     tags={"Login"},
+     *   @SWG\Parameter(
+     *     name="api_token",
+     *     in="formData",
+     *     description="api_token",
+     *     required=true,
+     *     type="string",
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function logoutApi(Request $request)
     {
         $user = \Auth::guard('api')->user();

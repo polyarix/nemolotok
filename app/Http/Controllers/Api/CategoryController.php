@@ -16,8 +16,8 @@ class CategoryController extends Controller
      *
      * @SWG\Get(
      *     path="/api/categories",
-     *     description="Returns news",
-     *     operationId="api.categories.index",
+     *     description="Returns categories",
+     *     operationId="api.category.index",
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
@@ -44,8 +44,8 @@ class CategoryController extends Controller
      *
      * @SWG\Post(
      *     path="/api/categories",
-     *     description="Creating articles",
-     *     operationId="api.news.store",
+     *     description="Creating categories",
+     *     operationId="api.category.store",
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
@@ -113,8 +113,8 @@ class CategoryController extends Controller
      *
      * @SWG\Put(
      *     path="/api/news/{categoryId}",
-     *     description="Editing article",
-     *     operationId="api.news.update",
+     *     description="Editing category",
+     *     operationId="api.category.update",
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
@@ -158,8 +158,8 @@ class CategoryController extends Controller
      *
      * @SWG\Delete(
      *     path="/api/news/{categoryId}",
-     *     description="Deleting one article",
-     *     operationId="api.news.update",
+     *     description="Deleting category",
+     *     operationId="api.category.destroy",
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(

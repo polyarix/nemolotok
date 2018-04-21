@@ -9,7 +9,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+/**
+ * @SWG\Swagger(
+ *     basePath="",
+ *     host=API_HOST,
+ *     schemes={"http"},
+ *     @SWG\Info(
+ *         version="1.0",
+ *         title="Api documentation",
+ *     ),
+ *     @SWG\Definition(
+ *         definition="Error",
+ *         required={"code", "message"},
+ *         @SWG\Property(
+ *             property="code",
+ *             type="integer",
+ *             format="int32"
+ *         ),
+ *         @SWG\Property(
+ *             property="message",
+ *             type="string"
+ *         )
+ *     )
+ * )
+ */
 class RegisterController extends Controller
 {
     /*
@@ -22,7 +45,51 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    /**
+     * Display a listing of the register method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Post(
+     *     path="/api/register",
+     *     description="Register a new user",
+     *     operationId="api.register",
+     *     produces={"application/json"},
+     *     tags={"Registration"},
+     *     @SWG\Parameter(
+     *     name="name",
+     *     in="formData",
+     *     description="user name",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="user email",
+     *     required=true,
+     *     type="string",
+     *     format="email"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="password",
+     *     in="formData",
+     *     description="password",
+     *     required=true,
+     *     type="string",
+     *   ),
+     *   @SWG\Parameter(
+     *     name="password_confirmation",
+     *     in="formData",
+     *     description="password_confirmation",
+     *     required=true,
+     *     type="string",
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     use RegistersUsers;
 
     /**
@@ -75,7 +142,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $user->generateToken();
-        if (preg_match('~admin~', \Response::json(\Route::getCurrentRoute()->getPrefix()))) {
+        if (preg_match('~api~', \Response::json(\Route::getCurrentRoute()->getPrefix()))) {
             return \Response::json(['data' => $user->toArray()], 201);
         }
     }

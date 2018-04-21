@@ -15,14 +15,22 @@ Installation:
 
 2. use command "composer install" for installing framework
 
-3. "npm install"
+3. copy ".env.example" file to ".env" and set your configurations.
 
-4. "npm run prod"
+4. "php artisan key:generate"
 
-5. "php artisan migrate --seed"
+5. "npm install"
+
+6. "npm run prod"
+
+7. "php artisan migrate --seed"
+
+8. "php artisan l5-swagger:generate"
 
 
 use "hostname/admin" to access into project
+
+hostname/api/documentation - swagger api documentation page 
 
 users for testing access:
 

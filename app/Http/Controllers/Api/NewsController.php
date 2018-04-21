@@ -6,30 +6,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-/**
- * @SWG\Swagger(
- *     basePath="",
- *     host="nemolotok.loc",
- *     schemes={"http"},
- *     @SWG\Info(
- *         version="1.0",
- *         title="Api documentation",
- *     ),
- *     @SWG\Definition(
- *         definition="Error",
- *         required={"code", "message"},
- *         @SWG\Property(
- *             property="code",
- *             type="integer",
- *             format="int32"
- *         ),
- *         @SWG\Property(
- *             property="message",
- *             type="string"
- *         )
- *     )
- * )
- */
+
 class NewsController extends Controller
 {
 
@@ -69,7 +46,7 @@ class NewsController extends Controller
      *
      * @SWG\Post(
      *     path="/api/news",
-     *     description="Creating articles",
+     *     description="Creating article",
      *     operationId="api.news.store",
      *     produces={"application/json"},
      *     tags={"NewsController"},
@@ -82,17 +59,27 @@ class NewsController extends Controller
      *     ),
      *     @SWG\Parameter(
      *          name="title",
-     *          in="query",
+     *          in="formData",
      *          description="title",
      *          required=false,
      *          type="string"
      *     ),
      *     @SWG\Parameter(
      *          name="content",
-     *          in="query",
+     *          in="formData",
      *          description="content",
      *          required=false,
      *          type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="categories",
+     *          in="formData",
+     *          description="categories",
+     *          required=false,
+     *          type="array",
+     *          @SWG\Items(
+     *             type="integer"
+     *         )
      *     ),
      *   @SWG\Response(response=200, description="successful operation"),
      *   @SWG\Response(response=406, description="not acceptable"),
@@ -196,6 +183,16 @@ class NewsController extends Controller
      *          required=false,
      *          type="string"
      *     ),
+     *     @SWG\Parameter(
+     *          name="categories",
+     *          in="formData",
+     *          description="categories",
+     *          required=false,
+     *          type="array",
+     *          @SWG\Items(
+     *             type="integer"
+     *         )
+     *     ),
      *   @SWG\Response(response=200, description="successful operation"),
      *   @SWG\Response(response=406, description="not acceptable"),
      *   @SWG\Response(response=500, description="internal server error")
@@ -222,7 +219,7 @@ class NewsController extends Controller
      *
      * @SWG\Delete(
      *     path="/api/news/{articleId}",
-     *     description="Deleting one article",
+     *     description="Deleting article",
      *     operationId="api.news.update",
      *     produces={"application/json"},
      *     tags={"NewsController"},
@@ -257,7 +254,11 @@ class NewsController extends Controller
     {
         $categories_list = [];
         if(count($request->get('categories'))){
-            foreach($request->get('categories') as $category) {
+            $categories = $request->get('categories');
+            if(is_string($categories)) {
+                $categories = explode(',', $categories);
+            }
+            foreach($categories as $category) {
                NewsCategory::create([
                     'category_id' => $category,
                     'article_id' => $article_id
