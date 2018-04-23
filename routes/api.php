@@ -24,6 +24,12 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api',
     Route::put('categories/{id}', 'CategoryController@update')->name('category.update');
     Route::delete('categories/{id}', 'CategoryController@destroy')->name('category.destroy');
 
+    Route::get('users', 'UserController@index')->name('user.index');
+    Route::get('users/{id}', 'UserController@show')->name('user.show');
+    Route::post('users', 'UserController@store')->name('user.store');
+    Route::put('users/{id}', 'UserController@update')->name('user.update');
+    Route::delete('users/{id}', 'UserController@destroy')->name('user.destroy');
+
     Route::get('news', 'NewsController@index')->name('news.index');
     Route::get('news/{id}', 'NewsController@show')->name('news.show');
     Route::post('news', 'NewsController@store')->name('news.store');

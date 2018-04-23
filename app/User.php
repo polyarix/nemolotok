@@ -39,7 +39,6 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        $user_id = \Request::user()->id;
         $role_id = Role::where('name', $role)->firstOrFail()->id;
         if(UserRole::where('user_id', \Request::user()->id)->where('role_id', $role_id)->count()>0) {
             return true;

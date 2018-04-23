@@ -83,6 +83,8 @@ class RolePermissionsSeeder extends Seeder
                            ];
                        }
                    }
+                   break;
+               default: break;
            }
         }
 
