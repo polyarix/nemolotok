@@ -11,9 +11,11 @@ class Access
     public static function check()
     {
         $action_name = \Route::getCurrentRoute()->getActionName();
+
         if($action_name == 'L5Swagger\Http\Controllers\SwaggerController@api') {
             return true;
         }
+
         return self::isAccess($action_name);
     }
 
@@ -25,15 +27,19 @@ class Access
         return self::isAccess($action_name);
     }
 
-    protected static function isAccess($action_name)
+    public static function isAccess($action_name)
     {
         $user_id = \Auth::user()->id;
-        $current_action_id = Permission::where('action_name', trim($action_name))->first()->id;
-        $user_role_id = UserRole::where('user_id', $user_id)->firstOrFail()->id;
+        if(Permission::where('action_name', trim($action_name))->count()){
+            $current_action_id = Permission::where('action_name', trim($action_name))->firstOrFail()->id;
+            $user_role_id = UserRole::where('user_id', $user_id)->firstOrFail()->id;
 
-        if(RolePermission::where('role_id', $user_role_id)->where('permission_id', $current_action_id)->count() > 0) {
-            return true;
+            if(RolePermission::where('role_id', $user_role_id)->where('permission_id', $current_action_id)->count() > 0) {
+                return true;
+            }
         }
+
+
         return false;
     }
 }

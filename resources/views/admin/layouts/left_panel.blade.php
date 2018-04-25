@@ -24,6 +24,19 @@
                         @endif
                     </ul>
                 </li>
+
+                <h3 class="menu-title">Users and roles</h3>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <i class="menu-icon fa fa-laptop"></i>Users</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            @if(\App\Helpers\Access::hasRouteAccess('admin.users.index'))
+                                <li><i class="fa fa-th-list"></i><a
+                                            href="{{route('admin.users.index')}}">Users</a></li>
+                            @endif
+                        </ul>
+                    </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
