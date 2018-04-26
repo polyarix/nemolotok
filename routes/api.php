@@ -17,6 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 })->name('api.user');
 
+
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::get('auth/user', 'AuthController@user');
+    Route::post('auth/logout', 'AuthController@logout');
+});
+
+Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
+
 Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api', 'permissions']], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/{id}', 'CategoryController@show')->name('category.show');
@@ -38,7 +46,10 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api',
 });
 
 Route::group(['as' => 'api.'], function() {
-    Route::post('register', 'Auth\RegisterController@register')->name('register');
-    Route::post('login', 'Auth\LoginController@loginApi')->name('login');
-    Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');
+    Route::post('signup', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
+
+//    Route::post('register', 'Auth\RegisterController@register')->name('register');
+//    Route::post('login', 'Auth\LoginController@loginApi')->name('login');
+//    Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');
 });

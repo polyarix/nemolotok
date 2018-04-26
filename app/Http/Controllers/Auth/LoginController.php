@@ -27,37 +27,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    /**
-     * Display a listing of the loginApi method
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @SWG\Post(
-     *     path="/api/login",
-     *     description="Login",
-     *     operationId="api.loginApi",
-     *     produces={"application/json"},
-     *     tags={"Login"},
-     *   @SWG\Parameter(
-     *     name="email",
-     *     in="formData",
-     *     description="user email",
-     *     required=true,
-     *     type="string",
-     *     format="email"
-     *   ),
-     *   @SWG\Parameter(
-     *     name="password",
-     *     in="formData",
-     *     description="password",
-     *     required=true,
-     *     type="string"
-     *   ),
-     *   @SWG\Response(response=200, description="successful operation"),
-     *   @SWG\Response(response=406, description="not acceptable"),
-     *   @SWG\Response(response=500, description="internal server error")
-     * )
-     */
+
     public function loginApi(Request $request)
     {
         $this->validateLogin($request);
