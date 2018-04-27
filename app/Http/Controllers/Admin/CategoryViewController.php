@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = ApiRequest::request('GET', route('api.category.index'));
 

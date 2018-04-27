@@ -18,14 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 })->name('api.user');
 
 
-Route::group(['middleware' => 'jwt.auth'], function(){
+Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api'], function(){
     Route::get('auth/user', 'AuthController@user');
     Route::post('auth/logout', 'AuthController@logout');
 });
 
-Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
 
-Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api', 'permissions']], function(){
+
+Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth', 'permissions']], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/{id}', 'CategoryController@show')->name('category.show');
     Route::post('categories', 'CategoryController@store')->name('category.store');
@@ -45,10 +45,10 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['auth:api',
     Route::delete('news/{id}', 'NewsController@destroy')->name('news.destroy');
 });
 
-Route::group(['as' => 'api.'], function() {
+Route::group(['as' => 'api.', 'namespace' => 'Api'], function() {
     Route::post('signup', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
-
+    Route::post('login', 'AuthController@login')->name('jwt-login');
+    Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
 //    Route::post('register', 'Auth\RegisterController@register')->name('register');
 //    Route::post('login', 'Auth\LoginController@loginApi')->name('login');
 //    Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterFormRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -116,6 +117,29 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the loginApi method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="/api/auth/user",
+     *     description="Login",
+     *     operationId="api.auth.user",
+     *     produces={"application/json"},
+     *     tags={"Auth controller"},
+     *     @SWG\Parameter(
+     *      name="token",
+     *      in="query",
+     *      description="token",
+     *      required=true,
+     *      type="string"
+     *     ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function user(Request $request)
     {
         $user = User::find(\Auth::user()->id);
@@ -125,6 +149,29 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the loginApi method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Post(
+     *     path="/api/auth/logout",
+     *     description="Logout",
+     *     operationId="api.loginApi",
+     *     produces={"application/json"},
+     *     tags={"Auth controller"},
+     *     @SWG\Parameter(
+     *     name="token",
+     *     in="query",
+     *     description="token",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error")
+     * )
+     */
     public function logout()
     {
         JWTAuth::invalidate();
