@@ -27,6 +27,8 @@ Installation:
 
 8. "php artisan l5-swagger:generate"
 
+9. "php artisan jwt:secret"
+
 
 use "hostname/admin" to access into project
 

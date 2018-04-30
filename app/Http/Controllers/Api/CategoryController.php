@@ -21,9 +21,9 @@ class CategoryController extends Controller
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
-     *     name="api_token",
+     *     name="token",
      *     in="query",
-     *     description="api token",
+     *     description="token",
      *     required=true,
      *     type="string"
      *   ),
@@ -49,9 +49,9 @@ class CategoryController extends Controller
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -83,9 +83,9 @@ class CategoryController extends Controller
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -118,9 +118,9 @@ class CategoryController extends Controller
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -163,9 +163,9 @@ class CategoryController extends Controller
      *     produces={"application/json"},
      *     tags={"CategoryController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),

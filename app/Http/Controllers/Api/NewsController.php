@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -22,9 +23,9 @@ class NewsController extends Controller
      *     produces={"application/json"},
      *     tags={"NewsController"},
      *     @SWG\Parameter(
-     *     name="api_token",
+     *     name="token",
      *     in="query",
-     *     description="api token",
+     *     description="token",
      *     required=true,
      *     type="string"
      *   ),
@@ -51,9 +52,9 @@ class NewsController extends Controller
      *     produces={"application/json"},
      *     tags={"NewsController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -107,9 +108,9 @@ class NewsController extends Controller
      *     produces={"application/json"},
      *     tags={"NewsController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -121,14 +122,14 @@ class NewsController extends Controller
      *          type="integer"
      *     ),
      *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=404, description="Article not found"),
      *   @SWG\Response(response=406, description="not acceptable"),
      *   @SWG\Response(response=500, description="internal server error")
      * )
      */
     public function show($id)
     {
-        $article = News::findOrFail($id);
-        if($article) {
+        if($article = News::findOrFail($id)) {
             $category_list = [];
             $news_category_collection = NewsCategory::where('article_id', $article->id)->get();
             foreach($news_category_collection as $item)
@@ -137,11 +138,10 @@ class NewsController extends Controller
             }
             $article->article_categories = $news_category_collection;
             $article->categories = $category_list;
-
             return $article;
         }
 
-        return 500;
+        return 404;
     }
 
     /**
@@ -156,9 +156,9 @@ class NewsController extends Controller
      *     produces={"application/json"},
      *     tags={"NewsController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -224,9 +224,9 @@ class NewsController extends Controller
      *     produces={"application/json"},
      *     tags={"NewsController"},
      *     @SWG\Parameter(
-     *          name="api_token",
+     *          name="token",
      *          in="query",
-     *          description="api token",
+     *          description="token",
      *          required=true,
      *          type="string"
      *     ),
@@ -252,22 +252,26 @@ class NewsController extends Controller
 
     protected function writeCategories($request, $article_id)
     {
-        $categories_list = [];
-        if(count($request->get('categories'))){
-            $categories = $request->get('categories');
-            if(is_string($categories)) {
-                $categories = explode(',', $categories);
+        if(count($request->get('categories')) > 0){
+            if(is_string($request->get('categories'))) {
+                $categories = explode(',', $request->get('categories'));
+            } else {
+                $categories = $request->get('categories');
             }
-            foreach($categories as $category) {
-               NewsCategory::create([
+            $categories = collect($categories)->map(function($category) use ($article_id) {
+                $result = [
                     'category_id' => $category,
-                    'article_id' => $article_id
-                ]);
-               $categories_list[] = Category::where('id', $category)->firstOrFail();
-            }
+                    'article_id' => $article_id,
+                ];
+
+                return $result;
+            });
+
+            DB::table('news_categories')->insert($categories->toArray());
+
         }
 
-        return $categories_list;
+        return NewsCategory::where('article_id', $article_id)->get()->toArray();
     }
 
     protected function getCategories($article_id)

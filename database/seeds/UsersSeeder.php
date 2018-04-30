@@ -18,7 +18,6 @@ class UsersSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('admin'),
                 'remember_token' => str_random(60),
-                'api_token' => str_random(60)
             ],
 
             [
@@ -26,7 +25,6 @@ class UsersSeeder extends Seeder
                 'email' => 'editor@editor.com',
                 'password' => Hash::make('editor'),
                 'remember_token' => str_random(60),
-                'api_token' => str_random(60)
             ],
 
             [
@@ -34,7 +32,6 @@ class UsersSeeder extends Seeder
                 'email' => 'guest@guest.com',
                 'password' => Hash::make('guest'),
                 'remember_token' => str_random(60),
-                'api_token' => str_random(60)
             ]
         ];
 

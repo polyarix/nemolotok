@@ -5,32 +5,7 @@
     <div class="card-body card-block">
         <div class="form-group">
             <label for="company" class=" form-control-label">Title</label>
-            <input type="text"  name="title" placeholder="Enter article title" value="{{$user->name or ''}}" class="form-control">
-        </div>
-    </div>
-    <div class="card-body card-block">
-        <div class="form-group">
-            <label for="textarea-input" class="form-control-label">Content</label>
-            <textarea name="content" id="textarea-input" rows="9" placeholder="Content..." class="form-control">{{$user->content or ''}}</textarea>
-        </div>
-    </div>
-
-    <div class="card-body card-block">
-        <div class="form-group">
-            <label for="multiple-select" class=" form-control-label">Categories</label>
-            <select name="categories[]" id="multiple-select" multiple="multiple" class="form-control">
-                {{--@foreach($users as $category)--}}
-                    {{--<option value="{{$category->id}}"--}}
-                            {{--@if(!empty($article->article_categories))--}}
-                            {{--@foreach($article->article_categories as $article_category)--}}
-                            {{--@if($article_category->category_id == $category->id)--}}
-                            {{--selected--}}
-                            {{--@endif--}}
-                            {{--@endforeach--}}
-                            {{--@endif--}}
-                    {{-->{{$category->name}}</option>--}}
-                {{--@endforeach--}}
-            </select>
+            <input type="text"  name="name" placeholder="Enter article title" value="{{$category->name or ''}}" class="form-control">
         </div>
     </div>
 </div>
