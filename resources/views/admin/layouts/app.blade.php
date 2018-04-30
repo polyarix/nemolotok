@@ -14,6 +14,8 @@
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="token" content="{{jwt_token()}}">
+
     <link rel="apple-touch-icon" href="{{asset('apple-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
 
