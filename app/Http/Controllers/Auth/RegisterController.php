@@ -45,51 +45,6 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-    /**
-     * Display a listing of the register method
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @SWG\Post(
-     *     path="/api/register",
-     *     description="Register a new user",
-     *     operationId="api.register",
-     *     produces={"application/json"},
-     *     tags={"Registration"},
-     *     @SWG\Parameter(
-     *     name="name",
-     *     in="formData",
-     *     description="user name",
-     *     required=true,
-     *     type="string"
-     *   ),
-     *   @SWG\Parameter(
-     *     name="email",
-     *     in="formData",
-     *     description="user email",
-     *     required=true,
-     *     type="string",
-     *     format="email"
-     *   ),
-     *   @SWG\Parameter(
-     *     name="password",
-     *     in="formData",
-     *     description="password",
-     *     required=true,
-     *     type="string",
-     *   ),
-     *   @SWG\Parameter(
-     *     name="password_confirmation",
-     *     in="formData",
-     *     description="password_confirmation",
-     *     required=true,
-     *     type="string",
-     *   ),
-     *   @SWG\Response(response=200, description="successful operation"),
-     *   @SWG\Response(response=406, description="not acceptable"),
-     *   @SWG\Response(response=500, description="internal server error")
-     * )
-     */
     use RegistersUsers;
 
     /**
