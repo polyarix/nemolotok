@@ -26,7 +26,6 @@
                                     <tr>
                                         <th>id</th>
                                         <th>User name</th>
-                                        <th>Api token</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                         <th>Actions</th>
@@ -38,7 +37,6 @@
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name or ''}}</td>
-                                        <td>{{$user->api_token or ''}}</td>
                                         <td>{{$user->created_at or ''}}</td>
                                         <td>{{$user->updated_at or ''}}</td>
                                         <td class="text-left">

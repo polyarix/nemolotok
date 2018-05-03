@@ -1,8 +1,12 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
 
@@ -43,14 +47,29 @@
 
 <div id="right-panel" class="right-panel">
     <!-- Header-->
-    @include('admin.partials.header_menu')
-    <!-- Header-->
+@include('admin.partials.header_menu')
+<!-- Header-->
     <div class="breadcrumbs">
         <div class="col-sm-12">
             @if(session('message'))
                 <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p>{{ session('message') }}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    {{ session('message') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    {{ session('success') }}
                 </div>
             @endif
         </div>
@@ -89,10 +108,10 @@
 <script src="{{asset('js/admin/actions.js')}}"></script>
 
 <script>
-    ( function ( $ ) {
+    (function ($) {
         "use strict";
 
-        jQuery( '#vmap' ).vectorMap( {
+        jQuery('#vmap').vectorMap({
             map: 'world_en',
             backgroundColor: null,
             color: '#ffffff',
@@ -101,10 +120,10 @@
             enableZoom: true,
             showTooltip: true,
             values: sample_data,
-            scaleColors: [ '#1de9b6', '#03a9f5' ],
+            scaleColors: ['#1de9b6', '#03a9f5'],
             normalizeFunction: 'polynomial'
-        } );
-    } )( jQuery );
+        });
+    })(jQuery);
 </script>
 </body>
 </html>

@@ -23,6 +23,8 @@ class ApiRequest
 
         $client = new Client();
         $data = $client->request($method, $route, [RequestOptions::JSON => $data_to_request]);
+
         return $data;
     }
+
 }

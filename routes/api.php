@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth',
 
     Route::get('users', 'UserController@index')->name('user.index');
     Route::get('users/{id}', 'UserController@show')->name('user.show');
-    Route::post('users', 'UserController@store')->name('user.store');
+//    Route::post('users', 'UserController@store')->name('user.store');
     Route::put('users/{id}', 'UserController@update')->name('user.update');
     Route::delete('users/{id}', 'UserController@destroy')->name('user.destroy');
 
@@ -46,10 +46,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth',
 });
 
 Route::group(['as' => 'api.', 'namespace' => 'Api'], function() {
-    Route::post('signup', 'AuthController@register');
+    Route::post('signup', 'AuthController@register')->name('signup');
     Route::post('login', 'AuthController@login')->name('jwt-login');
     Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
-//    Route::post('register', 'Auth\RegisterController@register')->name('register');
-//    Route::post('login', 'Auth\LoginController@loginApi')->name('login');
-//    Route::post('logout', 'Auth\LoginController@logoutApi')->name('logout');
 });

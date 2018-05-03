@@ -4,22 +4,21 @@
     </div>
 
     <div class="card-body card-block">
-
         <div class="form-group">
             <label for="company" class=" form-control-label">Email</label>
-            <input type="email"  name="email" placeholder="user email" value="{{ $user->name or ''}}" class="form-control">
+            <input type="email"  name="email" placeholder="user email" value="{{ $user->email or ''}}" class="form-control {{ !empty($errors->email) ? 'is-invalid' : '' }}">
+            <div class="text-danger">{{ !empty($errors->email) ? $errors->email[0] : ''}}</div>
         </div>
-
         <div class="form-group">
             <label for="company" class=" form-control-label">Name</label>
-            <input type="text"  name="name" placeholder="user name" value="{{ $user->name or ''}}" class="form-control">
+            <input type="text"  name="name" placeholder="user name" value="{{ $user->name or ''}}" class="form-control {{ !empty($errors->name) ? 'is-invalid' : '' }}">
+            <div class="text-danger">{{ !empty($errors->name) ? $errors->name[0] : ''}}</div>
         </div>
-
         <div class="form-group">
             <label for="company" class=" form-control-label">Password</label>
-            <input type="password"  name="password" placeholder="password" value="" class="form-control">
+            <input type="password"  name="password" placeholder="password" value="" class="form-control {{ !empty($errors->password) ? 'is-invalid' : '' }}">
+            <div class="text-danger">{{ !empty($errors->password) ? $errors->password[0] : ''}}</div>
         </div>
-
         <div class="form-group">
             <label for="company" class=" form-control-label">Confirm password</label>
             <input type="password"  name="password_confirmation" placeholder="confirm password" value="" class="form-control">

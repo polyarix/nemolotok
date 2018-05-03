@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterFormRequest;
+use App\Traits\UserSettings;
 use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    use UserSettings;
     /**
      * Display a listing of the register method
      *
@@ -55,17 +57,28 @@ class AuthController extends Controller
      *   @SWG\Response(response=500, description="internal server error")
      * )
      */
-    public function register(RegisterFormRequest $request)
+    public function register(Request $request)
     {
-        $user = new User();
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response([
-            'status' => 'success',
-            'data' => $user
-        ], 200);
+        $validation = \Validator::make($request->all(), $this->rules);
+
+        if($validation->fails()) {
+            $errors = $validation->errors();
+            $json = [
+                'status' => 'error',
+                'error' => $errors
+            ];
+            return \Response::json($json);
+        } else {
+            $user = new User();
+            $user->email = $request->email;
+            $user->name = $request->name;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response([
+                'status' => 'success',
+                'data' => $user
+            ], 200);
+        }
     }
 
 

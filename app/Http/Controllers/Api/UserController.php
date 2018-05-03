@@ -2,54 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Traits\UserSettings;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use UserSettings;
+
     public function index()
     {
         return User::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        return User::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $validation = \Validator::make($request->all(), $this->rules);
+
+        if($validation->fails()) {
+            $errors = $validation->errors();
+            $json = [
+                'status' => 'error',
+                'error' => $errors
+            ];
+            return \Response::json($json);
+        } else {
+            $user = User::findOrFail($id);
+            $user->update($request->only(['name', 'email']));
+            return $user;
+        }
     }
 
     /**
@@ -60,6 +47,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id', $id)->delete();
+        return 204;
     }
 }

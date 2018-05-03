@@ -39,8 +39,8 @@ class UserViewController extends Controller
      */
     public function store(Request $request)
     {
-        $data = ApiRequest::request('POST', route('api.register'), $request);
-        return redirect()->route('admin.users.index');
+        $data = ApiRequest::request('POST', route('api.signup'), $request);
+        return $this->response('admin.users.index', $data);
     }
 
     /**
@@ -51,7 +51,10 @@ class UserViewController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = ApiRequest::request('GET', route('api.user.show', $id));
+        return view('admin.users.show', [
+            'user' => json_decode($data->getBody())
+        ]);
     }
 
     /**
@@ -62,7 +65,14 @@ class UserViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(session('errors')){
+            $this->errors = session('errors');
+        }
+        $data = ApiRequest::request('GET', route('api.user.show', $id));
+        return view('admin.users.edit', [
+            'user' => json_decode($data->getBody()),
+            'errors' => $this->errors
+        ]);
     }
 
     /**
@@ -74,7 +84,9 @@ class UserViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = ApiRequest::request('POST', route('api.user.update', $id), $request);
+
+        return $this->response('admin.users.edit', $data, $id);
     }
 
     /**
@@ -85,6 +97,8 @@ class UserViewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = ApiRequest::request('DELETE', route('api.user.destroy', $id));
+
+        return json_encode($data->getStatusCode());
     }
 }
