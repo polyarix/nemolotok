@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
 
         Route::resource('news', 'NewsViewController');
         Route::resource('users', 'UserViewController');
+        Route::resource('roles', 'RolesViewController');
+        Route::resource('permissions', 'PermissionsViewController');
 });
 
 Route::get('/', function () {

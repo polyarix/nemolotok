@@ -29,4 +29,9 @@ class News extends Model
       }
       return self::all();
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'news_categories', 'article_id');
+    }
 }

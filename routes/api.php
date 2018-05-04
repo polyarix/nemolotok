@@ -43,6 +43,18 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth',
     Route::post('news', 'NewsController@store')->name('news.store');
     Route::put('news/{id}', 'NewsController@update')->name('news.update');
     Route::delete('news/{id}', 'NewsController@destroy')->name('news.destroy');
+
+    Route::get('roles', 'RolesController@index')->name('roles.index');
+    Route::get('roles/{id}', 'RolesController@show')->name('roles.show');
+    Route::post('roles', 'RolesController@store')->name('roles.store');
+    Route::put('roles/{id}', 'RolesController@update')->name('roles.update');
+    Route::delete('roles/{id}', 'RolesController@destroy')->name('roles.destroy');
+
+    Route::get('permissions', 'PermissionsController@index')->name('permissions.index');
+    Route::get('permissions/{id}', 'PermissionsController@show')->name('permissions.show');
+    Route::post('permissions', 'PermissionsController@store')->name('permissions.store');
+    Route::put('permissions/{id}', 'PermissionsController@update')->name('permissions.update');
+    Route::delete('permissions/{id}', 'PermissionsController@destroy')->name('permissions.destroy');
 });
 
 Route::group(['as' => 'api.', 'namespace' => 'Api'], function() {

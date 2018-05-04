@@ -25,7 +25,7 @@
                     </ul>
                 </li>
 
-                <h3 class="menu-title">Users and roles</h3>
+                <h3 class="menu-title">Settings</h3>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
@@ -34,6 +34,10 @@
                             @if(\App\Helpers\Access::hasRouteAccess('admin.users.index'))
                                 <li><i class="fa fa-th-list"></i><a
                                             href="{{route('admin.users.index')}}">Users</a></li>
+                            @endif
+                            @if(\App\Helpers\Access::hasRouteAccess('admin.roles.index'))
+                                    <li><i class="fa fa-th-list"></i><a
+                                                href="{{route('admin.roles.index')}}">Roles</a></li>
                             @endif
                         </ul>
                     </li>

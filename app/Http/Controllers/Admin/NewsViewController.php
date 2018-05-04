@@ -14,6 +14,9 @@ class NewsViewController extends Controller
 
     public function index(Request $request)
     {
+//        $article = News::findOrFail(1);
+//        $article->categories()->attach(2);
+//        dd($article->categories()->get());
         $data = ApiRequest::request('GET', route('api.news.index'), $request);
         return view('admin.news.index', [
             'articles' => json_decode($data->getBody())
