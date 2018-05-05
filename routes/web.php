@@ -13,7 +13,7 @@
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth', 'permissions'], 'as' => 'admin.'], function() {
         Route::get('/', 'DashboardController@index')->name('dashboard.index');
-        Route::get('category/', 'CategoryViewController@index')->name('category.view.index');
+        Route::get('category', 'CategoryViewController@index')->name('category.view.index');
         Route::get('category/create', 'CategoryViewController@create')->name('category.view.create');
         Route::post('category/store', 'CategoryViewController@store')->name('category.view.store');
         Route::get('category/edit/{id}', 'CategoryViewController@edit')->name('category.view.edit');
