@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiRequest;
-use App\Models\Category;
-use App\Models\News;
-use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,9 +11,6 @@ class NewsViewController extends Controller
 
     public function index(Request $request)
     {
-//        $article = News::findOrFail(1);
-//        $article->categories()->attach(2);
-//        dd($article->categories()->get());
         $data = ApiRequest::request('GET', route('api.news.index'), $request);
         return view('admin.news.index', [
             'articles' => json_decode($data->getBody())
@@ -41,12 +35,10 @@ class NewsViewController extends Controller
 
     public function show($id)
     {
-        $data = ApiRequest::request('GET',route('api.news.show', $id));
-        $article = json_decode($data->getBody());
+        $article = json_decode((ApiRequest::request('GET',route('api.news.show', $id)))->getBody());
+
         return view('admin.news.show', [
-            'article' => $article,
-            'article_categories' => $article->article_categories,
-            'categories' => $article->categories
+            'article' => $article
         ]);
     }
 
@@ -54,7 +46,6 @@ class NewsViewController extends Controller
     {
         $data = ApiRequest::request('GET',route('api.news.show', $id));
         $article = json_decode($data->getBody());
-
         return view('admin.news.edit', [
             'article' => $article,
             'categories' => $this->getCategories(),

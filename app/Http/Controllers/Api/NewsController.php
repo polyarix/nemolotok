@@ -90,7 +90,14 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         if($article = News::create(['title' => $request->get('title'),'content' => $request->get('content')])) {
-            $article->categories = $this->writeCategories($request, $article->id);
+
+            if(is_string($request->get('categories'))){
+                $categories = explode(',', $request->get('categories'));
+            } else {
+                $categories = $request->get('categories');
+            }
+
+            $article->categories()->attach($categories);
         }
 
         return $article;
@@ -99,7 +106,7 @@ class NewsController extends Controller
     /**
      * Display a listing of the show method
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      *
      * @SWG\Get(
      *     path="/api/news/{articleId}",
@@ -129,19 +136,7 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        if($article = News::findOrFail($id)) {
-            $category_list = [];
-            $news_category_collection = NewsCategory::where('article_id', $article->id)->get();
-            foreach($news_category_collection as $item)
-            {
-                $category_list[] = Category::where('id', $item->category_id)->firstOrFail();
-            }
-            $article->article_categories = $news_category_collection;
-            $article->categories = $category_list;
-            return $article;
-        }
-
-        return 404;
+        return News::with('categories')->findOrFail($id);
     }
 
     /**
@@ -206,9 +201,13 @@ class NewsController extends Controller
             'content' => $request->get('content'),
         ]);
 
-        NewsCategory::where('article_id', $id)->delete();
+        if(is_string($request->get('categories'))){
+            $categories = explode(',', $request->get('categories'));
+        } else {
+            $categories = $request->get('categories');
+        }
 
-        $article->categories = $this->writeCategories($request, $article->id);
+        $article->categories()->sync($categories);
 
         return $article;
     }
@@ -245,37 +244,7 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $article = News::findOrFail($id);
-        NewsCategory::where('id',$article->id)->delete();
         $article->delete();
         return 204;
-    }
-
-    protected function writeCategories($request, $article_id)
-    {
-        if(count($request->get('categories')) > 0){
-            if(is_string($request->get('categories'))) {
-                $categories = explode(',', $request->get('categories'));
-            } else {
-                $categories = $request->get('categories');
-            }
-            $categories = collect($categories)->map(function($category) use ($article_id) {
-                $result = [
-                    'category_id' => $category,
-                    'article_id' => $article_id,
-                ];
-
-                return $result;
-            });
-
-            DB::table('news_categories')->insert($categories->toArray());
-
-        }
-
-        return NewsCategory::where('article_id', $article_id)->get()->toArray();
-    }
-
-    protected function getCategories($article_id)
-    {
-
     }
 }

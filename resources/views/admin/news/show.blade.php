@@ -27,7 +27,7 @@
                                 <tr>
                                     <th>Categories</th>
                                     <td>
-                                        @foreach($categories as $category)
+                                        @foreach($article->categories as $category)
                                             <span class="badge-dark">{{$category->name}}</span>
                                         @endforeach
                                     </td>
