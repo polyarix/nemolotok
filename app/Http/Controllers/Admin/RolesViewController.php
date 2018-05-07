@@ -28,9 +28,8 @@ class RolesViewController extends Controller
      */
     public function create()
     {
-        $permissions = ApiRequest::request('GET', route('api.permissions.index'));
         return view('admin.roles.create', [
-            'permissions' => json_decode($permissions->getBody())
+            'rules' => json_decode((ApiRequest::request('GET', route('api.rules.index')))->getBody())
         ]);
     }
 
@@ -42,7 +41,8 @@ class RolesViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = ApiRequest::request('POST', route('api.roles.store'), $request);
+        return $this->response('admin.roles.index', $data);
     }
 
     /**
@@ -53,7 +53,9 @@ class RolesViewController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.roles.show', [
+            'role' => json_decode((ApiRequest::request('GET', route('api.roles.show', $id)))->getBody())
+        ]);
     }
 
     /**
@@ -64,7 +66,10 @@ class RolesViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.roles.edit', [
+            'role' => json_decode((ApiRequest::request('GET', route('api.roles.show', $id)))->getBody()),
+            'rules' => json_decode((ApiRequest::request('GET', route('api.rules.index')))->getBody())
+        ]);
     }
 
     /**
@@ -76,7 +81,8 @@ class RolesViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = ApiRequest::request('PUT', route('api.roles.update', $id), $request);
+        return $this->response('admin.roles.index', $data, $id);
     }
 
     /**
@@ -87,6 +93,7 @@ class RolesViewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = ApiRequest::request('DELETE', route('api.roles.destroy', $id));
+        return json_encode($data->getStatusCode());
     }
 }

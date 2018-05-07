@@ -8,30 +8,26 @@
         </div>
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
-                        </div>
                         <div class="card-body">
                             <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Category name</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
-                                    </tr>
-                                    </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td>{{$category->id}}</td>
-                                        <td>{{$category->name or ''}}</td>
-                                        <td>{{$category->created_at or ''}}</td>
-                                        <td>{{$category->updated_at or ''}}</td>
-                                    </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>{{ $role->id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <td>{{ $role->name or '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rules</th>
+                                    <td>
+                                        @foreach($role->rules as $rule)
+                                            <span class="badge-dark">{{$rule->name}}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
