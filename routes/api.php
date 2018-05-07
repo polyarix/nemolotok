@@ -50,6 +50,12 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth',
     Route::put('roles/{id}', 'RolesController@update')->name('roles.update');
     Route::delete('roles/{id}', 'RolesController@destroy')->name('roles.destroy');
 
+    Route::get('rules', 'RulesController@index')->name('rules.index');
+    Route::get('rules/{id}', 'RulesController@show')->name('rules.show');
+    Route::post('rules', 'RulesController@store')->name('rules.store');
+    Route::put('rules/{id}', 'RulesController@update')->name('rules.update');
+    Route::delete('rules/{id}', 'RulesController@destroy')->name('rules.destroy');
+
     Route::get('permissions', 'PermissionsController@index')->name('permissions.index');
     Route::get('permissions/{id}', 'PermissionsController@show')->name('permissions.show');
     Route::post('permissions', 'PermissionsController@store')->name('permissions.store');

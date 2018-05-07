@@ -32,6 +32,7 @@
     <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
     <link rel="stylesheet" href="{{asset('assets/scss/style.css')}}">
     <link href="{{asset('assets/css/lib/vector-map/jqvmap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -107,6 +108,13 @@
 <script src="{{asset('assets/js/lib/vector-map/country/jquery.vmap.world.js')}}"></script>
 <script src="{{asset('js/admin/actions.js')}}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.select2').select2();
+    });
+</script>
+
 <script>
     (function ($) {
         "use strict";
@@ -124,6 +132,8 @@
             normalizeFunction: 'polynomial'
         });
     })(jQuery);
+
+
 </script>
 </body>
 </html>

@@ -17,8 +17,8 @@
 
     <div class="card-body card-block">
         <div class="form-group">
-            <label for="multiple-select" class=" form-control-label">Categories</label>
-                <select name="categories[]" id="multiple-select" multiple="multiple" class="form-control">
+            <label for="cateogories" class=" form-control-label">Categories</label>
+                <select name="categories[]" id="cateogories" multiple="multiple" class="form-control select2">
                     @foreach($categories as $category)
                         <option value="{{$category->id}}"
                                 @if(!empty($article->categories))
