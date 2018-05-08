@@ -183,7 +183,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        NewsCategory::where('category_id', $id)->delete();
         $category = Category::findOrFail($id);
         $category->delete();
         return 204;
