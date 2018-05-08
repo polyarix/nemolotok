@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Permission;
 use App\Models\RolePermission;
+use App\Models\Rule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -65,5 +66,17 @@ class User extends Authenticatable implements JWTSubject
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function rule()
+    {
+        $role = $this->role()->firstOrFail();
+        $rules = $role->rules()->wherePivot('rule_id', 1)->get();
+        return $rules;
     }
 }

@@ -75,6 +75,8 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $role = Role::findOrFail($id);
+        $this->rules['name'] = $this->rules['name'].',id,'.$role->id;
         $validation = \Validator::make($request->all(), $this->rules);
 
         if ($validation->fails()) {
@@ -85,7 +87,6 @@ class RolesController extends Controller
             ];
             return \Response::json($json);
         } else {
-            $role = Role::findOrFail($id);
             $role->update($request->only(['name']));
             if (is_string($request->get('rules'))) {
                 $access_rules = explode(',', $request->get('rules'));
@@ -111,5 +112,10 @@ class RolesController extends Controller
         $role = Role::findOrFail($id);
         $role->delete();
         return 204;
+    }
+
+    public function rules()
+    {
+        return [];
     }
 }

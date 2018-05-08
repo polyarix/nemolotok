@@ -18,5 +18,6 @@ class RolesSeeder extends Seeder
         ];
 
         \DB::table('roles')->insert($data);
+
     }
 }

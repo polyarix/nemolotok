@@ -19,11 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api', 'as' => 'api.'], function(){
-    Route::get('auth/user', 'AuthController@user');
+    Route::get('auth/user', 'AuthController@user')->name('auth.user');
     Route::post('auth/logout', 'AuthController@logout')->name('jwt-logout');
 });
-
-
 
 Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth', 'permissions']], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
@@ -66,5 +64,5 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth',
 Route::group(['as' => 'api.', 'namespace' => 'Api'], function() {
     Route::post('signup', 'AuthController@register')->name('signup');
     Route::post('login', 'AuthController@login')->name('jwt-login');
-    Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
+    Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh')->name('refresh');
 });

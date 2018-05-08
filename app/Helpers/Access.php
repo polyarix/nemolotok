@@ -28,10 +28,17 @@ class Access
     public static function isAccess($action_name)
     {
         $user = \Auth::user();
-        if($permission = Permission::with('roles')->where('action_name', trim($action_name))->first()){
-            if($permission->roles->where('id', $user->roles->first()->id)->count() > 0) {
+        if($permission = Permission::with('rules')->where('action_name', trim($action_name))->first()){
+
+            $user_role = $user->role()->firstOrFail();
+            $user_rules = $user_role->rules()->get();
+//            dd($user_rules);
+            if($permission->rules()->wherePivotIn('rule_id', $user_rules)->count() > 0) {
                 return true;
             }
+//            if($permission->roles->where('id', $user->roles->first()->id)->count() > 0) {
+//                return true;
+//            }
         }
 
         return false;

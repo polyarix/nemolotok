@@ -20,6 +20,7 @@ class PermissionsSeeder extends Seeder
                 $data[] = [
                     'action_name' => $item->getActionName(),
                     'route_name' => $item->getName(),
+//                    'uri' => action($item->getActionName())
                 ];
             }
         }

@@ -11,7 +11,7 @@
                         @endif
                         @endforeach
                         @endif
-                >{{$permission->action_name}}</option>
+                >{{$permission->route_name}}</option>
             @endforeach
         </select>
     </div>
