@@ -23,6 +23,7 @@
             <label for="company" class=" form-control-label">Confirm password</label>
             <input type="password"  name="password_confirmation" placeholder="confirm password" value="" class="form-control">
         </div>
+        @include('admin.users.partials.roles')
     </div>
 </div>
 <div class="card-footer">

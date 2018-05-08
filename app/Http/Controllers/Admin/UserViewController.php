@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiRequest;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,9 +16,8 @@ class UserViewController extends Controller
      */
     public function index()
     {
-        $data = ApiRequest::request('GET', route('api.user.index'));
         return view('admin.users.index', [
-            'users' => json_decode($data->getBody())
+            'users' => json_decode((ApiRequest::request('GET', route('api.user.index')))->getBody()),
         ]);
     }
 
@@ -28,7 +28,9 @@ class UserViewController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            'roles' => json_decode((ApiRequest::request('GET', route('api.roles.index')))->getBody())
+        ]);
     }
 
     /**
@@ -68,9 +70,11 @@ class UserViewController extends Controller
         if(session('errors')){
             $this->errors = session('errors');
         }
-        $data = ApiRequest::request('GET', route('api.user.show', $id));
+        $user_data = ApiRequest::request('GET', route('api.user.show', $id));
+        $roles_data = ApiRequest::request('GET', route('api.roles.index'));
         return view('admin.users.edit', [
-            'user' => json_decode($data->getBody()),
+            'user' => json_decode($user_data->getBody()),
+            'roles' => json_decode($roles_data->getBody()),
             'errors' => $this->errors
         ]);
     }

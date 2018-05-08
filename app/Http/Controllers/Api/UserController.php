@@ -18,13 +18,13 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return User::findOrFail($id);
+        return User::with('role')->findOrFail($id);
     }
 
     public function update(Request $request, $id)
     {
-        $validation = \Validator::make($request->all(), $this->rules);
-
+        $user = User::findOrFail($id);
+        $validation = \Validator::make($request->all(), $this->rules($user));
         if($validation->fails()) {
             $errors = $validation->errors();
             $json = [
@@ -33,8 +33,8 @@ class UserController extends Controller
             ];
             return \Response::json($json);
         } else {
-            $user = User::findOrFail($id);
-            $user->update($request->only(['name', 'email']));
+
+            $user->update($request->only(['name', 'email', 'role_id']));
             return $user;
         }
     }

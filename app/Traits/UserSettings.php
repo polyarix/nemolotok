@@ -9,4 +9,14 @@ trait UserSettings
         'email' => 'required|email|unique:users',
         'password' => 'required|confirmed|min:6'
     ];
+
+    public function rules($user = false)
+    {
+        if($user){
+            $this->rules['name'] = $this->rules['name'].',id,'.$user->id;
+            $this->rules['email'] = $this->rules['email'].',id,'.$user->id;
+        }
+
+        return $this->rules;
+    }
 }

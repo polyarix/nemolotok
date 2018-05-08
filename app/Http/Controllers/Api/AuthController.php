@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $validation = \Validator::make($request->all(), $this->rules);
+        $validation = \Validator::make($request->all(), $this->rules());
 
         if($validation->fails()) {
             $errors = $validation->errors();
@@ -72,6 +72,7 @@ class AuthController extends Controller
             $user = new User();
             $user->email = $request->email;
             $user->name = $request->name;
+            $user->role_id = (int)$request->role_id;
             $user->password = bcrypt($request->password);
             $user->save();
             return response([

@@ -24,14 +24,10 @@
                                     <th>User email</th>
                                     <td>{!! $user->email or '' !!}</td>
                                 </tr>
-                                {{--<tr>--}}
-                                    {{--<th>Categories</th>--}}
-                                    {{--<td>--}}
-                                        {{--@foreach($categories as $category)--}}
-                                            {{--<span class="badge-dark">{{$category->name}}</span>--}}
-                                        {{--@endforeach--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
+                                <tr>
+                                    <th>Role</th>
+                                    <td>{{ $user->role->name or '' }}</td>
+                                </tr>
                                 <tr>
                                     <th>Created at</th>
                                     <td>{{$user->created_at or ''}}</td>
