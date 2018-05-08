@@ -160,7 +160,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
+        \Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -212,6 +215,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Access' => \App\Helpers\Access::class,
         'JWTAuth' => \Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Image' => \Intervention\Image\Facades\Image::class
     ],
 
 ];
