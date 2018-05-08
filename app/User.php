@@ -1,10 +1,6 @@
 <?php
 
 namespace App;
-
-use App\Models\Permission;
-use App\Models\RolePermission;
-use App\Models\Rule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -31,17 +27,6 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-
-    public function hasRole($role)
-    {
-        $role_id = Role::where('name', $role)->firstOrFail()->id;
-        if(UserRole::where('user_id', \Request::user()->id)->where('role_id', $role_id)->count()>0) {
-            return true;
-        }
-
-        return false;
-    }
-
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -62,11 +47,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
-//    public function roles()
-//    {
-//        return $this->belongsToMany(Role::class, 'user_roles', 'user_id');
-//    }
 
     public function role()
     {

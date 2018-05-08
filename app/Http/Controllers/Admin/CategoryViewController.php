@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Access;
 use App\Helpers\ApiRequest;
-use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $data = ApiRequest::request('GET', route('api.category.index'));
 
