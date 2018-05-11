@@ -4,9 +4,6 @@ namespace App\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cookie;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiRequest
 {

@@ -32,13 +32,9 @@ class Access
 
             $user_role = $user->role()->firstOrFail();
             $user_rules = $user_role->rules()->get();
-//            dd($user_rules);
             if($permission->rules()->wherePivotIn('rule_id', $user_rules)->count() > 0) {
                 return true;
             }
-//            if($permission->roles->where('id', $user->roles->first()->id)->count() > 0) {
-//                return true;
-//            }
         }
 
         return false;
