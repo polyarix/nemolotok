@@ -123,7 +123,6 @@ class AuthController extends Controller
                 'msg' => 'Invalid Credentials.'
             ], 400);
         }
-
         return response([
             'status' => 'success',
             'token' => $token

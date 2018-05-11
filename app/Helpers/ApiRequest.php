@@ -5,6 +5,7 @@ namespace App\Helpers;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiRequest
@@ -19,7 +20,7 @@ class ApiRequest
             }
         }
 
-        $data_to_request['token'] = \Request::session()->get('token');
+        $data_to_request['token'] = request()->cookie('token');
 
         $client = new Client();
         $data = $client->request($method, $route, [RequestOptions::JSON => $data_to_request]);
