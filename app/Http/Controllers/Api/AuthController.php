@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Traits\UserSettings;
 use App\User;
 use Illuminate\Http\Request;
@@ -74,6 +75,10 @@ class AuthController extends Controller
             $user->role_id = (int)$request->role_id;
             $user->password = bcrypt($request->password);
             $user->save();
+            if($request->has('files')){
+                $user->images()->createMany($request->get('files'));
+            }
+
             return response([
                 'status' => 'success',
                 'data' => $user

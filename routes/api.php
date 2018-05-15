@@ -20,9 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api', 'as' => 'api.'], function(){
     Route::get('auth/user', 'AuthController@user')->name('auth.user');
-    Route::post('auth/logout', 'AuthController@logout')->name('jwt-logout');
+
 });
 
+Route::post('auth/logout', 'Api\AuthController@logout')->name('jwt-logout');
+Route::post('upload', 'UploadController@upload')->name('upload');
 Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['jwt.auth', 'permissions']], function(){
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/{id}', 'CategoryController@show')->name('category.show');

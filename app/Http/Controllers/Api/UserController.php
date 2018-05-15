@@ -47,7 +47,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id', $id)->delete();
+        $user = User::findOrFail($id);
+        $user->images()->delete();
+        $user->delete();
         return 204;
     }
 }

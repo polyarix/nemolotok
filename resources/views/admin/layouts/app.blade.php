@@ -23,6 +23,10 @@
     <link rel="apple-touch-icon" href="{{asset('apple-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
 
+    <script src="{{asset('js/admin/admin-plugins.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css/dropzone.css')}}">
+
+
     <link rel="stylesheet" href="{{asset('assets/css/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">

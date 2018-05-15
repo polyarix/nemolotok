@@ -24,6 +24,11 @@
             <input type="password"  name="password_confirmation" placeholder="confirm password" value="" class="form-control">
         </div>
         @include('admin.users.partials.roles')
+        <div class="form-group">
+            <label for="file-input" class=" form-control-label">Avatar</label>
+            <input type="file"  name="file[]" placeholder="avatar" multiple class="form-control {{ !empty($errors->file) ? 'is-invalid' : '' }}">
+            <div class="text-danger">{{ !empty($errors->file) ? $errors->file[0] : ''}}</div>
+        </div>
     </div>
 </div>
 <div class="card-footer">

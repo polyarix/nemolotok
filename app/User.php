@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Models\Image;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -58,5 +59,10 @@ class User extends Authenticatable implements JWTSubject
         $role = $this->role()->firstOrFail();
         $rules = $role->rules()->wherePivot('rule_id', 1)->get();
         return $rules;
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'morph');
     }
 }
