@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiRequest;
-use App\Models\Image;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

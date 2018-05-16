@@ -47,8 +47,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->images()->delete();
+        $user = User::with('images')->findOrFail($id);
+        foreach($user->images as $image){
+            $image->delete();
+        }
         $user->delete();
         return 204;
     }

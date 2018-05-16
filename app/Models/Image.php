@@ -13,4 +13,12 @@ class Image extends Model
     {
         return $this->morphTo();
     }
+
+    public function delete()
+    {
+        if(file_exists(\Storage::disk('public')->path($this->url))){
+            @unlink(\Storage::disk('public')->path($this->url));
+        }
+        parent::delete();
+    }
 }
