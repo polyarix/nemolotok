@@ -12,6 +12,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     use UserSettings;
+
     /**
      * Display a listing of the register method
      *
@@ -60,30 +61,20 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validation = \Validator::make($request->all(), $this->rules());
-
-        if($validation->fails()) {
+        if ($validation->fails()) {
             $errors = $validation->errors();
-            $json = [
+            $data = [
                 'status' => 'error',
                 'error' => $errors
             ];
-            return \Response::json($json);
         } else {
-            $user = new User();
-            $user->email = $request->email;
-            $user->name = $request->name;
-            $user->role_id = (int)$request->role_id;
-            $user->password = bcrypt($request->password);
-            $user->save();
-            if($request->has('files')){
-                $user->images()->createMany($request->get('files'));
-            }
-
-            return response([
-                'status' => 'success',
-                'data' => $user
-            ], 200);
+            $data = $this->userRepository->create($request);
         }
+        return response([
+            'status' => 'success',
+            'data' => $data
+        ], 200);
+
     }
 
 
@@ -121,7 +112,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if(!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',

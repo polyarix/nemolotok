@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\UserRepository;
 use App\Traits\UserSettings;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,20 +11,25 @@ class UserController extends Controller
 {
     use UserSettings;
 
+    protected $userRepository;
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
-        return User::all();
+        return $this->userRepository->all();
     }
 
     public function show($id)
     {
-        return User::with('role')->findOrFail($id);
+        return $this->userRepository->get($id);
     }
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $validation = \Validator::make($request->all(), $this->rules($user));
+        $validation = \Validator::make($request->all(), $this->rules($id));
         if($validation->fails()) {
             $errors = $validation->errors();
             $json = [
@@ -33,8 +38,7 @@ class UserController extends Controller
             ];
             return \Response::json($json);
         } else {
-
-            $user->update($request->only(['name', 'email', 'role_id']));
+            $user = $this->userRepository->update($id, $request);
             return $user;
         }
     }
@@ -43,15 +47,11 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        $user = User::with('images')->findOrFail($id);
-        foreach($user->images as $image){
-            $image->delete();
-        }
-        $user->delete();
+        $this->userRepository->delete($id);
         return 204;
     }
 }

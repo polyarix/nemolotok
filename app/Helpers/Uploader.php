@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Helpers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class UploadController extends Controller
+class Uploader
 {
-    public function upload(Request $request)
+    public static function upload($request)
     {
         $response = [];
-        foreach ($request->allFiles() as $file){
-           $response[] =  $this->fileHandle($file);
+        foreach ($request as $file){
+            $response[] =  self::fileHandle($file);
         }
         return $response;
     }
 
-    public function fileHandle($file)
+    public static function fileHandle($file)
     {
         // Creating a new time instance, we'll use it to name our file and declare the path
         $time = Carbon::now();

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\ApiRequest;
+use App\Traits\UserSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserViewController extends Controller
 {
+    use UserSettings;
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class UserViewController extends Controller
     public function index()
     {
         return view('admin.users.index', [
-            'users' => json_decode((ApiRequest::request('GET', route('api.user.index')))->getBody()),
+            'users' => $this->userRepository->all(),
         ]);
     }
 
@@ -28,7 +29,7 @@ class UserViewController extends Controller
     public function create()
     {
         return view('admin.users.create', [
-            'roles' => json_decode((ApiRequest::request('GET', route('api.roles.index')))->getBody())
+            'roles' => $this->roleRepository->all()
         ]);
     }
 
@@ -40,8 +41,18 @@ class UserViewController extends Controller
      */
     public function store(Request $request)
     {
-        $data = ApiRequest::request('POST', route('api.signup'), $request);
-        return $this->response('admin.users.index', $data);
+        $validation = \Validator::make($request->all(), $this->rules());
+        if($validation->fails()) {
+            $errors = $validation->errors();
+            $data = [
+                'status' => 'error',
+                'error' => $errors
+            ];
+        } else {
+            $data = $this->userRepository->create($request);
+        }
+
+        return $this->response('admin.users.index', \GuzzleHttp\json_encode($data));
     }
 
     /**
@@ -52,9 +63,8 @@ class UserViewController extends Controller
      */
     public function show($id)
     {
-        $data = ApiRequest::request('GET', route('api.user.show', $id));
         return view('admin.users.show', [
-            'user' => json_decode($data->getBody())
+            'user' => $this->userRepository->get($id)
         ]);
     }
 
@@ -69,11 +79,10 @@ class UserViewController extends Controller
         if(session('errors')){
             $this->errors = session('errors');
         }
-        $user_data = ApiRequest::request('GET', route('api.user.show', $id));
-        $roles_data = ApiRequest::request('GET', route('api.roles.index'));
+
         return view('admin.users.edit', [
-            'user' => json_decode($user_data->getBody()),
-            'roles' => json_decode($roles_data->getBody()),
+            'user' => $this->userRepository->get($id),
+            'roles' => $this->roleRepository->all(),
             'errors' => $this->errors
         ]);
     }
@@ -87,21 +96,29 @@ class UserViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = ApiRequest::request('POST', route('api.user.update', $id), $request);
+        $validation = \Validator::make($request->all(), $this->rules($id));
+        if($validation->fails()) {
+            $errors = $validation->errors();
+            $data = [
+                'status' => 'error',
+                'error' => $errors
+            ];
+        } else {
+            $data = $this->userRepository->update($id, $request);
+        }
 
-        return $this->response('admin.users.edit', $data, $id);
+        return $this->response('admin.users.edit', json_encode($data), $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        $data = ApiRequest::request('DELETE', route('api.user.destroy', $id));
-
-        return json_encode($data->getStatusCode());
+        $this->userRepository->delete($id);
+        return 200;
     }
 }
