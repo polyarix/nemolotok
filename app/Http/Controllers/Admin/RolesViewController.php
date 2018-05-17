@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiRequest;
+use App\Traits\RoleSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RolesViewController extends Controller
 {
+    use RoleSettings;
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +17,8 @@ class RolesViewController extends Controller
      */
     public function index()
     {
-        $data = ApiRequest::request('GET', route('api.roles.index'));
         return view('admin.roles.index', [
-            'roles' => json_decode($data->getBody())
+            'roles' => $this->roleRepsitory->all()
         ]);
     }
 
