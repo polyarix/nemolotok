@@ -3,10 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Helpers\Access;
-use App\Models\Permission;
-use App\Models\RolePermission;
-use App\User;
-use App\UserRole;
 use Closure;
 
 class CheckPermissions

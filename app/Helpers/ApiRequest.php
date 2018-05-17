@@ -23,33 +23,25 @@ class ApiRequest
         }
         $data_to_request['token'] = request()->cookie('token');
 
-        return self::message($method, $route, $data_to_request);
+        return self::client()->request($method, $route, [RequestOptions::JSON => $data_to_request]);
     }
 
     public static function files($files)
     {
         $to_request_array = ['multipart' => []];
-        $i = 0;
-        foreach($files['file'] as $file) {
-
+        for($i = 0; $i < count($files['file']); $i++){
             $to_request_array['multipart'][$i] = [
                 'name' => 'file'.$i,
-                'filename' => $file->getClientOriginalName(),
-                'Mime-Type' => $file->getMimeType(),
-                'contents' => fopen($file->getPathname(), 'r'),
+                'filename' => $files['file'][$i]->getClientOriginalName(),
+                'Mime-Type' => $files['file'][$i]->getMimeType(),
+                'contents' => fopen($files['file'][$i]->getPathname(), 'r'),
             ];
-            $i++;
         }
-
-        $client = new Client();
-        $response = $client->request('POST', route('upload'), $to_request_array);
-        return \GuzzleHttp\json_decode($response->getBody());
+        return \GuzzleHttp\json_decode((self::client()->request('POST', route('upload'), $to_request_array))->getBody());
     }
 
-    protected static function message($method, $route, $data)
+    protected static function client()
     {
-        $client = new Client();
-        $data = $client->request($method, $route, [RequestOptions::JSON => $data]);
-        return $data;
+        return new Client();
     }
 }
