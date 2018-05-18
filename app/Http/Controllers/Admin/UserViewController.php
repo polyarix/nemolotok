@@ -17,7 +17,7 @@ class UserViewController extends Controller
     public function index()
     {
         return view('admin.users.index', [
-            'users' => $this->userRepository->all(),
+            'users' => $this->userService->getAllUsers(),
         ]);
     }
 
@@ -29,7 +29,7 @@ class UserViewController extends Controller
     public function create()
     {
         return view('admin.users.create', [
-            'roles' => $this->roleRepository->all()
+            'roles' => $this->userService->getAllRoles()
         ]);
     }
 
@@ -41,16 +41,7 @@ class UserViewController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = \Validator::make($request->all(), $this->rules());
-        if($validation->fails()) {
-            $errors = $validation->errors();
-            $data = [
-                'status' => 'error',
-                'error' => $errors
-            ];
-        } else {
-            $data = $this->userRepository->create($request);
-        }
+        $data = $this->userService->createUser($request);
 
         return $this->response('admin.users.index', \GuzzleHttp\json_encode($data));
     }
@@ -64,7 +55,7 @@ class UserViewController extends Controller
     public function show($id)
     {
         return view('admin.users.show', [
-            'user' => $this->userRepository->get($id)
+            'user' => $this->userService->getUserById($id)
         ]);
     }
 
@@ -81,8 +72,8 @@ class UserViewController extends Controller
         }
 
         return view('admin.users.edit', [
-            'user' => $this->userRepository->get($id),
-            'roles' => $this->roleRepository->all(),
+            'user' => $this->userService->getUserById($id),
+            'roles' => $this->userService->getAllRoles(),
             'errors' => $this->errors
         ]);
     }
@@ -96,17 +87,7 @@ class UserViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation = \Validator::make($request->all(), $this->rules($id));
-        if($validation->fails()) {
-            $errors = $validation->errors();
-            $data = [
-                'status' => 'error',
-                'error' => $errors
-            ];
-        } else {
-            $data = $this->userRepository->update($id, $request);
-        }
-
+        $data = $this->userService->updateUser($request, $id);
         return $this->response('admin.users.edit', json_encode($data), $id);
     }
 
@@ -118,7 +99,7 @@ class UserViewController extends Controller
      */
     public function destroy($id)
     {
-        $this->userRepository->delete($id);
+        $this->userService->deleteUser($id);
         return 200;
     }
 }

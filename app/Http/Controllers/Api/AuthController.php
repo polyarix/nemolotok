@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
 use App\Traits\UserSettings;
 use App\User;
 use Illuminate\Http\Request;
@@ -60,20 +59,9 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $validation = \Validator::make($request->all(), $this->rules());
-        if ($validation->fails()) {
-            $errors = $validation->errors();
-            $data = [
-                'status' => 'error',
-                'error' => $errors
-            ];
-        } else {
-            $data = $this->userRepository->create($request);
-        }
-        return response([
-            'status' => 'success',
-            'data' => $data
-        ], 200);
+        $data = $this->userService->createUser($request);
+
+        return response([$data], 200);
 
     }
 
