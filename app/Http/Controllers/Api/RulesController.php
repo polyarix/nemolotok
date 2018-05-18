@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Rule;
+use App\Traits\RuleSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RulesController extends Controller
 {
+    use RuleSettings;
     /**
      * Display a listing of the resource.
      *
@@ -15,28 +17,18 @@ class RulesController extends Controller
      */
     public function index()
     {
-        return Rule::all();
+        return $this->ruleService->getAllRules();
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array|bool
      */
     public function store(Request $request)
     {
-        if($rule = Rule::create($request->only(['name', 'description']))){
-            if(is_string($request->get('permissions'))){
-                $permissions = explode(',', $request->get('permissions'));
-            } else {
-                $permissions = $request->get('permissions');
-            }
-
-            $rule->permissions()->attach($permissions);
-        }
-
-        return $rule;
+        return $this->ruleService->createRule($request);
     }
 
     /**
@@ -47,7 +39,7 @@ class RulesController extends Controller
      */
     public function show($id)
     {
-        return Rule::with('permissions')->where('id', $id)->firstOrFail();
+        return $this->ruleService->getRuleById($id);
     }
 
     /**
@@ -55,22 +47,11 @@ class RulesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array|bool
      */
     public function update(Request $request, $id)
     {
-        $rule = Rule::findOrFail($id);
-        $rule->update($request->only(['name', 'description']));
-
-        if(is_string($request->get('permissions'))){
-            $permissions = explode(',', $request->get('permissions'));
-        } else {
-            $permissions = $request->get('permissions');
-        }
-
-        $rule->permissions()->sync($permissions);
-
-        return $rule;
+        return $this->ruleService->updateRule($id, $request);
     }
 
     /**
@@ -81,8 +62,7 @@ class RulesController extends Controller
      */
     public function destroy($id)
     {
-        $rule = Rule::findOrFail($id);
-        $rule->delete();
+        $rule = $this->ruleService->deleteRule($id);
         return 204;
     }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\ApiRequest;
+use App\Traits\RuleSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RulesViewController extends Controller
 {
+    use RuleSettings;
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class RulesViewController extends Controller
     public function index()
     {
         return view('admin.rules.index', [
-            'rules' => json_decode((ApiRequest::request('GET', route('api.rules.index')))->getBody())
+            'rules' => $this->ruleService->getAllRules()
         ]);
     }
 
@@ -28,7 +29,7 @@ class RulesViewController extends Controller
     public function create()
     {
         return view('admin.rules.create', [
-            'permissions' => json_decode((ApiRequest::request('GET', route('api.permissions.index')))->getBody())
+            'permissions' => $this->ruleService->getAllPermissions()
         ]);
     }
 
@@ -40,9 +41,7 @@ class RulesViewController extends Controller
      */
     public function store(Request $request)
     {
-        $data = ApiRequest::request('POST', route('api.rules.store'), $request);
-
-        return $this->response('admin.rules.index', $data);
+        return $this->response('admin.rules.index', $this->ruleService->createRule($request));
     }
 
     /**
@@ -54,7 +53,7 @@ class RulesViewController extends Controller
     public function show($id)
     {
         return view('admin.rules.show', [
-            'rule' => json_decode((ApiRequest::request('GET', route('api.rules.show', $id)))->getBody())
+            'rule' => $this->ruleService->getRuleById($id)
         ]);
     }
 
@@ -67,8 +66,8 @@ class RulesViewController extends Controller
     public function edit($id)
     {
         return view('admin.rules.edit', [
-            'rule' => json_decode((ApiRequest::request('GET', route('api.rules.show', $id)))->getBody()),
-            'permissions' => json_decode((ApiRequest::request('GET', route('api.permissions.index')))->getBody())
+            'rule' => $this->ruleService->getRuleById($id),
+            'permissions' => $this->ruleService->getAllPermissions()
         ]);
     }
 
@@ -81,7 +80,7 @@ class RulesViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = ApiRequest::request('PUT', route('api.rules.update', $id), $request);
+        $data = $this->ruleService->updateRule($id, $request);
         return $this->response('admin.rules.index', $data, $id);
     }
 
@@ -89,11 +88,11 @@ class RulesViewController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        $data = ApiRequest::request('DELETE', route('api.rules.destroy', $id));
-        return json_encode($data->getStatusCode());
+        $this->ruleService->deleteRule($id);
+        return 200;
     }
 }

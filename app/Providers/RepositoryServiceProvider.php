@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Contracts\PermissionRepository;
 use App\Contracts\RoleRepository;
 use App\Contracts\RuleRepository;
 use App\Contracts\UserRepository;
+use App\Repositories\Eloquent\EloquentPermissionRepository;
 use App\Repositories\Eloquent\EloquentRoleRepository;
 use App\Repositories\Eloquent\EloquentRuleRepository;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +16,8 @@ class RepositoryServiceProvider extends ServiceProvider
     protected $repositories = [
         UserRepository::class => \App\Repositories\Eloquent\EloquentUserRepository::class,
         RoleRepository::class => EloquentRoleRepository::class,
-        RuleRepository::class => EloquentRuleRepository::class
+        RuleRepository::class => EloquentRuleRepository::class,
+        PermissionRepository::class => EloquentPermissionRepository::class
     ];
     /**
      * Bootstrap services.
