@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Service\UserService;
+use App\Services\UserService;
 
 trait UserSettings
 {

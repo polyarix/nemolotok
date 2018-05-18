@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Role;
+use App\Traits\RoleSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RolesController extends Controller
 {
-    public $rules = [
-        'name' => 'required|min:3|max:50|string|unique:roles'
-    ];
-
+    use RoleSettings;
     /**
      * Display a listing of the resource.
      *
@@ -19,40 +16,18 @@ class RolesController extends Controller
      */
     public function index()
     {
-        return Role::all();
+        return $this->roleService->getAllRoles();
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return array|bool
      */
     public function store(Request $request)
     {
-        $validation = \Validator::make($request->all(), $this->rules);
-
-        if ($validation->fails()) {
-            $errors = $validation->errors();
-            $json = [
-                'status' => 'error',
-                'error' => $errors
-            ];
-            return \Response::json($json);
-        } else {
-            if ($role = Role::create($request->only(['name']))) {
-                if (is_string($request->get('rules'))) {
-                    $access_rules = explode(',', $request->get('rules'));
-                } else {
-                    $access_rules = $request->get('rules');
-                }
-
-                $role->rules()->attach($access_rules);
-            }
-
-            return $role;
-        }
-
+        return $this->roleService->createRole($request);
     }
 
     /**
@@ -63,7 +38,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        return Role::with('rules')->findOrFail($id);
+        return $this->roleService->getRoleById($id);
     }
 
     /**
@@ -71,51 +46,22 @@ class RolesController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return array|bool
      */
     public function update(Request $request, $id)
     {
-        $role = Role::findOrFail($id);
-        $this->rules['name'] = $this->rules['name'].',id,'.$role->id;
-        $validation = \Validator::make($request->all(), $this->rules);
-
-        if ($validation->fails()) {
-            $errors = $validation->errors();
-            $json = [
-                'status' => 'error',
-                'error' => $errors
-            ];
-            return \Response::json($json);
-        } else {
-            $role->update($request->only(['name']));
-            if (is_string($request->get('rules'))) {
-                $access_rules = explode(',', $request->get('rules'));
-            } else {
-                $access_rules = $request->get('rules');
-            }
-
-            $role->rules()->sync($access_rules);
-
-
-            return $role;
-        }
+        return $this->roleService->updateRole($id, $request);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
+        $this->roleService->deleteRole($id);
         return 204;
-    }
-
-    public function rules()
-    {
-        return [];
     }
 }

@@ -2,14 +2,14 @@
 
 namespace App\Traits;
 
-use App\Contracts\RoleRepository;
+use App\Services\RoleService;
 
 trait RoleSettings
 {
-    protected $roleRepsitory;
+    protected $roleService;
 
-    public function __construct(RoleRepository $roleRepository)
+    public function __construct(RoleService $roleService)
     {
-        $this->roleRepsitory = $roleRepository;
+        $this->roleService = $roleService;
     }
 }
