@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\ApiRequest;
+use App\Traits\CategoriesSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryViewController extends Controller
 {
+    use CategoriesSetting;
     public function index()
     {
-        $data = ApiRequest::request('GET', route('api.category.index'));
-
         return view('admin.category.index', [
-            'categories' => json_decode($data->getBody())
+            'categories' => $this->categoryService->getAllCategories()
         ]);
     }
 
@@ -25,39 +24,38 @@ class CategoryViewController extends Controller
 
     public function store(Request $request)
     {
-        ApiRequest::request('POST', route('api.category.store'), $request);
+        $data = $this->categoryService->createCategory($request);
 
-        return redirect()->route('admin.category.view.index');
+        return $this->response('admin.category.view.index', \GuzzleHttp\json_encode($data));
     }
 
     public function show($id)
     {
-        $data = ApiRequest::request('GET', route('api.category.show', ['id' => $id]));
-
         return view('admin.category.show', [
-            'category' => json_decode($data->getBody())
+            'category' => $this->categoryService->getCategoryById($id)
         ]);
     }
 
     public function edit($id)
     {
-        $data = ApiRequest::request('GET', route('api.category.show', ['id' => $id]));
-
         return view('admin.category.edit', [
-            'category' => json_decode($data->getBody())
+            'category' => $this->categoryService->getCategoryById($id)
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        ApiRequest::request('PUT', route('api.category.update', $id), $request);
-        return redirect()->route('admin.category.view.index');
+        $data = $this->categoryService->updateCategory($id, $request);
+        return $this->response('admin.category.view.index', $data);
     }
 
     public function destroy($id)
     {
-        $data = ApiRequest::request('DELETE', route('api.category.destroy', ['id' => $id]));
 
-        return json_encode($data->getStatusCode());
+        if($this->categoryService->deleteCategory($id)){
+            return 200;
+        }
+        return 404;
+
     }
 }

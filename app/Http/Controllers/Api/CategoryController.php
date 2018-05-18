@@ -3,12 +3,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Models\NewsCategory;
+use App\Traits\CategoriesSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
 
 class CategoryController extends Controller
 {
+    use CategoriesSetting;
     /**
      * Display a listing of the index method
      *
@@ -34,13 +36,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return Category::all();
+        return $this->categoryService->getAllCategories();
     }
 
     /**
      * Display a listing of the store method
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array|bool
      *
      * @SWG\Post(
      *     path="/api/categories",
@@ -69,7 +71,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return Category::create($request->only(['name']));
+        return $this->categoryService->createCategory($request);
     }
     /**
      * Display a listing of the show method
@@ -103,13 +105,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::findOrFail($id);
+        return $this->categoryService->getCategoryById($id);
     }
 
     /**
      * Display a listing of the update method
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array|bool
      *
      * @SWG\Put(
      *     path="/api/news/{categoryId}",
@@ -145,16 +147,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update($request->only(['name']));
-
-        return $category;
+        return $this->categoryService->updateCategory($id, $request);
     }
 
     /**
      *  Display a listing of the destroy method
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return int
      *
      * @SWG\Delete(
      *     path="/api/news/{categoryId}",
@@ -183,8 +182,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $this->categoryService->deleteCategory($id);
         return 204;
     }
 }
