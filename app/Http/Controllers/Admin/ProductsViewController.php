@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\ProductSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductsViewController extends Controller
 {
+    use ProductSettings;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,9 @@ class ProductsViewController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.products.index', [
+            'products' => $this->productService->getAllProducts()
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class ProductsViewController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**

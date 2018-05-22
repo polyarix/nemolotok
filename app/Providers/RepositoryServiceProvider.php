@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Contracts\CategoryRepository;
 use App\Contracts\NewsRepository;
 use App\Contracts\PermissionRepository;
+use App\Contracts\ProductRepository;
 use App\Contracts\RoleRepository;
 use App\Contracts\RuleRepository;
 use App\Contracts\UserRepository;
 use App\Repositories\Eloquent\EloquentCategoryRepository;
 use App\Repositories\Eloquent\EloquentNewsRepository;
 use App\Repositories\Eloquent\EloquentPermissionRepository;
+use App\Repositories\Eloquent\EloquentProductRepository;
 use App\Repositories\Eloquent\EloquentRoleRepository;
 use App\Repositories\Eloquent\EloquentRuleRepository;
 use Illuminate\Support\ServiceProvider;
@@ -23,7 +25,8 @@ class RepositoryServiceProvider extends ServiceProvider
         RuleRepository::class => EloquentRuleRepository::class,
         PermissionRepository::class => EloquentPermissionRepository::class,
         CategoryRepository::class => EloquentCategoryRepository::class,
-        NewsRepository::class => EloquentNewsRepository::class
+        NewsRepository::class => EloquentNewsRepository::class,
+        ProductRepository::class => EloquentProductRepository::class
     ];
     /**
      * Bootstrap services.

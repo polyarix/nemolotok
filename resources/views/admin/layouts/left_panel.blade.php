@@ -9,6 +9,19 @@
                         </a>
                     </li>
                 @endif
+                <h3 class="menu-title"></h3>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="menu-icon fa fa-laptop"></i>Каталог</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        @if(\App\Helpers\Access::hasRouteAccess('admin.products.index'))
+                            <li><i class="fa fa-th-list"></i><a
+                                        href="{{route('admin.products.index')}}">Товары</a></li>
+                        @endif
+                    </ul>
+                </li>
+
                 <h3 class="menu-title">Basic</h3>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

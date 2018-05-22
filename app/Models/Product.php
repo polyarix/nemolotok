@@ -12,4 +12,9 @@ class Product extends Model
     {
         return $this->belongsToMany(ProductDescription::class, 'products_to_descriptions', 'product_id');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(ProductCategory::class, 'products_to_categories', 'product_id');
+    }
 }
