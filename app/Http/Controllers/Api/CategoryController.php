@@ -1,12 +1,9 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
-use App\Models\NewsCategory;
 use App\Traits\CategoriesSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Response;
 
 class CategoryController extends Controller
 {
