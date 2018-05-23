@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Traits\ProductSettings;
+use App\Models\ProductCategory;
+use App\Traits\ProductCategorySettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProductsViewController extends Controller
+class ProductCategoryViewController extends Controller
 {
-    use ProductSettings;
+    use ProductCategorySettings;
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +17,8 @@ class ProductsViewController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index', [
-            'products' => $this->productService->getAllProducts()
+        return view('admin.product_category.index', [
+            'categories' => $this->productCategoryService->getAllCategories()
         ]);
     }
 
@@ -28,7 +29,9 @@ class ProductsViewController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        return view('admin.product_category.create', [
+            'category' => []
+        ] );
     }
 
     /**
@@ -39,7 +42,8 @@ class ProductsViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->productCategoryService->createCategory($request);
+        return $this->response('admin.product-categories.index', \GuzzleHttp\json_encode($data));
     }
 
     /**

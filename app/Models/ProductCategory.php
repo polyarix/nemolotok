@@ -9,10 +9,7 @@ class ProductCategory extends Model
     protected $guarded = ['id'];
     public function description()
     {
-        return $this->belongsToMany(ProductCategoryDescription::class,
-            'product_categories_to_description',
-            'category_id'
-        );
+        return $this->hasOne(ProductCategoryDescription::class, 'category_id');
     }
 
     public function products()

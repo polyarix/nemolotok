@@ -15,6 +15,10 @@
                        aria-expanded="false">
                         <i class="menu-icon fa fa-laptop"></i>Каталог</a>
                     <ul class="sub-menu children dropdown-menu">
+                        @if(\App\Helpers\Access::hasRouteAccess('admin.product-categories.index'))
+                            <li><i class="fa fa-th-list"></i><a
+                                        href="{{route('admin.product-categories.index')}}">Категории</a></li>
+                        @endif
                         @if(\App\Helpers\Access::hasRouteAccess('admin.products.index'))
                             <li><i class="fa fa-th-list"></i><a
                                         href="{{route('admin.products.index')}}">Товары</a></li>

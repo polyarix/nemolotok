@@ -15,6 +15,8 @@ class CreateProductCategoriesDescriptionsTable extends Migration
     {
         Schema::create('product_categories_descriptions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('meta_title')->nullable();
