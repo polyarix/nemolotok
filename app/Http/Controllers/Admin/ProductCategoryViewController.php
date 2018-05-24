@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\ProductCategory;
 use App\Traits\ProductCategorySettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +30,7 @@ class ProductCategoryViewController extends Controller
     {
         return view('admin.product_category.create', [
             'category' => []
-        ] );
+        ]);
     }
 
     /**
@@ -54,7 +53,9 @@ class ProductCategoryViewController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.product_category.show', [
+            'category' => $this->productCategoryService->getCategoryById($id)
+        ]);
     }
 
     /**
@@ -65,7 +66,9 @@ class ProductCategoryViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.product_category.edit', [
+            'category' => $this->productCategoryService->getCategoryById($id)
+        ]);
     }
 
     /**
@@ -77,17 +80,21 @@ class ProductCategoryViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->productCategoryService->updateCategory($id, $request);
+        return $this->response('admin.product-categories.index', $data, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        //
+        if($this->productCategoryService->deleteCategory($id)){
+            return 200;
+        }
+        return 404;
     }
 }

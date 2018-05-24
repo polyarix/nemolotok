@@ -36,4 +36,19 @@ class ProductCategoryService
     {
         return $this->productCategoryRepository->create($data);
     }
+
+    public function getCategoryById($id)
+    {
+        return $this->productCategoryRepository->get($id);
+    }
+
+    public function updateCategory($id, $data)
+    {
+        return $this->productCategoryRepository->update($id, $data);
+    }
+
+    public function deleteCategory($id)
+    {
+        return $this->productCategoryRepository->delete($id);
+    }
 }

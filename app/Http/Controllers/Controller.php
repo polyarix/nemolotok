@@ -14,7 +14,6 @@ class Controller extends BaseController
 
     public function response($route_name, $data = false, $id = false)
     {
-        $data = json_decode($data);
         if(!empty($data->status) && $data->status == 'error'){
             return redirect()->back()->with('errors', $data->error);
         }

@@ -5,7 +5,7 @@
     <div class="card-body card-block">
         <div class="form-group">
             <label for="company" class=" form-control-label">Title</label>
-            <input type="text"  name="title" placeholder="Title" value="{{$category->title or ''}}" class="form-control">
+            <input type="text"  name="title" placeholder="Title" value="{{$category->description->title or ''}}" class="form-control">
         </div>
 
         @include('admin.partials.form.meta_data', ['item' => $category])

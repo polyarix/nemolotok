@@ -14,34 +14,44 @@
                         <div class="card-header">
                             <strong class="card-title">Data Table</strong>
                         </div>
-                        <div class="card-body">
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <tr>
-                                        <th>id</th>
-                                        <th>Category name</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
+                                        <th>ID</th>
+                                        <td>{{ $category->id }}</td>
                                     </tr>
-                                    </thead>
-                                <tbody>
-
                                     <tr>
-                                        <td>{{$category->id}}</td>
-                                        <td>{{$category->name or ''}}</td>
+                                        <th>Title</th>
+                                        <td>{{ $category->description->title or '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description</th>
+                                        <td>{!! $category->description->description or '' !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Meta-title</th>
+                                        <td>{!! $category->description->meta_title !!}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Meta-description</th>
+                                        <td>{!! $category->description->meta_title !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Created at</th>
                                         <td>{{$category->created_at or ''}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Updated at</th>
                                         <td>{{$category->updated_at or ''}}</td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script src="{{asset('js/admin/actions.js')}}"></script>
 @endsection
