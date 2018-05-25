@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Traits\ProductSettings;
@@ -28,7 +27,9 @@ class ProductViewController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        return view('admin.products.create', [
+            'categories' => $this->productService->getAllCategories()
+        ]);
     }
 
     /**
@@ -39,7 +40,8 @@ class ProductViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->productService->createProduct($request);
+        return $this->response('admin.products.index', $data);
     }
 
     /**
@@ -50,7 +52,9 @@ class ProductViewController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.products.show', [
+            'product' => $this->productService->getProductById($id)
+        ]);
     }
 
     /**
@@ -61,7 +65,10 @@ class ProductViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.products.edit', [
+            'product' => $this->productService->getProductById($id),
+            'categories' => $this->productService->getAllCategories()
+        ]);
     }
 
     /**
@@ -73,17 +80,19 @@ class ProductViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->productService->productUpdate($id, $request);
+        return $this->response('admin.products.index', $data);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        //
+        if($this->productService->productDelete($id)) return 200;
+        return 404;
     }
 }

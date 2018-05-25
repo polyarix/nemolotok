@@ -1,41 +1,107 @@
 <div class="card">
-    <div class="card-header"><strong>Category</strong>
-        <small> Form</small>
-    </div>
-    <div class="card-body card-block">
-        <div class="form-group">
-            <label for="company" class=" form-control-label">Title</label>
-            <input type="text"  name="title" placeholder="Enter article title" value="{{$product->title or ''}}" class="form-control">
-        </div>
-    </div>
-    <div class="card-body card-block">
-        <div class="form-group">
-            <label for="textarea-input" class="form-control-label">Content</label>
-            <textarea name="content" id="textarea-input" rows="9" placeholder="Content..." class="form-control">{{$product->content or ''}}</textarea>
-        </div>
-    </div>
+    <div class="default-tab">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">Общее</a>
+                <a class="nav-item nav-link" id="nav-data-tab" data-toggle="tab" href="#nav-data" role="tab" aria-controls="nav-data" aria-selected="false">Данные</a>
+                <a class="nav-item nav-link" id="nav-relations-tab" data-toggle="tab" href="#nav-relations" aria-controls="nav-relations" aria-selected="false">Связи</a>
+            </div>
+        </nav>
+        <div class="tab-content pl-3 pt-2 card-body" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                <div class="form-group">
+                    <label for="name" class=" form-control-label">Название товара</label>
+                    <input type="text" id="name" name="name" value="{{$product->description->name or ""}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="description" class=" form-control-label">Описание</label>
+                    <textarea id="description" class="form-control" name="description">{!! $product->description->description or "" !!}</textarea>
+                </div>
+                @include('admin.partials.form.meta_data', ['item' => $product])
+            </div>
+            <div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-data-tab">
 
-    <div class="card-body card-block">
-        {{--<div class="form-group">--}}
-            {{--<label for="cateogories" class=" form-control-label">Categories</label>--}}
-                {{--<select name="categories[]" id="cateogories" multiple="multiple" class="form-control select2">--}}
-                    {{--@foreach($categories as $category)--}}
-                        {{--<option value="{{$category->id}}"--}}
-                                {{--@if(!empty($article->categories))--}}
-                                    {{--@foreach($article->categories as $article_category)--}}
-                                        {{--@if($article_category->id == $category->id)--}}
-                                            {{--selected--}}
-                                        {{--@endif--}}
-                                    {{--@endforeach--}}
-                                {{--@endif--}}
-                            {{-->{{$category->name}}</option>--}}
-                    {{--@endforeach--}}
-                {{--</select>--}}
-        {{--</div>--}}
+                <div class="form-group">
+                    <label for="article" class=" form-control-label">Артикул</label>
+                    <input type="text" id="sku" name="sku" value="{{$product->sku or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="enabled" class=" form-control-label">Отображать на сайте</label>
+                    <select name="enabled" id="enabled" class="form-control">
+                        <option value="0">Нет</option>
+                        <option value="1">Да</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sorting" class=" form-control-label">Сортировка</label>
+                    <input type="text" id="sorting" name="sorting" value="{{$product->sorting or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class=" form-control-label">Цена</label>
+                    <input type="text" id="price" name="price" value="{{$product->price or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="amount" class=" form-control-label">Количество</label>
+                    <input type="text" id="amount" name="amount" value="{{$product->amount or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="unit" class=" form-control-label">Единицы измерения</label>
+                    <input type="text" id="unit" name="unit" value="{{$product->unit or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="discount" class=" form-control-label">Скидка</label>
+                    <input type="text" id="discount" name="discount" value="{{$product->discount or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="shippingprice" class=" form-control-label">Цена доставки</label>
+                    <input type="text" id="shippingprice" name="shippingprice" value="{{$product->shippingprice or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="preorder" class=" form-control-label">Цена доставки</label>
+                    <input type="text" id="preorder" name="preorder" value="{{$product->preorder or ""}}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class=" form-control-label">Отображать на сайте</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="0">нет в наличии</option>
+                        <option value="1">в наличии</option>
+                        <option value="2">ожидание</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-relations" role="tabpanel" aria-labelledby="nav-relations-tab">
+                <div class="form-group">
+                    <label for="multiple-select" class=" form-control-label">Categories</label>
+                    <select name="categories[]" id="multiple-select" multiple="multiple" class="form-control select2">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}"
+                                    @if(!empty($product->categories))
+                                    @foreach($product->categories as $product_category)
+                                    @if($product_category->id == $category->id)
+                                    selected
+                                    @endif
+                                    @endforeach
+                                    @endif
+                            >{{$category->description->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="card-footer">
     <button type="submit" class="btn btn-primary btn-sm">
-        <i class="fa fa-dot-circle-o"></i> Submit
+        <i class="fa fa-dot-circle-o"></i> Отправить
     </button>
 </div>

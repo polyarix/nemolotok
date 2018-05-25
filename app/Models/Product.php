@@ -10,11 +10,16 @@ class Product extends Model
 
     public function description()
     {
-        return $this->belongsToMany(ProductDescription::class, 'products_to_descriptions', 'product_id');
+        return $this->hasOne(ProductDescription::class,'product_id');
     }
 
     public function categories()
     {
-        return $this->belongsToMany(ProductCategory::class, 'products_to_categories', 'product_id');
+        return $this->belongsToMany(ProductCategory::class, 'product_to_categories', 'product_id', 'category_id');
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Video::class, 'morph');
     }
 }

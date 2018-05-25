@@ -15,14 +15,14 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
     public function create($data)
     {
         $category = ProductCategory::create();
-        $category->description()->create($data->only(['title', 'description', 'meta_title', 'meta_description']));
+        $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description']));
         return $category;
     }
 
     public function update($id, $data)
     {
         $category = ProductCategory::with('description')->findOrFail($id);
-        $category->description()->update($data->only(['title', 'description', 'meta_title', 'meta_description']));
+        $category->description()->update($data->only(['name', 'description', 'meta_title', 'meta_description']));
         return $category;
     }
 

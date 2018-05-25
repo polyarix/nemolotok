@@ -12,8 +12,7 @@ class EloquentCategoryRepository implements CategoryRepository
         return Category::all();
     }
 
-    public function create($data)
-    {
+    public function create($data){
         return Category::create($data->only(['name']));
     }
 

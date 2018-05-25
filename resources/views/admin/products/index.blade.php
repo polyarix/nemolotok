@@ -33,15 +33,15 @@
                                 @forelse($products as $product)
                                     <tr>
                                         <td>{{$product->id}}</td>
-                                        <td>{{$product->title or ''}}</td>
+                                        <td>{{$product->description->name or ''}}</td>
                                         <td>{{$product->created_at or ''}}</td>
                                         <td>{{$product->updated_at or ''}}</td>
                                         <td class="text-left">
                                             @if(\App\Helpers\Access::hasRouteAccess('admin.products.show'))
-                                                <button type="button" class="btn btn-primary" onclick="location='{{route('admin.products.show', ['article' => $product->id])}}'"><i class="fa fa-eye"></i></button>
+                                                <button type="button" class="btn btn-primary" onclick="location='{{route('admin.products.show', ['id' => $product->id])}}'"><i class="fa fa-eye"></i></button>
                                             @endif
                                             @if(\App\Helpers\Access::hasRouteAccess('admin.products.edit'))
-                                                <button type="button" class="btn btn-success" onclick="location='{{route('admin.products.edit', ['article' => $product->id])}}'"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class="btn btn-success" onclick="location='{{route('admin.products.edit', ['id' => $product->id])}}'"><i class="fa fa-pencil"></i></button>
                                             @endif
                                             @if(\App\Helpers\Access::hasRouteAccess('admin.products.destroy'))
                                                 <button type="button" class="btn btn-danger item_destroy" data-url="{{ route('admin.products.destroy', ['id' => $product->id]) }}"><i class="fa fa-trash"></i></button>

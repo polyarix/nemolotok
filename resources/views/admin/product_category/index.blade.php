@@ -36,7 +36,7 @@
                                 @forelse($categories as $category)
                                     <tr>
                                         <td>{{$category->id}}</td>
-                                        <td>{{$category->description->title or ''}}</td>
+                                        <td>{{$category->description->name or ''}}</td>
                                         <td>{{$category->created_at or ''}}</td>
                                         <td>{{$category->updated_at or ''}}</td>
                                         <td class="text-left">

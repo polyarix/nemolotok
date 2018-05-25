@@ -115,7 +115,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
     jQuery(document).ready(function(){
-        jQuery('.select2').select2();
+        jQuery('.select2').select2({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
     });
 </script>
 

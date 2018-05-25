@@ -14,20 +14,20 @@
                             <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                 <tr>
                                     <th>ID</th>
-                                    <td>{{ $article->id }}</td>
+                                    <td>{{ $product->id }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Title</th>
-                                    <td>{{ $article->title or '' }}</td>
+                                    <th>Наименование товара</th>
+                                    <td>{{ $product->description->name or '' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Content</th>
-                                    <td>{!! $article->content or '' !!}</td>
+                                    <th>Описание</th>
+                                    <td>{!! $product->description->description or '' !!}</td>
                                 </tr>
                                 <tr>
                                     <th>Categories</th>
                                     <td>
-                                        @foreach($article->categories as $category)
+                                        @foreach($product->categories as $category)
                                             <span class="badge-dark">{{$category->name}}</span>
                                         @endforeach
                                     </td>
