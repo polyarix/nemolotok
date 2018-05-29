@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description" class=" form-control-label">Описание</label>
-                    <textarea id="description" class="form-control" name="description">{!! $product->description->description or "" !!}</textarea>
+                    <textarea id="description" class="form-control ckeditor" name="description">{!! $product->description->description or "" !!}</textarea>
                 </div>
                 @include('admin.partials.form.meta_data', ['item' => $product])
             </div>

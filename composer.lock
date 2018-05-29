@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "472f76db21e8ab68e3aff9c61460f2ee",
-    "content-hash": "7b566033833e565aa831d8308f4cdb52",
+    "hash": "61c441fc8e2fd1ae438a6185ff3887b8",
+    "content-hash": "979b6b7d1c041910b5e4f0c9f0f3f28f",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -3077,7 +3077,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/2b79229235d83523a05069ccb9c97cd5ec0b8123",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/481c67b0d95ad14c3f3690bb6ec2a285c2f1ab1b",
                 "reference": "2b79229235d83523a05069ccb9c97cd5ec0b8123",
                 "shasum": ""
             },
@@ -3141,6 +3141,60 @@
                 "laravel"
             ],
             "time": "2018-03-10 22:14:03"
+        },
+        {
+            "name": "unisharp/laravel-ckeditor",
+            "version": "4.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UniSharp/laravel-ckeditor.git",
+                "reference": "5c75f3f9128ec8567955913074795deee5869c5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UniSharp/laravel-ckeditor/zipball/5c75f3f9128ec8567955913074795deee5869c5c",
+                "reference": "5c75f3f9128ec8567955913074795deee5869c5c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Unisharp\\Ckeditor\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource",
+                    "homepage": "http://cksource.com"
+                },
+                {
+                    "name": "UniSharp Ltd. (Composer Package Maintainer)",
+                    "homepage": "http://www.unisharp.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor (for laravel).",
+            "homepage": "http://ckeditor.com",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "laravel",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "time": "2017-11-01 04:33:40"
         },
         {
             "name": "vlucas/phpdotenv",

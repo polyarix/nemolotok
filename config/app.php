@@ -162,7 +162,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
-        \App\Providers\RepositoryServiceProvider::class
+        \App\Providers\RepositoryServiceProvider::class,
+        \Unisharp\Ckeditor\ServiceProvider::class
 
     ],
 
