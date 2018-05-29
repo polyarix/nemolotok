@@ -28,7 +28,8 @@ class ProductViewController extends Controller
     public function create()
     {
         return view('admin.products.create', [
-            'categories' => $this->productService->getAllCategories()
+            'categories' => $this->productService->getAllCategories(),
+            'product' => []
         ]);
     }
 
