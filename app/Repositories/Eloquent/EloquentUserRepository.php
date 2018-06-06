@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Contracts\UserRepository;
+use App\Helpers\IResizer;
 use App\Helpers\Uploader;
 use App\User;
 
@@ -22,9 +23,10 @@ class EloquentUserRepository implements UserRepository
         $user->password = bcrypt($data->password);
         $user->save();
 
-        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
-           $user->images()->createMany($files);
-        }
+//        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
+//           $user->images()->createMany($files);
+//        }
+        IResizer::resize();
 
         return $user;
     }
@@ -33,11 +35,11 @@ class EloquentUserRepository implements UserRepository
     {
         $user = User::with('images')->findOrFail($id);
         $user->update($data->only(['name', 'email', 'role_id']));
-        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
-            $this->imagesRemoving($user);
-            $user->images()->createMany($files);
-        }
-
+//        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
+//            $this->imagesRemoving($user);
+//            $user->images()->createMany($files);
+//        }
+        IResizer::resize($data->file('file'));
 
         return $user;
     }
