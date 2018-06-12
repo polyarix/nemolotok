@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
         Route::resource('rules', 'RulesViewController');
         Route::resource('products', 'ProductViewController');
         Route::resource('product-categories', 'ProductCategoryViewController');
+
 });
 
 Route::get('/', function () {

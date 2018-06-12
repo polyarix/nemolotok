@@ -23,10 +23,9 @@ class EloquentUserRepository implements UserRepository
         $user->password = bcrypt($data->password);
         $user->save();
 
-//        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
-//           $user->images()->createMany($files);
-//        }
-        IResizer::resize();
+        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
+           $user->images()->createMany($files);
+        }
 
         return $user;
     }

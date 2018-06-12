@@ -18,7 +18,7 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class, 'product_to_categories', 'product_id', 'category_id');
     }
 
-    public function images()
+    public function videos()
     {
         return $this->morphMany(Video::class, 'morph');
     }
