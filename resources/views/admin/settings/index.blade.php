@@ -7,7 +7,7 @@
                 <i class="fa fa-mail-reply"></i>
             </button>
             {{csrf_field()}}
-            @include('admin.category.partials.form')
+            @include('admin.settings.partials.form')
         </div>
     </form>
 @endsection

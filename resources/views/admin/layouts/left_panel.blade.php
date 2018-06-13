@@ -66,11 +66,11 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="menu-icon fa fa-laptop"></i>Файлы</a>
+                        <i class="menu-icon fa fa-laptop"></i>Другое</a>
                     <ul class="sub-menu children dropdown-menu">
-                        @if(\App\Helpers\Access::hasRouteAccess('admin.image-settings.index'))
+                        @if(\App\Helpers\Access::hasRouteAccess('admin.settings.index'))
                             <li><i class="fa fa-th-list"></i><a
-                                        href="{{route('admin.image-settings.index')}}">Изображения</a></li>
+                                        href="{{route('admin.settings.index')}}">Настройки сайта</a></li>
                         @endif
                     </ul>
                 </li>

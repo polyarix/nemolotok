@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\CategoryRepository;
+use App\Contracts\ImageSettingsRepository;
 use App\Contracts\NewsRepository;
 use App\Contracts\PermissionRepository;
 use App\Contracts\ProductCategoryRepository;
@@ -11,6 +12,7 @@ use App\Contracts\RoleRepository;
 use App\Contracts\RuleRepository;
 use App\Contracts\UserRepository;
 use App\Repositories\Eloquent\EloquentCategoryRepository;
+use App\Repositories\Eloquent\EloquentImageSettingsRepository;
 use App\Repositories\Eloquent\EloquentNewsRepository;
 use App\Repositories\Eloquent\EloquentPermissionRepository;
 use App\Repositories\Eloquent\EloquentProductCategoryRepository;
@@ -29,7 +31,8 @@ class RepositoryServiceProvider extends ServiceProvider
         CategoryRepository::class => EloquentCategoryRepository::class,
         NewsRepository::class => EloquentNewsRepository::class,
         ProductRepository::class => EloquentProductRepository::class,
-        ProductCategoryRepository::class => EloquentProductCategoryRepository::class
+        ProductCategoryRepository::class => EloquentProductCategoryRepository::class,
+        ImageSettingsRepository::class => EloquentImageSettingsRepository::class
     ];
     /**
      * Bootstrap services.

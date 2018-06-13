@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\SettingsSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ImageSettingsViewController extends Controller
+class SettingsViewController extends Controller
 {
+    use SettingsSettings;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,7 @@ class ImageSettingsViewController extends Controller
      */
     public function index()
     {
-        return view('admin.image_settings.create');
+        return view('admin.settings.index');
     }
 
     /**
