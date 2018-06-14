@@ -2,26 +2,33 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Contracts\ImageSettingsRepository;
+use App\Contracts\SettingsRepository;
+use App\Models\Setting;
 
-class EloquentImageSettingsRepository implements ImageSettingsRepository
+class EloquentSettingsRepository implements SettingsRepository
 {
     public function all()
     {
+       return Setting::all();
     }
 
-    public function create($data){
+    public function create($data)
+    {
+
     }
 
     public function update($id, $data)
     {
+
     }
 
     public function delete($id)
     {
+
     }
 
     public function get($id)
     {
+
     }
 }

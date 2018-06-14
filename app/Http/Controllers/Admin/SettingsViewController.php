@@ -16,7 +16,8 @@ class SettingsViewController extends Controller
      */
     public function index()
     {
-        return view('admin.settings.index');
+        $data = $this->settingsService->all();
+        return view('admin.settings.index', $data);
     }
 
     /**
@@ -37,7 +38,7 @@ class SettingsViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

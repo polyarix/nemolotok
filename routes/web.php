@@ -29,7 +29,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
         Route::resource('products', 'ProductViewController');
         Route::resource('product-categories', 'ProductCategoryViewController');
 
-        Route::get('settings', 'SettingsViewController@index')->name('settings.index');
+        Route::resource('settings', 'SettingsViewController');
+
 
 });
 

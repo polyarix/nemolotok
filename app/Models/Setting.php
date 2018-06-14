@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ImageSetting extends Model
+class Setting extends Model
 {
-    protected $guarded = ['*'];
+    protected $guarded = ['id'];
     public $timestamps = false;
 }

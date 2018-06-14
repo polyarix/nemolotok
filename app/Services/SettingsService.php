@@ -2,14 +2,19 @@
 
 namespace App\Services;
 
-use App\Contracts\ImageSettingsRepository;
-use App\Traits\SettingsSettings;
+use App\Contracts\SettingsRepository;
 
 class SettingsService
 {
-    private $image_settings_repository;
-    public function __construct(ImageSettingsRepository $imageSettingsRepository)
+    private $settings_repository;
+
+    public function __construct(SettingsRepository $settingsRepository)
     {
-        $this->image_settings_repository = $imageSettingsRepository;
+        $this->settings_repository = $settingsRepository;
+    }
+
+    public function all()
+    {
+        return $this->settings_repository->all();
     }
 }
