@@ -2,7 +2,8 @@
 
 namespace App\Contracts;
 
-interface SettingsRepository extends BaseRepository
+interface SettingsRepository
 {
-
+    public function all();
+    public function update($data);
 }

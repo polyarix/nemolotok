@@ -9,26 +9,12 @@ class EloquentSettingsRepository implements SettingsRepository
 {
     public function all()
     {
-       return Setting::all();
+       return Setting::get();
     }
 
-    public function create($data)
+    public function update($request)
     {
-
+        Setting::updateOrCreate(['id' => 1], $request->get('settings'));
     }
 
-    public function update($id, $data)
-    {
-
-    }
-
-    public function delete($id)
-    {
-
-    }
-
-    public function get($id)
-    {
-
-    }
 }

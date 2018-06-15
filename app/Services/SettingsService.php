@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\SettingsRepository;
+use App\Models\Setting;
 
 class SettingsService
 {
@@ -16,5 +17,10 @@ class SettingsService
     public function all()
     {
         return $this->settings_repository->all();
+    }
+
+    public function save($request)
+    {
+        return $this->settings_repository->update($request);
     }
 }
