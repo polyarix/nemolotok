@@ -5,6 +5,7 @@
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">Общее</a>
                 <a class="nav-item nav-link" id="nav-data-tab" data-toggle="tab" href="#nav-data" role="tab" aria-controls="nav-data" aria-selected="false">Данные</a>
                 <a class="nav-item nav-link" id="nav-relations-tab" data-toggle="tab" href="#nav-relations" aria-controls="nav-relations" aria-selected="false">Связи</a>
+                <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images" aria-controls="nav-images" aria-selected="false">Изображения</a>
             </div>
         </nav>
         <div class="tab-content pl-3 pt-2 card-body" id="nav-tabContent">
@@ -96,6 +97,55 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+                <div class="content">
+
+                </div>
+                {{--<section class="image-section">--}}
+                    {{--<div class="form-group col-lg-12">--}}
+                        {{--<div class="text-left col-lg-3">--}}
+                            {{--<img class="thumbnail" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Eomys_BW.jpg/400px-Eomys_BW.jpg">--}}
+                        {{--</div>--}}
+                        {{--<div class="col-lg-8">--}}
+                                {{--<table class="table table-striped table-bordered">--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Имя параметра: </th>--}}
+                                        {{--<td> Значение</td>--}}
+                                    {{--</tr>--}}
+                                {{--</table>--}}
+                        {{--</div>--}}
+                        {{--<div class="text-right col-lg-1">--}}
+                            {{--<button class="btn btn-outline-danger btn-lg"><i class="fa fa-trash-o"></i></button>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="file" name="images[image1]">--}}
+                    {{--</div>--}}
+                {{--</section>--}}
+                <hr>
+                <button type="button" id="new-image" class="btn btn-outline-primary btn-lg btn-block">Добавить новое изображение</button>
             </div>
         </div>
     </div>

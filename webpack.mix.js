@@ -18,6 +18,9 @@ mix.scripts([
     'resources/assets/js/admin/search.js'
 ], 'public/js/admin/actions.js');
 
+// mix.scripts([
+//     'resources/assets/js/plugins/dropzone.js'
+// ], 'public/js/admin/admin-plugins.js');
 mix.scripts([
-    'resources/assets/js/plugins/dropzone.js'
-], 'public/js/admin/admin-plugins.js');
+    'resources/assets/js/admin/product-images.js'
+], 'public/js/admin/products/product-images.js');
