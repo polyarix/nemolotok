@@ -22,6 +22,7 @@ class SettingsViewController extends Controller
 
     public function save(Request $request)
     {
-        return $this->settingsService->save($request);
+        $data = $this->settingsService->save($request);
+        return $this->response('admin.settings.index', $data);
     }
 }
