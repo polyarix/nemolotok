@@ -144,7 +144,6 @@
                         {{--<input type="file" name="images[image1]">--}}
                     {{--</div>--}}
                 {{--</section>--}}
-                <hr>
                 <button type="button" id="new-image" class="btn btn-outline-primary btn-lg btn-block">Добавить новое изображение</button>
             </div>
         </div>

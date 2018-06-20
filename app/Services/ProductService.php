@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
-use App\Models\Product;
 use App\Traits\Validator;
 
 class ProductService
@@ -41,6 +40,7 @@ class ProductService
 
     public function createProduct($data)
     {
+        dd($data->allFiles());
         return $this->productRepository->create($data);
     }
 

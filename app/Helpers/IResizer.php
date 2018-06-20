@@ -7,7 +7,7 @@ use Intervention\Image\Facades\Image;
 
 class IResizer
 {
-    public static function resize($file)
+    public static function resize()
     {
         $files = Input::allFiles();
         self::recursion($files);

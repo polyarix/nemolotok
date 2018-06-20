@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Uploader;
 use App\Traits\ProductSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -95,5 +96,10 @@ class ProductViewController extends Controller
     {
         if($this->productService->productDelete($id)) return 200;
         return 404;
+    }
+
+    public function uploadImage(Request $request)
+    {
+        return \Response::json($request->all(), 200);
     }
 }

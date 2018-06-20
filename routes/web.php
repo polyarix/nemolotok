@@ -26,7 +26,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
         Route::resource('roles', 'RolesViewController');
         Route::resource('permissions', 'PermissionsViewController');
         Route::resource('rules', 'RulesViewController');
+
         Route::resource('products', 'ProductViewController');
+        Route::post('products/image-save', 'ProductViewController@uploadImage')->name('product.image-upload');
+
         Route::resource('product-categories', 'ProductCategoryViewController');
 
         Route::get('settings', 'SettingsViewController@index')->name('settings.index');
