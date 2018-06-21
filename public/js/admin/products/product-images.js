@@ -4,42 +4,32 @@
 
         let i = jQuery(".image-section").length;
         let section = sectionGenerate('image-section col-lg-12');
-        let input = inputGenerate(false, 'file', 'image'+i, true);
+        let input = inputGenerate(false, 'file', 'image['+i+']', true);
         let div = divGenerate('form-group col-lg-12');
         let subdiv = divGenerate('form-group col-lg-3');
+        let button = buttonGenerate('btn btn-outline-success', 'button'+i, 'Загрузить изображение');
 
-        jQuery(subdiv).append(input).prepend(buttonGenerate('btn btn-outline-success', input.name + '-button', 'Загрузить изображение'));
+        jQuery(subdiv).append(input).prepend(button);
         jQuery(div).append(subdiv);
         jQuery(section).append(div);
 
         jQuery('#nav-images > .content').append(section);
-        jQuery('body').delegate('#'+input.name + '-button', 'click', function(){
+
+        // Opening file upload window
+        jQuery('body').delegate('#'+button.id, 'click', function(){
             let elem = jQuery('body').find('input[name="'+input.name+'"]');
             jQuery(elem).trigger('click');
         });
+
+        // File size validate
+        jQuery('body').delegate('input[type="file"]', 'change', function () {
+            if(jQuery(this).prop('files')[0].size > 20000000){
+                alert("Файл слишком большой!");
+                this.value = "";
+            }
+        });
     });
 })();
-
-
-// jQuery('body').delegate('.form-group > input', 'change', function(){
-//     let filedata = jQuery(this).prop('files')[0];
-//     jQuery.ajax({
-//         url: '/admin/products/image-save',
-//         data: {
-//             'file': filedata
-//         },
-//         cache: false,
-//         type: 'post',
-//         contentType: false,
-//         processData: false,
-//         success: function(response){
-//             console.log(response);
-//         },
-//         error: function(error){
-//             console.log(error);
-//         }
-//     });
-// });
 
 function divGenerate(classname=false) {
     let div = document.createElement('div');
@@ -68,6 +58,7 @@ function inputGenerate(classname=false, type=false, name=false, hidden=false){
     if(type) input.type = type;
     if(name) input.name = name;
     if(hidden) input.style.visibility = 'hidden';
+    input.accept = 'image/*';
 
     return input;
 }

@@ -12,11 +12,14 @@
             <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
                 <div class="form-group">
                     <label for="name" class=" form-control-label">Название товара</label>
-                    <input type="text" id="name" name="name" value="{{$product->description->name or ""}}" class="form-control">
+                    <input type="text" id="name" name="name" value="{{$product->description->name or ""}}" class="form-control {{ !empty($errors->name) ? 'is-invalid' : '' }}">
+
+                    <div class="text-danger">{{ !empty($errors->name) ? $errors->name[0] : ''}}</div>
                 </div>
                 <div class="form-group">
                     <label for="description" class=" form-control-label">Описание</label>
-                    <textarea id="description" class="form-control ckeditor" name="description">{!! $product->description->description or "" !!}</textarea>
+                    <textarea id="description" class="form-control ckeditor {{ !empty($errors->description) ? 'is-invalid' : '' }}" name="description">{!! $product->description->description or "" !!}</textarea>
+                    <div class="text-danger">{{ !empty($errors->description) ? $errors->description[0] : ''}}</div>
                 </div>
                 @include('admin.partials.form.meta_data', ['item' => $product])
             </div>
@@ -24,7 +27,8 @@
 
                 <div class="form-group">
                     <label for="article" class=" form-control-label">Артикул</label>
-                    <input type="text" id="sku" name="sku" value="{{$product->sku or ""}}" class="form-control">
+                    <input type="text" id="sku" name="sku" value="{{$product->sku or ""}}" class="form-control {{ !empty($errors->sku) ? 'is-invalid' : '' }}">
+                    <div class="text-danger">{{ !empty($errors->sku) ? $errors->sku[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
@@ -36,38 +40,45 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="sorting" class=" form-control-label">Сортировка</label>
+                    <label for="sorting" class=" form-control-label {{ !empty($errors->sorting) ? 'is-invalid' : '' }}">Сортировка</label>
                     <input type="text" id="sorting" name="sorting" value="{{$product->sorting or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->sorting) ? $errors->sorting[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="price" class=" form-control-label">Цена</label>
+                    <label for="price" class=" form-control-label {{ !empty($errors->price) ? 'is-invalid' : '' }}">Цена</label>
                     <input type="text" id="price" name="price" value="{{$product->price or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->price) ? $errors->price[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="amount" class=" form-control-label">Количество</label>
+                    <label for="amount" class=" form-control-label {{ !empty($errors->amount) ? 'is-invalid' : '' }}">Количество</label>
                     <input type="text" id="amount" name="amount" value="{{$product->amount or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->amount) ? $errors->amount[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="unit" class=" form-control-label">Единицы измерения</label>
+                    <label for="unit" class=" form-control-label {{ !empty($errors->unit) ? 'is-invalid' : '' }}">Единицы измерения</label>
                     <input type="text" id="unit" name="unit" value="{{$product->unit or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->unit) ? $errors->unit[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="discount" class=" form-control-label">Скидка</label>
+                    <label for="discount" class=" form-control-label {{ !empty($errors->discount) ? 'is-invalid' : '' }}">Скидка</label>
                     <input type="text" id="discount" name="discount" value="{{$product->discount or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->discount) ? $errors->discount[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="shippingprice" class=" form-control-label">Цена доставки</label>
+                    <label for="shippingprice" class=" form-control-label {{ !empty($errors->shippingprice) ? 'is-invalid' : '' }}">Цена доставки</label>
                     <input type="text" id="shippingprice" name="shippingprice" value="{{$product->shippingprice or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->shippingprice) ? $errors->shippingprice[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="preorder" class=" form-control-label">Цена доставки</label>
+                    <label for="preorder" class=" form-control-label {{ !empty($errors->preorder) ? 'is-invalid' : '' }}">Цена доставки</label>
                     <input type="text" id="preorder" name="preorder" value="{{$product->preorder or ""}}" class="form-control">
+                    <div class="text-danger">{{ !empty($errors->preorder) ? $errors->preorder[0] : ''}}</div>
                 </div>
 
                 <div class="form-group">

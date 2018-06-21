@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Uploader;
 use App\Traits\ProductSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,7 +42,7 @@ class ProductViewController extends Controller
     public function store(Request $request)
     {
         $data = $this->productService->createProduct($request);
-        return $this->response('admin.products.index', $data);
+        return $this->response('admin.products.index', \GuzzleHttp\json_encode($data));
     }
 
     /**

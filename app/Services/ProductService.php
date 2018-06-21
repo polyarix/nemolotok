@@ -11,14 +11,14 @@ class ProductService
     use Validator;
     protected $productRepository, $productCategoryRepository;
     protected $validation_rules = [
-        'name' => 'required|min:3|max:50|string|unique:categories'
+        'name' => 'required|min:3|max:50|string|unique:products',
+        'price' => 'required|numeric',
+        'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
 
     protected function rules($id = false)
     {
-        if($id){
-            $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
-        }
+        if($id) $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
         return $this->validation_rules;
     }
 
@@ -40,7 +40,8 @@ class ProductService
 
     public function createProduct($data)
     {
-        dd($data->allFiles());
+        if($errors = $this->hasErrors($data)) return $errors;
+
         return $this->productRepository->create($data);
     }
 
