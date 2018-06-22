@@ -4,14 +4,17 @@ namespace App\Services;
 
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
+use App\Contracts\SettingsRepository;
+use App\Helpers\IResizer;
+use App\Helpers\Uploader;
 use App\Traits\Validator;
 
 class ProductService
 {
     use Validator;
-    protected $productRepository, $productCategoryRepository;
-    protected $validation_rules = [
-        'name' => 'required|min:3|max:50|string|unique:products',
+    private $productRepository, $productCategoryRepository, $settingsRepository;
+    private $validation_rules = [
+        'name' => 'required|min:3|max:50|string',
         'price' => 'required|numeric',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
@@ -22,10 +25,15 @@ class ProductService
         return $this->validation_rules;
     }
 
-    public function __construct(ProductRepository $productRepository, ProductCategoryRepository $productCategoryRepository)
+    public function __construct(
+        SettingsRepository $settingsRepository,
+        ProductRepository $productRepository,
+        ProductCategoryRepository $productCategoryRepository
+    )
     {
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;
+        $this->settingsRepository = $settingsRepository;
     }
 
     public function getAllProducts()
@@ -41,7 +49,8 @@ class ProductService
     public function createProduct($data)
     {
         if($errors = $this->hasErrors($data)) return $errors;
-
+        $this->imageHandle($data->allFiles());
+        die();
         return $this->productRepository->create($data);
     }
 
@@ -58,5 +67,11 @@ class ProductService
     public function productDelete($id)
     {
         return $this->productRepository->delete($id);
+    }
+
+    private function imageHandle($files)
+    {
+        $original_path = Uploader::upload($files['image']);
+        $settings = $this->settingsRepository->all()->first();
     }
 }

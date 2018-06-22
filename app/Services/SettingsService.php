@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Contracts\SettingsRepository;
-use App\Models\Setting;
 
 class SettingsService
 {
