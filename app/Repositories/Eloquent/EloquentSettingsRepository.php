@@ -9,7 +9,7 @@ class EloquentSettingsRepository implements SettingsRepository
 {
     public function all()
     {
-       return Setting::get();
+       return Setting::all();
     }
 
     public function update($request)

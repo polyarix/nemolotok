@@ -17,12 +17,12 @@ class SettingsViewController extends Controller
     public function index()
     {
         $data = $this->settingsService->all();
-        return view('admin.settings.index', $data->first());
+        return view('admin.settings.index', ['data' => $data->first()]);
     }
 
     public function save(Request $request)
     {
         $data = $this->settingsService->save($request);
-        return $this->response('admin.settings.index', $data);
+        return $this->response('admin.settings.index', \GuzzleHttp\json_encode($data));
     }
 }

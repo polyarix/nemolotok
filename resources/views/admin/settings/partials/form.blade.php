@@ -13,26 +13,25 @@
                 <h3 class="text-center">Товары</h3>
                 <section class="product-image-settings">
                     <h6 class="text-right">Основное изображение</h6>
-
                     <div class="form-group">
                         <label for="company" class=" form-control-label">Высота</label>
-                        <input type="text"  name="settings[product_image_big_height]" placeholder="Высота" value="{{$product_image_big_height or ""}}" class="form-control">
+                        <input type="text"  name="settings[product_image_big_height]" placeholder="Высота" value="{{$data->product_image_big_height or ""}}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="company" class=" form-control-label">Ширина</label>
-                        <input type="text"  name="settings[product_image_big_width]" placeholder="Ширина" value="{{$product_image_big_width or ""}}" class="form-control">
+                        <input type="text"  name="settings[product_image_big_width]" placeholder="Ширина" value="{{$data->product_image_big_width or ""}}" class="form-control">
                     </div>
 
                     <h6 class="text-right">Изображение в списке товаров</h6>
 
                     <div class="form-group">
                         <label for="company" class=" form-control-label">Высота</label>
-                        <input type="text"  name="settings[product_image_list_height]" placeholder="Высота" value="{{$product_image_list_height or ""}}" class="form-control">
+                        <input type="text"  name="settings[product_image_list_height]" placeholder="Высота" value="{{$data->product_image_list_height or ""}}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="company" class=" form-control-label">Ширина</label>
-                        <input type="text"  name="settings[product_image_list_width]" placeholder="Ширина" value="{{$product_image_list_width or ""}}" class="form-control">
+                        <input type="text"  name="settings[product_image_list_width]" placeholder="Ширина" value="{{$data->product_image_list_width or ""}}" class="form-control">
                     </div>
                 </section>
             </div>
