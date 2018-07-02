@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\CategoryRepository;
+use App\Contracts\FilesRepository;
 use App\Contracts\ImageSettingsRepository;
 use App\Contracts\NewsRepository;
 use App\Contracts\PermissionRepository;
@@ -13,6 +14,7 @@ use App\Contracts\RuleRepository;
 use App\Contracts\SettingsRepository;
 use App\Contracts\UserRepository;
 use App\Repositories\Eloquent\EloquentCategoryRepository;
+use App\Repositories\Eloquent\EloquentFilesRepository;
 use App\Repositories\Eloquent\EloquentImageSettingsRepository;
 use App\Repositories\Eloquent\EloquentNewsRepository;
 use App\Repositories\Eloquent\EloquentPermissionRepository;
@@ -25,7 +27,7 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    protected $repositories = [
+    private $repositories = [
         UserRepository::class => \App\Repositories\Eloquent\EloquentUserRepository::class,
         RoleRepository::class => EloquentRoleRepository::class,
         RuleRepository::class => EloquentRuleRepository::class,
@@ -34,7 +36,8 @@ class RepositoryServiceProvider extends ServiceProvider
         NewsRepository::class => EloquentNewsRepository::class,
         ProductRepository::class => EloquentProductRepository::class,
         ProductCategoryRepository::class => EloquentProductCategoryRepository::class,
-        SettingsRepository::class => EloquentSettingsRepository::class
+        SettingsRepository::class => EloquentSettingsRepository::class,
+        FilesRepository::class => EloquentFilesRepository::class
     ];
     /**
      * Bootstrap services.

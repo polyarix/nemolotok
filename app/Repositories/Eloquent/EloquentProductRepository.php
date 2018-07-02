@@ -33,8 +33,8 @@ class EloquentProductRepository implements ProductRepository
             'meta_description',
             'meta_keyword'
         ]));
-        $product->categories()->attach($data->get('categories'));
 
+        $product->categories()->attach($data->get('categories'));
         return $product;
     }
 

@@ -34,11 +34,11 @@ class EloquentUserRepository implements UserRepository
     {
         $user = User::with('images')->findOrFail($id);
         $user->update($data->only(['name', 'email', 'role_id']));
-//        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
-//            $this->imagesRemoving($user);
-//            $user->images()->createMany($files);
-//        }
-        IResizer::resize($data->file('file'));
+        if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
+            $this->imagesRemoving($user);
+            $user->images()->createMany($files);
+        }
+//        IResizer::resize($data->file('file'));
 
         return $user;
     }

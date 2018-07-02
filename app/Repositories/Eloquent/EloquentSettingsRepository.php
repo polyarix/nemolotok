@@ -17,4 +17,13 @@ class EloquentSettingsRepository implements SettingsRepository
         Setting::updateOrCreate(['id' => 1], $request->get('settings'));
     }
 
+    public function productImageSizes() : array
+    {
+        $settings = Setting::firstOrFail();
+        return [
+            ['height' => $settings->product_image_big_height, 'width' => $settings->product_image_big_width],
+            ['height' => $settings->product_image_list_height, 'width' => $settings->product_image_list_width]
+        ];
+    }
+
 }

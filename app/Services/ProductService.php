@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\FilesRepository;
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
 use App\Contracts\SettingsRepository;
@@ -12,7 +13,7 @@ use App\Traits\Validator;
 class ProductService
 {
     use Validator;
-    private $productRepository, $productCategoryRepository, $settingsRepository;
+    private $productRepository, $productCategoryRepository, $settingsRepository, $filesRepository;
     private $validation_rules = [
         'name' => 'required|min:3|max:50|string',
         'price' => 'required|numeric',
@@ -28,12 +29,14 @@ class ProductService
     public function __construct(
         SettingsRepository $settingsRepository,
         ProductRepository $productRepository,
-        ProductCategoryRepository $productCategoryRepository
+        ProductCategoryRepository $productCategoryRepository,
+        FilesRepository $filesRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;
         $this->settingsRepository = $settingsRepository;
+        $this->filesRepository = $filesRepository;
     }
 
     public function getAllProducts()
@@ -46,11 +49,19 @@ class ProductService
         return $this->productCategoryRepository->all();
     }
 
+    /**
+     * @param $data
+     * @return array|bool
+     */
     public function createProduct($data)
     {
         if($errors = $this->hasErrors($data)) return $errors;
-        $this->imageHandle($data->allFiles());
-        die();
+        //Need to upload this to a files repository
+        if($data->has('image')) {
+            $files = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
+            dd($files);
+        }
+
         return $this->productRepository->create($data);
     }
 
@@ -67,11 +78,5 @@ class ProductService
     public function productDelete($id)
     {
         return $this->productRepository->delete($id);
-    }
-
-    private function imageHandle($files)
-    {
-        $original_path = Uploader::upload($files['image']);
-        $settings = $this->settingsRepository->all()->first();
     }
 }

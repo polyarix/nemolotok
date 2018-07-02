@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Traits\ProductSettings;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Controller;
 class ProductViewController extends Controller
 {
     use ProductSettings;
+
     /**
      * Display a listing of the resource.
      *
@@ -36,19 +38,21 @@ class ProductViewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
         $data = $this->productService->createProduct($request);
+
         return $this->response('admin.products.index', \GuzzleHttp\json_encode($data));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,7 +65,7 @@ class ProductViewController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,8 +79,8 @@ class ProductViewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -88,12 +92,12 @@ class ProductViewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return int
      */
     public function destroy($id)
     {
-        if($this->productService->productDelete($id)) return 200;
+        if ($this->productService->productDelete($id)) return 200;
         return 404;
     }
 

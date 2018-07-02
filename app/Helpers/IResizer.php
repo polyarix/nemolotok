@@ -7,6 +7,7 @@ use Intervention\Image\Facades\Image;
 
 class IResizer
 {
+    private static $size_settings;
     public static function resize()
     {
         $files = Input::allFiles();
@@ -36,5 +37,14 @@ class IResizer
         $image->resize(200, 200)->save($directory.'/200x201_image.jpg');
         dd($image->dirname.DIRECTORY_SEPARATOR.$image->basename);
 
+    }
+
+    /**
+     * @param array $size_settings [ 'height' => 'value', 'width' => 'value']
+     *
+     */
+    public static function setSizeSettings(array $size_settings)
+    {
+        self::$size_settings = $size_settings;
     }
 }

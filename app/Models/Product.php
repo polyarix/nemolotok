@@ -22,4 +22,9 @@ class Product extends Model
     {
         return $this->morphMany(Video::class, 'morph');
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'morph');
+    }
 }

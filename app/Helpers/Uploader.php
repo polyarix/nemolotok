@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 class Uploader
 {
-    public static function upload($request)
+    public static function upload($request) : array
     {
         $response = [];
         foreach ($request as $file){
