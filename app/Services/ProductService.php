@@ -6,8 +6,6 @@ use App\Contracts\FilesRepository;
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
 use App\Contracts\SettingsRepository;
-use App\Helpers\IResizer;
-use App\Helpers\Uploader;
 use App\Traits\Validator;
 
 class ProductService
@@ -56,10 +54,9 @@ class ProductService
     public function createProduct($data)
     {
         if($errors = $this->hasErrors($data)) return $errors;
-        //Need to upload this to a files repository
+
         if($data->has('image')) {
-            $files = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
-            dd($files);
+            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
         }
 
         return $this->productRepository->create($data);

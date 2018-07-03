@@ -11,14 +11,14 @@ class Image extends Model
 
     public function delete()
     {
-        if(file_exists(\Storage::disk('public')->path($this->url))){
-            @unlink(\Storage::disk('public')->path($this->url));
+        if(file_exists(\Storage::disk('public')->path('images/'.$this->url))){
+            @unlink(\Storage::disk('public')->path('images/'.$this->url));
         }
         parent::delete();
     }
 
     public function file()
     {
-        $this->belongsTo(File::class);
+        return $this->belongsTo(File::class);
     }
 }

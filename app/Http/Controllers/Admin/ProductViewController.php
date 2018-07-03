@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\File;
 use App\Traits\ProductSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,10 @@ class ProductViewController extends Controller
      */
     public function index()
     {
+//        $file = File::findOrFail(23);
+//        $file->delete();
+//        unlink(\Storage::disk('public')->path($file->url));
+//        dd(file_exists(\Storage::disk('public')->path($file->url)));
         return view('admin.products.index', [
             'products' => $this->productService->getAllProducts()
         ]);
@@ -29,6 +34,7 @@ class ProductViewController extends Controller
      */
     public function create()
     {
+
         return view('admin.products.create', [
             'categories' => $this->productService->getAllCategories(),
             'product' => []

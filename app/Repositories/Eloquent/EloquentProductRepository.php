@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Contracts\ProductRepository;
+use App\Models\File;
 use App\Models\Product;
 
 class EloquentProductRepository implements ProductRepository
@@ -35,6 +36,15 @@ class EloquentProductRepository implements ProductRepository
         ]));
 
         $product->categories()->attach($data->get('categories'));
+        if($data->images){
+            foreach($data->images as $original => $image){
+                $file = $product->files()->create(['url' => $original])
+                    ->images()
+                    ->create(['url' => $image[0]['url'], 'tag' => $image[0]['tag']]);
+//                $file->images()->save(['url' => $image[0]['url'], 'tag' => $image[0]['tag']]);
+
+            }
+        }
         return $product;
     }
 
