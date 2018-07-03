@@ -21,8 +21,8 @@ class EloquentSettingsRepository implements SettingsRepository
     {
         $settings = Setting::firstOrFail();
         return [
-            ['height' => $settings->product_image_big_height, 'width' => $settings->product_image_big_width],
-            ['height' => $settings->product_image_list_height, 'width' => $settings->product_image_list_width]
+            ['height' => $settings->product_image_big_height, 'width' => $settings->product_image_big_width, 'tag' => 'big'],
+            ['height' => $settings->product_image_list_height, 'width' => $settings->product_image_list_width, 'tag' => 'list']
         ];
     }
 

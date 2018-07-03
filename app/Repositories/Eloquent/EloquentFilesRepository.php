@@ -47,7 +47,7 @@ class EloquentFilesRepository implements FilesRepository
      * @param array $files
      * @return array
      */
-    public function upload(array $files = []) : array
+    public function upload(array $files = []): array
     {
         // TODO: Implement upload() method.
         return $this->uploader->upload($files);
@@ -60,8 +60,7 @@ class EloquentFilesRepository implements FilesRepository
      */
     public function resize(String $original_file_url, array $image_sizes_settings)
     {
-        foreach($image_sizes_settings as $value){
-        }
+        return $this->resizer->resize($original_file_url, $image_sizes_settings);
     }
 
     public function remove()
@@ -72,8 +71,12 @@ class EloquentFilesRepository implements FilesRepository
     public function createImage($data, array $settings)
     {
         $originals = $this->upload($data);
-        foreach($originals as $original){
+        $result = [];
+        foreach ($originals as $original) {
             $resized = $this->resize($original['url'], $settings);
+            $result[$original['url']] = $resized;
         }
+
+        return $result;
     }
 }

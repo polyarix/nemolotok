@@ -2,16 +2,16 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 
 class IResizer
 {
     private static $size_settings;
-    public static function resize()
+
+    public static function resize(String $original_file_url, array $image_sizes_settings)
     {
-        $files = Input::allFiles();
-        self::recursion($files);
+        self::setSizeSettings($image_sizes_settings);
+        return self::imageHandle($original_file_url);
     }
 
     private static function recursion($data)
@@ -25,18 +25,30 @@ class IResizer
         }
     }
 
-    private static function imageHandle($file)
+    /**
+     * @param $image
+     * @return array
+     */
+    private static function imageHandle($original_file_url) : array
     {
-        $directory = storage_path('app/public/images');
+        $image = Image::make(storage_path('app/public/'.$original_file_url));
+        $directory = storage_path('app/public/images/');
 
+        $result = [];
         if(!is_dir($directory)){
             \File::makeDirectory($directory,0775, true);
         }
 
-        $image = Image::make($file->getRealPath());
-        $image->resize(200, 200)->save($directory.'/200x201_image.jpg');
-        dd($image->dirname.DIRECTORY_SEPARATOR.$image->basename);
+        foreach(self::$size_settings as $setting){
+            $image_copy = clone $image;
+            $filename = $setting['height'].'x'.$setting['width'].'_'.$image->basename;
+            $image_copy->resize($setting['height'], $setting['width'])->save($directory.$filename);
+            $result[] = ['url' => $filename, 'tag' => $setting['tag']];
+            unset($filename);
+            unset($image_copy);
+        }
 
+        return $result;
     }
 
     /**
