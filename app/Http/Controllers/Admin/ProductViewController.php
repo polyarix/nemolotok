@@ -18,10 +18,6 @@ class ProductViewController extends Controller
      */
     public function index()
     {
-//        $file = File::findOrFail(23);
-//        $file->delete();
-//        unlink(\Storage::disk('public')->path($file->url));
-//        dd(file_exists(\Storage::disk('public')->path($file->url)));
         return view('admin.products.index', [
             'products' => $this->productService->getAllProducts()
         ]);
@@ -34,7 +30,6 @@ class ProductViewController extends Controller
      */
     public function create()
     {
-
         return view('admin.products.create', [
             'categories' => $this->productService->getAllCategories(),
             'product' => []
@@ -76,6 +71,14 @@ class ProductViewController extends Controller
      */
     public function edit($id)
     {
+        $product = $this->productService->getProductById($id);
+        $res = [];
+        $product->files->each(function($file, $key) use (&$res){
+            $file->images->each(function($image, $key) use (&$res){
+                $res[] = $image->url;
+            });
+        });
+        dd($res);
         return view('admin.products.edit', [
             'product' => $this->productService->getProductById($id),
             'categories' => $this->productService->getAllCategories()

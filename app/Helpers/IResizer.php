@@ -32,16 +32,16 @@ class IResizer
     private static function imageHandle($original_file_url) : array
     {
         $image = Image::make(storage_path('app/public/'.$original_file_url));
-        $directory = storage_path('app/public/images/');
+        $directory = storage_path('app/public/');
 
         $result = [];
-        if(!is_dir($directory)){
-            \File::makeDirectory($directory,0775, true);
+        if(!is_dir($directory.'images/')){
+            \File::makeDirectory($directory.'images/',0775, true);
         }
 
         foreach(self::$size_settings as $setting){
             $image_copy = clone $image;
-            $filename = $setting['height'].'x'.$setting['width'].'_'.$image->basename;
+            $filename = 'images/'.$setting['height'].'x'.$setting['width'].'_'.$image->basename;
             $image_copy->resize($setting['height'], $setting['width'])->save($directory.$filename);
             $result[] = ['url' => $filename, 'tag' => $setting['tag']];
             unset($filename);
