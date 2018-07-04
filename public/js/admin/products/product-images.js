@@ -1,19 +1,16 @@
 (function () {
     jQuery('#new-image').click(function(e){
         e.preventDefault();
-
         let i = jQuery(".image-section").length;
         let section = sectionGenerate('image-section col-lg-12');
         let input = inputGenerate(false, 'file', 'image['+i+']', true);
-        let div = divGenerate('form-group col-lg-12');
-        let subdiv = divGenerate('form-group col-lg-3');
         let button = buttonGenerate('btn btn-outline-success', 'button'+i, 'Загрузить изображение');
-
-        jQuery(subdiv).append(input).prepend(button);
-        jQuery(div).append(subdiv);
-        jQuery(section).append(div);
-
-        jQuery('#nav-images > .content').append(section);
+        let item = document.createElement('tr');
+        let td = document.createElement('td');
+        td.className = 'image-section';
+        jQuery(td).append(button).append(input);
+        jQuery(item).append(td);
+        jQuery('#new-files').append(item);
 
         // Opening file upload window
         jQuery('body').delegate('#'+button.id, 'click', function(){
@@ -27,8 +24,10 @@
                 alert("Файл слишком большой!");
                 this.value = "";
             }
+
         });
     });
+
 })();
 
 function divGenerate(classname=false) {

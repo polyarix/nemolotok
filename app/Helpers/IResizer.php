@@ -43,7 +43,7 @@ class IResizer
             $image_copy = clone $image;
             $filename = 'images/'.$setting['height'].'x'.$setting['width'].'_'.$image->basename;
             $image_copy->resize($setting['height'], $setting['width'])->save($directory.$filename);
-            $result[] = ['url' => $filename, 'tag' => $setting['tag']];
+            $result[] = ['url' => $filename, 'tag' => $setting['tag'], 'size_description' => $setting['height'].'x'.$setting['width']];
             unset($filename);
             unset($image_copy);
         }

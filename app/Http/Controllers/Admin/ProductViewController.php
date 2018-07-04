@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\File;
 use App\Traits\ProductSettings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,14 +70,6 @@ class ProductViewController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->productService->getProductById($id);
-        $res = [];
-        $product->files->each(function($file, $key) use (&$res){
-            $file->images->each(function($image, $key) use (&$res){
-                $res[] = $image->url;
-            });
-        });
-        dd($res);
         return view('admin.products.edit', [
             'product' => $this->productService->getProductById($id),
             'categories' => $this->productService->getAllCategories()

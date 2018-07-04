@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->string('url');
             $table->string('tag');
+            $table->string('size_description');
             $table->unsignedInteger('file_id');
             $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
         });
