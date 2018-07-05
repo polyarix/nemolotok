@@ -132,15 +132,19 @@
 
             <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
                 <div class="content col-lg-12">
-                    @if($product)
-                        @each('admin.products.partials.image', $product->files, 'file')
-                    @endif
+                    <section id="images-info-block">
+                        @if($product)
+                            @each('admin.products.partials.image', $product->files, 'file')
+                        @endif
+                    </section>
                     <table id="new-files" class="table table-striped table-bordered">
                     </table>
                 </div>
-                <button type="button" id="new-image" class="btn btn-outline-primary btn-lg btn-block">Добавить новое
-                    изображение
-                </button>
+                <div class="col-lg-12 text-center">
+                    <button type="button" id="new-image" class="form-group btn btn-outline-primary btn-lg">Добавить новое
+                        изображение
+                    </button>
+                </div>
             </div>
         </div>
     </div>
