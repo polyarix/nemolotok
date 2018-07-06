@@ -105,4 +105,10 @@ class ProductViewController extends Controller
     {
         return \Response::json($request->all(), 200);
     }
+
+    public function deleteImage(Request $request, $id)
+    {
+        $data = $this->productService->removeFile($id, $request->get('file_id'));
+        return \Response::json($data,200);
+    }
 }

@@ -28,12 +28,11 @@
                 jQuery(button).parent().parent().hide();
                 readURL(this, 'thumbnail'+i, input.name);
             }
-
         });
 
-        jQuery('body').delegate('.btn-outline-danger', 'click', function(e){
-            e.preventDefault();
+        jQuery('body').delegate('.preview-delete', 'click', function(e){
 
+            e.preventDefault();
             let input_name = jQuery(this).attr('data-input-name');
             let section_class = jQuery(this).parents('section').attr('class');
 
@@ -101,7 +100,7 @@
         html += '</table>';
         html += '</div>';
         html += '<div class="text-right col-lg-1">';
-        html += '<button class="btn btn-outline-danger btn-lg" data-input-name="'+input_name+'"><i class="fa fa-trash-o"></i></button>';
+        html += '<button class="btn btn-outline-danger btn-lg preview-delete" data-input-name="'+input_name+'"><i class="fa fa-trash-o"></i></button>';
         html += '</div>';
         html += '</div>';
         html += '</section>';
@@ -122,3 +121,29 @@
     }
 
 })();
+
+jQuery('.image-item-delete').click(function(e){
+    e.preventDefault();
+
+    let file_id = jQuery(this).attr('data-file-id');
+    let product_id = jQuery('.card').attr('data-product-id');
+
+    jQuery.ajax({
+        url: '/admin/products/image-delete/'+product_id,
+        headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'post',
+        dataType: 'json',
+        data: {
+          file_id: file_id,
+
+        },
+        success: function(response){
+            console.log(response);
+        },
+        error: function(response){
+            console.log(response.error);
+        }
+    });
+});

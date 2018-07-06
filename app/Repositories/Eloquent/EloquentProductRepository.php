@@ -83,4 +83,10 @@ class EloquentProductRepository implements ProductRepository
     {
         return Product::with(['description', 'categories', 'files.images'])->findOrFail($id);
     }
+
+    public function removeFile($product_id, $file_id)
+    {
+        $product = $this->get($product_id);
+        $product->files()->where('id', $file_id)->delete();
+    }
 }

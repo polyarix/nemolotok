@@ -1,4 +1,8 @@
-<div class="card">
+<div class="card"
+@if(!empty($product))
+    data-product-id="{{$product->id or ""}}"
+@endif
+>
     <div class="default-tab">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">

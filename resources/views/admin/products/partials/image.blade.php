@@ -16,7 +16,7 @@
             </table>
         </div>
         <div class="text-right col-lg-1">
-            <button class="btn btn-outline-danger btn-lg"><i class="fa fa-trash-o"></i></button>
+            <button class="btn btn-outline-danger btn-lg image-item-delete" data-file-id="{{$file->id}}"><i class="fa fa-trash-o"></i></button>
         </div>
     </div>
 </section>

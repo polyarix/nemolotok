@@ -76,4 +76,9 @@ class ProductService
     {
         return $this->productRepository->delete($id);
     }
+
+    public function removeFile($product_id, $file_id)
+    {
+        return $this->productRepository->removeFile($product_id, $file_id);
+    }
 }
