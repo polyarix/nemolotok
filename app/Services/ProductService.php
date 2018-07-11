@@ -69,6 +69,10 @@ class ProductService
 
     public function productUpdate($id, $data)
     {
+        if($data->has('image')){
+            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
+        }
+
         return $this->productRepository->update($id, $data);
     }
 

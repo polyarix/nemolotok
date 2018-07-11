@@ -25,7 +25,7 @@ class EloquentFilesRepository implements FilesRepository
     public function create($data, $settings = false)
     {
         $files = $this->uploader->upload($data);
-        dd($files);
+        return $files;
     }
 
     public function update($id, $data)
@@ -54,10 +54,6 @@ class EloquentFilesRepository implements FilesRepository
 
     }
 
-    /**
-     * @param String $original_file_url
-     * @param array $image_sizes_settings ['height' => value, 'width' => value]
-     */
     public function resize(String $original_file_url, array $image_sizes_settings)
     {
         return $this->resizer->resize($original_file_url, $image_sizes_settings);

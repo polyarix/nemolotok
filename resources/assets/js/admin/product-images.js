@@ -87,8 +87,8 @@
     }
 
     function getPreviewSection(image_id, input_name) {
-        let html;
 
+        let html;
         html = '<section class="image-preview-section">';
         html += '<div class="form-group col-lg-12">';
         html += '<div class="text-left col-lg-3">';
@@ -104,7 +104,6 @@
         html += '</div>';
         html += '</div>';
         html += '</section>';
-
 
         return html;
     }
@@ -124,26 +123,31 @@
 
 jQuery('.image-item-delete').click(function(e){
     e.preventDefault();
+    if(confirm('Удалить?')){
+        let file_id = jQuery(this).attr('data-file-id');
+        let product_id = jQuery('.card').attr('data-product-id');
+        let section = jQuery(this);
+        let section_class = jQuery(this).parents('section').attr('class');
 
-    let file_id = jQuery(this).attr('data-file-id');
-    let product_id = jQuery('.card').attr('data-product-id');
-
-    jQuery.ajax({
-        url: '/admin/products/image-delete/'+product_id,
-        headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'post',
-        dataType: 'json',
-        data: {
-          file_id: file_id,
-
-        },
-        success: function(response){
-            console.log(response);
-        },
-        error: function(response){
-            console.log(response.error);
-        }
-    });
+        jQuery.ajax({
+            url: '/admin/products/image-delete/'+product_id,
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            dataType: 'json',
+            data: {
+                file_id: file_id
+            },
+            success: function(response){
+                if(response === true){
+                    console.log(section);
+                    jQuery(section).parents('.'+section_class).remove();
+                }
+            },
+            error: function(response){
+                console.log(response.error);
+            }
+        });
+    }
 });

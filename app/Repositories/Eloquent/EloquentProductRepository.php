@@ -35,6 +35,7 @@ class EloquentProductRepository implements ProductRepository
         ]));
 
         $product->categories()->attach($data->get('categories'));
+
         if($data->images){
             foreach($data->images as $original => $image){
                 $product->files()->create(['url' => $original])
@@ -69,6 +70,14 @@ class EloquentProductRepository implements ProductRepository
         ]));
         $product->categories()->sync($data->get('categories'));
 
+        if($data->images){
+            foreach($data->images as $original => $image){
+                $product->files()->create(['url' => $original])
+                    ->images()
+                    ->createMany($image);
+            }
+        }
+
         return $product;
     }
 
@@ -87,6 +96,6 @@ class EloquentProductRepository implements ProductRepository
     public function removeFile($product_id, $file_id)
     {
         $product = $this->get($product_id);
-        $product->files()->where('id', $file_id)->delete();
+        return $product->files->find($file_id)->delete();
     }
 }
