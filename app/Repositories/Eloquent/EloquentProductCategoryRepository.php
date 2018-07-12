@@ -16,6 +16,8 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
     {
         $category = ProductCategory::create();
         $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description']));
+        $category->parent()->associate($data->only('categories')['categories'][0]);
+        $category->save();
         return $category;
     }
 

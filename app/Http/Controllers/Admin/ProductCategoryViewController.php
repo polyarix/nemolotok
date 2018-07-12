@@ -29,7 +29,8 @@ class ProductCategoryViewController extends Controller
     public function create()
     {
         return view('admin.product_category.create', [
-            'category' => []
+            'category' => [],
+            'categories' => $this->productCategoryService->getAllCategories()
         ]);
     }
 
@@ -66,8 +67,11 @@ class ProductCategoryViewController extends Controller
      */
     public function edit($id)
     {
+        $category = $this->productCategoryService->getCategoryById($id);
+        dd($category->children()->get());
         return view('admin.product_category.edit', [
-            'category' => $this->productCategoryService->getCategoryById($id)
+            'category' => $this->productCategoryService->getCategoryById($id),
+            'categories' => $this->productCategoryService->getAllCategories()
         ]);
     }
 

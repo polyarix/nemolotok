@@ -35,7 +35,6 @@
                 @include('admin.partials.form.meta_data', ['item' => $product])
             </div>
             <div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-data-tab">
-
                 <div class="form-group">
                     <label for="article" class=" form-control-label">Артикул</label>
                     <input type="text" id="sku" name="sku" value="{{$product->sku or ""}}"
@@ -116,22 +115,7 @@
             </div>
 
             <div class="tab-pane fade" id="nav-relations" role="tabpanel" aria-labelledby="nav-relations-tab">
-                <div class="form-group">
-                    <label for="multiple-select" class=" form-control-label">Categories</label>
-                    <select name="categories[]" id="multiple-select" multiple="multiple" class="form-control select2">
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}"
-                                    @if(!empty($product->categories))
-                                    @foreach($product->categories as $product_category)
-                                    @if($product_category->id == $category->id)
-                                    selected
-                                    @endif
-                                    @endforeach
-                                    @endif
-                            >{{$category->description->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @include('admin.partials.form.categories', ['item' => $product, 'categories' => $categories, 'multiple' => true])
             </div>
 
             <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">

@@ -16,4 +16,19 @@ class ProductCategory extends Model
     {
         return $this->belongsToMany(Product::class, 'product_to_categories', 'category_id');
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'morph');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
 }

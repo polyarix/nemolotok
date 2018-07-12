@@ -123,7 +123,6 @@
 <script src="{{asset('assets/js/lib/vector-map/jquery.vmap.min.js')}}"></script>
 <script src="{{asset('assets/js/lib/vector-map/jquery.vmap.sampledata.js')}}"></script>
 <script src="{{asset('assets/js/lib/vector-map/country/jquery.vmap.world.js')}}"></script>
-<script src="{{asset('js/admin/actions.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
     jQuery(document).ready(function(){
