@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\ModelDeleteFile;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductCategory extends Model
 {
+    use ModelDeleteFile;
     protected $guarded = ['id'];
     public function description()
     {
