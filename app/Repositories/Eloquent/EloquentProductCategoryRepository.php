@@ -15,8 +15,20 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
     public function create($data)
     {
         $category = ProductCategory::create();
-        $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description']));
-        $category->parent()->associate($data->only('categories')['categories'][0]);
+        $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
+
+        if($data->has('categories')) {
+            $category->parent()->associate($data->only('categories')['categories'][0]);
+        }
+
+        if($data->images){
+            foreach($data->images as $original => $image){
+                $category->files()->create(['url' => $original])
+                    ->images()
+                    ->createMany($image);
+            }
+        }
+
         $category->save();
         return $category;
     }
@@ -24,7 +36,20 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
     public function update($id, $data)
     {
         $category = ProductCategory::with('description')->findOrFail($id);
-        $category->description()->update($data->only(['name', 'description', 'meta_title', 'meta_description']));
+        $category->description()->update($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
+        if($data->has('categories')){
+            $category->parent()->associate($data->only('categories')['categories'][0]);
+        }
+
+        if($data->images){
+            foreach($data->images as $original => $image){
+                $category->files()->create(['url' => $original])
+                    ->images()
+                    ->createMany($image);
+            }
+        }
+
+        $category->save();
         return $category;
     }
 
@@ -37,6 +62,12 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
 
     public function get($id)
     {
-        return ProductCategory::with('description')->findOrFail($id);
+        return ProductCategory::with('description', 'parent', 'files')->findOrFail($id);
+    }
+
+    public function removeFile($category_id, $file_id)
+    {
+        $category = $this->get($category_id);
+        return $category->files->find($file_id)->delete();
     }
 }

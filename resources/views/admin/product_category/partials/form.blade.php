@@ -1,4 +1,6 @@
-<div class="card">
+<div class="card" @if(!empty($category))
+            data-image-remove-url="{{route('admin.product-category.image-delete', ['id'=> $category->id])}}"
+        @endif>
    <div class="default-tab">
        <nav>
            <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -8,8 +10,8 @@
                   {{--aria-controls="nav-data" aria-selected="false">Данные</a>--}}
                <a class="nav-item nav-link" id="nav-relations-tab" data-toggle="tab" href="#nav-relations"
                   aria-controls="nav-relations" aria-selected="false">Связи</a>
-               {{--<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images"--}}
-                  {{--aria-controls="nav-images" aria-selected="false">Изображения</a>--}}
+               <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images"
+                  aria-controls="nav-images" aria-selected="false">Изображения</a>
            </div>
        </nav>
        <div class="tab-content pl-3 pt-2 card-body" id="nav-tabContent">
@@ -18,15 +20,32 @@
                    <label for="company" class=" form-control-label">Имя категории</label>
                    <input type="text"  name="name" placeholder="Title" value="{{$category->description->name or ''}}" class="form-control">
                </div>
-               {{--<div class="form-group">--}}
-                   {{--<label for="description" class=" form-control-label">Описание</label>--}}
-                   {{--<textarea id="description" class="form-control" name="description">{!! $category->description->description or "" !!}</textarea>--}}
-               {{--</div>--}}
                @include('admin.partials.form.meta_data', ['item' => $category])
            </div>
 
            <div class="tab-pane fade" id="nav-relations" role="tabpanel" aria-labelledby="nav-general-tab">
-                @include('admin.partials.form.categories', ['item' => $category, 'categories' => $categories, 'multiple' => false])
+               <div class="form-group">
+                   <label for="multiple-select" class=" form-control-label">Родительская категория</label>
+                       <div class="card-body">
+                           <select name="categories[]" data-placeholder="Choose a Country..." class="form-control" tabindex="1">
+                               <option value=""></option>
+                               @foreach($categories as $cat)
+                                   <option value="{{$cat->id}}"
+                                           @if(!empty($category->parent))
+                                           @foreach($category->parent as $item_category)
+                                           @if($category->parent['id'] == $cat->id)
+                                           selected
+                                           @endif
+                                           @endforeach
+                                           @endif
+                                   >{{$cat->description->name}}</option>
+                               @endforeach
+                           </select>
+                       </div>
+               </div>
+           </div>
+           <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+                @include('admin.partials.form.image.image-list', ['item' => $category, 'data_list_type' => 'single'])
            </div>
        </div>
    </div>

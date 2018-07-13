@@ -2,16 +2,27 @@
     jQuery('#new-image').click(function (e) {
         e.preventDefault();
         let i = jQuery(".image-section").length;
+        let list_type = jQuery(this).attr('data-list-type');
         let section = sectionGenerate('image-section col-lg-12');
         let input = inputGenerate(false, 'file', 'image[' + i + ']', true);
         let button = buttonGenerate('btn btn-outline-success', 'button' + i, 'Загрузить изображение');
         let item = document.createElement('tr');
         let td = document.createElement('td');
+
         td.className = 'image-section';
 
         jQuery(td).append(button).append(input);
         jQuery(item).append(td);
-        jQuery('#new-files').append(item);
+
+        if((list_type === 'single' && i < 1)){
+            jQuery('#new-files').append(item);
+            jQuery(this).hide();
+        } else if(list_type === 'single' && i === 1){
+            jQuery(this).hide();
+        } else if(list_type === 'multiplicity') {
+            jQuery('#new-files').append(item);
+        }
+
 
         // Opening file upload window
         jQuery('body').delegate('#' + button.id, 'click', function () {
@@ -124,13 +135,13 @@
 jQuery('.image-item-delete').click(function(e){
     e.preventDefault();
     if(confirm('Удалить?')){
+
         let file_id = jQuery(this).attr('data-file-id');
-        let product_id = jQuery('.card').attr('data-product-id');
         let section = jQuery(this);
         let section_class = jQuery(this).parents('section').attr('class');
 
         jQuery.ajax({
-            url: '/admin/products/image-delete/'+product_id,
+            url: jQuery('.card').attr('data-image-remove-url'),
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
             },

@@ -13,6 +13,14 @@
                     @endif
                     @endforeach
                     @endif
+
+                    @if(!empty($item->parent))
+                    {{--@foreach($item->parent as $item_category)--}}
+                    @if($item->parent['id'] == $category->id)
+                    selected
+                    @endif
+                    {{--@endforeach--}}
+                    @endif
             >{{$category->description->name}}</option>
         @endforeach
     </select>

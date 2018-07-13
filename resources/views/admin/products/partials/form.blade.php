@@ -1,6 +1,6 @@
 <div class="card"
 @if(!empty($product))
-    data-product-id="{{$product->id or ""}}"
+    data-image-remove-url="{{route('admin.product.image-delete', ['id' => $product->id])}}"
 @endif
 >
     <div class="default-tab">
@@ -119,20 +119,7 @@
             </div>
 
             <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
-                <div class="content col-lg-12">
-                    <section id="images-info-block">
-                        @if($product)
-                            @each('admin.products.partials.image', $product->files, 'file')
-                        @endif
-                    </section>
-                    <table id="new-files" class="table table-striped table-bordered">
-                    </table>
-                </div>
-                <div class="col-lg-12 text-center">
-                    <button type="button" id="new-image" class="form-group btn btn-outline-primary btn-lg">Добавить новое
-                        изображение
-                    </button>
-                </div>
+                    @include('admin.partials.form.image.image-list', ['item' => $product, 'data_list_type' => 'multiplicity'])
             </div>
         </div>
     </div>

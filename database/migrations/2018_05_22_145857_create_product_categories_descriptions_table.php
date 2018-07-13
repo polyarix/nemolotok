@@ -18,9 +18,10 @@ class CreateProductCategoriesDescriptionsTable extends Migration
             $table->unsignedInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->string('name');
-            $table->text('description')->nullable();
+//            $table->text('description')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
+            $table->text('meta_keyword')->nullable();
         });
     }
 

@@ -67,8 +67,6 @@ class ProductCategoryViewController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->productCategoryService->getCategoryById($id);
-        dd($category->children()->get());
         return view('admin.product_category.edit', [
             'category' => $this->productCategoryService->getCategoryById($id),
             'categories' => $this->productCategoryService->getAllCategories()
@@ -100,5 +98,11 @@ class ProductCategoryViewController extends Controller
             return 200;
         }
         return 404;
+    }
+
+    public function deleteImage(Request $request, $id)
+    {
+        $data = $this->productCategoryService->removeFile($id, $request->get('file_id'));
+        return \Response::json($data,200);
     }
 }

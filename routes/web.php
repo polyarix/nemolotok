@@ -34,6 +34,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
 
         Route::resource('product-categories', 'ProductCategoryViewController');
 
+        Route::post('product-categories/image-delete/{id}', 'ProductCategoryViewController@deleteImage')->name('product-category.image-delete');
+
         Route::get('settings', 'SettingsViewController@index')->name('settings.index');
         Route::post('settings/save', 'SettingsViewController@save')->name('settings.save');
 
