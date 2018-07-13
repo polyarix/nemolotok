@@ -26,4 +26,12 @@ class EloquentSettingsRepository implements SettingsRepository
         ];
     }
 
+    public function productCategoryImageSizes(): array
+    {
+        $settings = Setting::firstOrFail();
+        return [
+            ['height' => $settings->product_category_image_list_height, 'width' => $settings->product_category_image_list_width, 'tag' => 'list']
+        ];
+    }
+
 }

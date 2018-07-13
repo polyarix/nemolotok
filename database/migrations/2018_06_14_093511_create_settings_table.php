@@ -15,6 +15,8 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_category_image_list_height');
+            $table->integer('product_category_image_list_width');
             $table->integer('product_image_big_height');
             $table->integer('product_image_big_width');
             $table->integer('product_image_list_height');

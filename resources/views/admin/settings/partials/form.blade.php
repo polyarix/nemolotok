@@ -10,6 +10,20 @@
         <div class="tab-content pl-3 pt-2 card-body" id="nav-tabContent">
 
             <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+
+                <h3 class="text-center">Категории товаров</h3>
+                <section class="product-image-settings">
+                    <h6 class="text-right">Изображение в списке категорий</h6>
+                    <div class="form-group">
+                        <label for="company" class=" form-control-label">Высота</label>
+                        <input type="text"  name="settings[product_category_image_list_height]" placeholder="Высота" value="{{$data->product_category_image_list_height or ""}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="company" class=" form-control-label">Ширина</label>
+                        <input type="text"  name="settings[product_category_image_list_width]" placeholder="Ширина" value="{{$data->product_category_image_list_width or ""}}" class="form-control">
+                    </div>
+                </section>
+
                 <h3 class="text-center">Товары</h3>
                 <section class="product-image-settings">
                     <h6 class="text-right">Основное изображение</h6>

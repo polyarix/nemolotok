@@ -43,7 +43,7 @@ class ProductCategoryService
     public function createCategory($data)
     {
         if($data->has('image')) {
-            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
+            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }
         return $this->productCategoryRepository->create($data);
     }
@@ -56,7 +56,7 @@ class ProductCategoryService
     public function updateCategory($id, $data)
     {
         if($data->has('image')){
-            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
+            $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }
         return $this->productCategoryRepository->update($id, $data);
     }
