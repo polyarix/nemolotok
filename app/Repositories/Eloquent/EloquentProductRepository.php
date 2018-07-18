@@ -4,17 +4,30 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\ProductRepository;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentProductRepository implements ProductRepository
 {
+    private $model;
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(Product $model)
+    {
+        $this->setModel($model);
+    }
+
     public function all()
     {
-        return Product::with('description', 'files.images')->get();
+        return $this->model->with('description', 'files.images')->get();
     }
 
     public function create($data)
     {
-        $product = Product::create($data->only([
+        $product = $this->model->create($data->only([
             'sku',
             'enabled',
             'sorting',
@@ -49,7 +62,7 @@ class EloquentProductRepository implements ProductRepository
 
     public function update($id, $data)
     {
-        $product = Product::with(['categories', 'description'])->findOrFail($id);
+        $product = $this->model->with(['categories', 'description'])->findOrFail($id);
         $product->update($data->only([
             'sku',
             'enabled',
@@ -84,14 +97,14 @@ class EloquentProductRepository implements ProductRepository
 
     public function delete($id)
     {
-        $product = Product::findOrFail($id);
+        $product = $this->model->findOrFail($id);
         $product->delete();
         return true;
     }
 
     public function get($id)
     {
-        return Product::with(['description', 'categories', 'files.images'])->findOrFail($id);
+        return $this->model->with(['description', 'categories', 'files.images'])->findOrFail($id);
     }
 
     public function removeFile($product_id, $file_id)

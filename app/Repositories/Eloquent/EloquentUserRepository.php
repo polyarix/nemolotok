@@ -6,17 +6,30 @@ use App\Contracts\UserRepository;
 use App\Helpers\IResizer;
 use App\Helpers\Uploader;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentUserRepository implements UserRepository
 {
+    private $model;
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(User $model)
+    {
+        $this->setModel($model);
+    }
+
     public function all()
     {
-        return User::all();
+        return $this->model->all();
     }
 
     public function create($data)
     {
-        $user = new User();
+        $user = new $this->model();
         $user->email = $data->email;
         $user->name = $data->name;
         $user->role_id = (int)$data->role_id;
@@ -32,7 +45,7 @@ class EloquentUserRepository implements UserRepository
 
     public function update($id, $data)
     {
-        $user = User::with('images')->findOrFail($id);
+        $user = $this->model->with('images')->findOrFail($id);
         $user->update($data->only(['name', 'email', 'role_id']));
         if($data->allFiles() && $files = Uploader::upload($data->file('file'))){
             $this->imagesRemoving($user);
@@ -45,7 +58,7 @@ class EloquentUserRepository implements UserRepository
 
     public function delete($id)
     {
-        $user = User::with('images')->findOrFail($id);
+        $user = $this->model->with('images')->findOrFail($id);
         $this->imagesRemoving($user);
         $user->delete();
         return true;
@@ -53,7 +66,7 @@ class EloquentUserRepository implements UserRepository
 
     public function get($id)
     {
-        return User::with('role', 'images')->findOrFail($id);
+        return $this->model->with('role', 'images')->findOrFail($id);
     }
 
     protected function imagesRemoving($user)

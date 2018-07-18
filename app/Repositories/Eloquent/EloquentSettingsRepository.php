@@ -4,22 +4,35 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\SettingsRepository;
 use App\Models\Setting;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentSettingsRepository implements SettingsRepository
 {
+    private $model;
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(Setting $model)
+    {
+        $this->setModel($model);
+    }
+
     public function all()
     {
-       return Setting::all();
+       return $this->model->all();
     }
 
     public function update($request)
     {
-        Setting::updateOrCreate(['id' => 1], $request->get('settings'));
+        $this->model->updateOrCreate(['id' => 1], $request->get('settings'));
     }
 
     public function productImageSizes() : array
     {
-        $settings = Setting::firstOrFail();
+        $settings = $this->model->firstOrFail();
         return [
             ['height' => $settings->product_image_big_height, 'width' => $settings->product_image_big_width, 'tag' => 'big'],
             ['height' => $settings->product_image_list_height, 'width' => $settings->product_image_list_width, 'tag' => 'list']
@@ -28,7 +41,7 @@ class EloquentSettingsRepository implements SettingsRepository
 
     public function productCategoryImageSizes(): array
     {
-        $settings = Setting::firstOrFail();
+        $settings = $this->model->firstOrFail();
         return [
             ['height' => $settings->product_category_image_list_height, 'width' => $settings->product_category_image_list_width, 'tag' => 'list']
         ];

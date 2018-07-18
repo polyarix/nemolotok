@@ -4,9 +4,22 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\CategoryRepository;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentCategoryRepository implements CategoryRepository
 {
+    private $model;
+
+    public function __construct(Category $model)
+    {
+        $this->setModel($model);
+    }
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
     public function all()
     {
         return Category::all();

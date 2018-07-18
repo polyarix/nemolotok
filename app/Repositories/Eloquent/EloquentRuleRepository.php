@@ -4,17 +4,30 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\RuleRepository;
 use App\Models\Rule;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentRuleRepository implements RuleRepository
 {
+    private $model;
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(Rule $model)
+    {
+        $this->setModel($model);
+    }
+
     public function all()
     {
-        return Rule::all();
+        return $this->all();
     }
 
     public function create($data)
     {
-        $rule = Rule::create($data->only(['name', 'description']));
+        $rule = $this->model->create($data->only(['name', 'description']));
         if (is_string($data->get('permissions'))) {
             $permissions = explode(',', $data->get('permissions'));
         } else {
@@ -28,7 +41,7 @@ class EloquentRuleRepository implements RuleRepository
 
     public function update($id, $data)
     {
-        $rule = Rule::findOrFail($id);
+        $rule = $this->model->findOrFail($id);
         $rule->update($data->only(['name', 'description']));
         if(is_string($data->get('permissions'))){
             $permissions = explode(',', $data->get('permissions'));
@@ -43,13 +56,13 @@ class EloquentRuleRepository implements RuleRepository
 
     public function delete($id)
     {
-        $rule = Rule::findOrFail($id);
+        $rule = $this->model->findOrFail($id);
         $rule->delete();
         return true;
     }
 
     public function get($id)
     {
-        return Rule::with('permissions')->findOrFail($id);
+        return $this->model->with('permissions')->findOrFail($id);
     }
 }

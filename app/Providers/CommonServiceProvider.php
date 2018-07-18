@@ -30,7 +30,7 @@ class CommonServiceProvider extends ServiceProvider
     public function topMenu()
     {
         \View::composer('front.partials.header', function($view){
-            $view->with('categories', ProductCategory::whereHas('children')->with('children.files.images')->get());
+            $view->with('categories', ProductCategory::whereHas('children')->where('enabled', 1)->with('children.files.images')->get());
         });
     }
 }

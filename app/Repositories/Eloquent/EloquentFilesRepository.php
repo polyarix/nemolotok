@@ -6,15 +6,25 @@ use App\Contracts\FilesRepository;
 use App\Helpers\IResizer;
 use App\Helpers\Uploader;
 use App\Models\File;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentFilesRepository implements FilesRepository
 {
     private $uploader, $resizer;
 
-    public function __construct(Uploader $uploader, IResizer $resizer)
+    private $model;
+
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(Uploader $uploader, IResizer $resizer, File $model)
     {
         $this->uploader = $uploader;
         $this->resizer = $resizer;
+        $this->setModel($model);
     }
 
     public function all()

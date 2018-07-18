@@ -1,8 +1,12 @@
 <?php
 namespace App\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface BaseRepository
 {
+    public function setModel(Model $model);
+
     public function all();
 
     public function create($data);

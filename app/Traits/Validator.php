@@ -7,7 +7,6 @@ trait Validator
     protected function hasErrors($data, $id = false)
     {
         $validation = \Validator::make($data->all(), $this->rules($id));
-
         if($validation->fails()) {
             return $data = [
                 'status' => 'error',

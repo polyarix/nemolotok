@@ -4,17 +4,30 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\RoleRepository;
 use App\Role;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentRoleRepository implements RoleRepository
 {
+    private $model;
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    public function __construct(Role $model)
+    {
+        $this->setModel($model);
+    }
+
     public function all()
     {
-        return Role::all();
+        return $this->model->all();
     }
 
     public function create($data)
     {
-        $role = Role::create($data->only(['name']));
+        $role = $this->model->create($data->only(['name']));
 
         if (is_string($data->get('rules'))) {
             $access_rules = explode(',', $data->get('rules'));
@@ -29,7 +42,7 @@ class EloquentRoleRepository implements RoleRepository
 
     public function update($id, $data)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->model->findOrFail($id);
         $role->update($data->only(['name']));
         if (is_string($data->get('rules'))) {
             $access_rules = explode(',', $data->get('rules'));
@@ -42,13 +55,13 @@ class EloquentRoleRepository implements RoleRepository
 
     public function delete($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->model->findOrFail($id);
         $role->delete();
         return true;
     }
 
     public function get($id)
     {
-        return Role::with('rules')->findOrFail($id);
+        return $this->model->with('rules')->findOrFail($id);
     }
 }
