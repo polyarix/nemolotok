@@ -83,7 +83,7 @@ class ProductCategoryViewController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->productCategoryService->updateCategory($id, $request);
-        return $this->response('admin.product-categories.index', $data, $id);
+        return $this->response('admin.product-categories.index', \GuzzleHttp\json_encode($data),$id);
     }
 
     /**

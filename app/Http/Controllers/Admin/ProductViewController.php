@@ -86,7 +86,7 @@ class ProductViewController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->productService->productUpdate($id, $request);
-        return $this->response('admin.products.index', $data);
+        return $this->response('admin.products.index', \GuzzleHttp\json_encode($data));
     }
 
     /**

@@ -15,6 +15,7 @@ class ProductService
     private $validation_rules = [
         'name' => 'required|min:3|max:50|string',
         'price' => 'required|numeric',
+        'slug' => 'unique:slugs,slug,id,morph_id,morph_type,App\Models\Product',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
 
@@ -69,6 +70,8 @@ class ProductService
 
     public function productUpdate($id, $data)
     {
+        if($errors = $this->hasErrors($data)) return $errors;
+
         if($data->has('image')){
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
         }

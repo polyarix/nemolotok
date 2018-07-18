@@ -163,7 +163,8 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
         \App\Providers\RepositoryServiceProvider::class,
-        \Unisharp\Ckeditor\ServiceProvider::class
+        \Unisharp\Ckeditor\ServiceProvider::class,
+        \App\Providers\CommonServiceProvider::class
 
     ],
 

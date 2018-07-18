@@ -13,7 +13,9 @@ class ProductCategoryService
 
     protected $productCategoryRepository, $settingsRepository, $filesRepository;
     protected $validation_rules = [
-        'name' => 'required|min:3|max:50|string|unique:product_categories'
+        'name' => 'required|min:3|max:50|string|unique:product_categories_descriptions',
+        'slug' => 'unique:slugs,slug,id,morph_id,morph_type,App\Models\ProductCategory',
+        'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
 
     protected function rules($id = false)
@@ -42,6 +44,7 @@ class ProductCategoryService
 
     public function createCategory($data)
     {
+        if($errors = $this->hasErrors($data)) return $errors;
         if($data->has('image')) {
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }
@@ -55,6 +58,7 @@ class ProductCategoryService
 
     public function updateCategory($id, $data)
     {
+        if($errors = $this->hasErrors($data)) return $errors;
         if($data->has('image')){
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }

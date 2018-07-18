@@ -10,7 +10,8 @@ class CategoryService
     use Validator;
     protected $categoryRepository;
     protected $validation_rules = [
-        'name' => 'required|min:3|max:50|string|unique:categories'
+        'name' => 'required|min:3|max:50|string|unique:categories',
+        'slug' => 'unique:slugs,NULL,slug,morph_type'
     ];
 
     protected function rules($id = false)
@@ -33,9 +34,7 @@ class CategoryService
 
     public function createCategory($data)
     {
-        if($errors = $this->hasErrors($data)){
-            return $errors;
-        }
+        if($errors = $this->hasErrors($data)) return $errors;
         return $this->categoryRepository->create($data);
     }
 
@@ -46,9 +45,7 @@ class CategoryService
 
     public function updateCategory($id, $data)
     {
-        if($errors = $this->hasErrors($data, $id)){
-            return $errors;
-        }
+        if($errors = $this->hasErrors($data)) return $errors;
         return $this->categoryRepository->update($id, $data);
     }
 

@@ -45,8 +45,8 @@
                 <div class="form-group">
                     <label for="enabled" class=" form-control-label">Отображать на сайте</label>
                     <select name="enabled" id="enabled" class="form-control">
-                        <option value="0">Нет</option>
-                        <option value="1">Да</option>
+                        <option value="0" @if(!empty($product) && $product->enabled == 0) selected @endif>Нет</option>
+                        <option value="1" @if(!empty($product) && $product->enabled == 1) selected @endif>Да</option>
                     </select>
                 </div>
 
@@ -105,13 +105,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="status" class=" form-control-label">Отображать на сайте</label>
+                    <label for="slug"
+                           class=" form-control-label {{ !empty($errors->slug) ? 'is-invalid' : '' }}">Slug</label>
+                    <input type="text" id="slug" name="slug" value="{{$product->slug->first()->slug or ""}}"
+                           class="form-control">
+                    <div class="text-danger">{{ !empty($errors->slug) ? $errors->slug[0] : ''}}</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class=" form-control-label">Статус</label>
                     <select name="status" id="status" class="form-control">
-                        <option value="0">нет в наличии</option>
-                        <option value="1">в наличии</option>
-                        <option value="2">ожидание</option>
+                        <option value="0" @if(!empty($product) && $product->status === 0) selected @endif>нет в наличии</option>
+                        <option value="1" @if(!empty($product) && $product->status === 1) selected @endif>в наличии</option>
+                        <option value="2" @if(!empty($product) && $product->status === 2) selected @endif>ожидание</option>
                     </select>
                 </div>
+
             </div>
 
             <div class="tab-pane fade" id="nav-relations" role="tabpanel" aria-labelledby="nav-relations-tab">

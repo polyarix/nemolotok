@@ -33,4 +33,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function slug()
+    {
+        return $this->morphMany(Slug::class, 'morph');
+    }
 }

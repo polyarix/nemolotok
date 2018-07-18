@@ -14,7 +14,7 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
 
     public function create($data)
     {
-        $category = ProductCategory::create();
+        $category = ProductCategory::create(['enabled' => $data->get('enabled')]);
         $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
 
         if($data->has('categories')) {
@@ -28,7 +28,7 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
                     ->createMany($image);
             }
         }
-
+        $category->slug()->create(['slug' => $data->get('slug')]);
         $category->save();
         return $category;
     }
@@ -36,6 +36,7 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
     public function update($id, $data)
     {
         $category = ProductCategory::with('description')->findOrFail($id);
+        $category->enabled = $data->get('enabled');
         $category->description()->update($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
         if($data->has('categories')){
             $category->parent()->associate($data->only('categories')['categories'][0]);
@@ -48,6 +49,8 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
                     ->createMany($image);
             }
         }
+
+        $category->slug()->update(['slug' => $data->get('slug')]);
 
         $category->save();
         return $category;
@@ -62,7 +65,7 @@ class EloquentProductCategoryRepository implements ProductCategoryRepository
 
     public function get($id)
     {
-        return ProductCategory::with('description', 'parent', 'files')->findOrFail($id);
+        return ProductCategory::with('description', 'parent', 'files', 'slug')->findOrFail($id);
     }
 
     public function removeFile($category_id, $file_id)

@@ -29,4 +29,9 @@ class Product extends Model
     {
         return $this->morphMany(File::class, 'morph');
     }
+
+    public function slug()
+    {
+        return $this->morphMany(Slug::class, 'morph');
+    }
 }

@@ -35,6 +35,7 @@ class EloquentProductRepository implements ProductRepository
         ]));
 
         $product->categories()->attach($data->get('categories'));
+        $product->slug()->create(['slug' => $data->get('slug')]);
 
         if($data->images){
             foreach($data->images as $original => $image){
@@ -69,7 +70,7 @@ class EloquentProductRepository implements ProductRepository
             'meta_keyword'
         ]));
         $product->categories()->sync($data->get('categories'));
-
+        $product->slug()->update(['slug' => $data->get('slug')]);
         if($data->images){
             foreach($data->images as $original => $image){
                 $product->files()->create(['url' => $original])
