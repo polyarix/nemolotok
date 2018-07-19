@@ -2,7 +2,6 @@
 
 namespace App\Contracts;
 
-interface RoleRepository extends BaseRepository
+interface RoleRepository extends Crud
 {
-
 }

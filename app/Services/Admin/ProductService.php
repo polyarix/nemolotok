@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Slug;
 use App\Traits\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Validation\Rule;
 
 class ProductService
 {
@@ -21,16 +22,14 @@ class ProductService
         'slug' => 'unique:slugs,slug,id,morph_id,morph_type,App\Models\Product',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
-    private $model_class_name = Product::class;
 
     protected function rules($id = false)
     {
             if($id){
                 $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
-                $slug = Slug::where('morph_id', $id)->where('morph_type',$this->model_class_name)->firstOrFail();
-                if(Input::get('slug') === $slug->slug){
-                    $this->validation_rules['slug'] = 'min:3';
-                }
+                $this->validation_rules['slug'] = ['min:4', Rule::unique('slugs', 'slug')
+                    ->where('morph_type', $this->productRepository->getModel())
+                    ->whereNot('morph_id', $id)];
             }
         return $this->validation_rules;
     }

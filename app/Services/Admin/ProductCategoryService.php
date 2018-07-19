@@ -5,11 +5,8 @@ namespace App\Services;
 use App\Contracts\FilesRepository;
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\SettingsRepository;
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\Slug;
 use App\Traits\Validator;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Validation\Rule;
 
 class ProductCategoryService
 {
@@ -21,16 +18,16 @@ class ProductCategoryService
         'slug' => 'min:3|unique:slugs,slug,id,morph_id,morph_type,App\Models\ProductCategory',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
-    private $class_name = ProductCategory::class;
+
     protected function rules($id = false)
     {
-        if($id){
-            $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
-            $slug = Slug::where('morph_id', $id)->where('morph_type',$this->class_name)->firstOrFail();
-            if(Input::get('slug') === $slug->slug){
-                $this->validation_rules['slug'] = 'min:3';
-            }
+        if ($id) {
+            $this->validation_rules['name'] = $this->validation_rules['name'] . ',id,' . $id;
+            $this->validation_rules['slug'] = ['min:4', Rule::unique('slugs', 'slug')
+                ->where('morph_type', $this->productCategoryRepository->getModel())
+                ->whereNot('morph_id', $id)];
         }
+
         return $this->validation_rules;
     }
 
@@ -52,8 +49,8 @@ class ProductCategoryService
 
     public function createCategory($data)
     {
-        if($errors = $this->hasErrors($data)) return $errors;
-        if($data->has('image')) {
+        if ($errors = $this->hasErrors($data)) return $errors;
+        if ($data->has('image')) {
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }
         return $this->productCategoryRepository->create($data);
@@ -66,8 +63,8 @@ class ProductCategoryService
 
     public function updateCategory($id, $data)
     {
-        if($errors = $this->hasErrors($data, $id)) return $errors;
-        if($data->has('image')){
+        if ($errors = $this->hasErrors($data, $id)) return $errors;
+        if ($data->has('image')) {
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productCategoryImageSizes());
         }
         return $this->productCategoryRepository->update($id, $data);

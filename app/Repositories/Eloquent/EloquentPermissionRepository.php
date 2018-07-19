@@ -4,17 +4,11 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\PermissionRepository;
 use App\Models\Permission;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentPermissionRepository implements PermissionRepository
+class EloquentPermissionRepository extends BaseRepository implements PermissionRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(Permission $model)
     {
         $this->setModel($model);

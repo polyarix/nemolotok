@@ -4,17 +4,10 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\ProductRepository;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\BaseRepository;
 
-class EloquentProductRepository implements ProductRepository
+class EloquentProductRepository extends BaseRepository implements ProductRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(Product $model)
     {
         $this->setModel($model);

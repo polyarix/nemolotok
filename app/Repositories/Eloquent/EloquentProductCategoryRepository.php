@@ -4,17 +4,10 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\ProductCategoryRepository;
 use App\Models\ProductCategory;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\BaseRepository;
 
-class EloquentProductCategoryRepository implements ProductCategoryRepository
+class EloquentProductCategoryRepository extends BaseRepository implements ProductCategoryRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(ProductCategory $model)
     {
         $this->setModel($model);

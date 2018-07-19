@@ -2,7 +2,6 @@
 
 namespace App\Contracts;
 
-interface ProductRepository extends BaseRepository
+interface ProductRepository extends Crud
 {
-
 }

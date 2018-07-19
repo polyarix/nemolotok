@@ -3,18 +3,12 @@
 namespace App\Repositories\Eloquent;
 
 use App\Contracts\RoleRepository;
+use App\Repositories\BaseRepository;
 use App\Role;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentRoleRepository implements RoleRepository
+class EloquentRoleRepository extends BaseRepository implements RoleRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(Role $model)
     {
         $this->setModel($model);

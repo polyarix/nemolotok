@@ -4,20 +4,15 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\CategoryRepository;
 use App\Models\Category;
+use App\Repositories\BaseRepository;
+use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentCategoryRepository implements CategoryRepository
+class EloquentCategoryRepository extends BaseRepository implements CategoryRepository
 {
-    private $model;
-
     public function __construct(Category $model)
     {
         $this->setModel($model);
-    }
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
     }
 
     public function all()

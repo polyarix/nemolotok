@@ -4,9 +4,10 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\RuleRepository;
 use App\Models\Rule;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentRuleRepository implements RuleRepository
+class EloquentRuleRepository extends BaseRepository implements RuleRepository
 {
     private $model;
 

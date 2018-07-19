@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface FilesRepository extends BaseRepository
+interface FilesRepository
 {
     public function upload();
     public function remove();

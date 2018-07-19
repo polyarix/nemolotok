@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface NewsRepository extends BaseRepository
+interface NewsRepository extends Crud
 {
 
 }

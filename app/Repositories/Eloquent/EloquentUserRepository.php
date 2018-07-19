@@ -5,18 +5,12 @@ namespace App\Repositories\Eloquent;
 use App\Contracts\UserRepository;
 use App\Helpers\IResizer;
 use App\Helpers\Uploader;
+use App\Repositories\BaseRepository;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentUserRepository implements UserRepository
+class EloquentUserRepository extends BaseRepository implements UserRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(User $model)
     {
         $this->setModel($model);

@@ -2,8 +2,7 @@
 
 namespace App\Contracts;
 
-interface RuleRepository extends BaseRepository
+interface RuleRepository extends Crud
 {
-
 }
 

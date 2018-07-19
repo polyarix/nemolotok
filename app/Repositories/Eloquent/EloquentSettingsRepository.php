@@ -4,17 +4,11 @@ namespace App\Repositories\Eloquent;
 
 use App\Contracts\SettingsRepository;
 use App\Models\Setting;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentSettingsRepository implements SettingsRepository
+class EloquentSettingsRepository extends BaseRepository implements SettingsRepository
 {
-    private $model;
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(Setting $model)
     {
         $this->setModel($model);

@@ -2,7 +2,6 @@
 
 namespace App\Contracts;
 
-interface PermissionRepository extends BaseRepository
+interface PermissionRepository extends Crud
 {
-
 }

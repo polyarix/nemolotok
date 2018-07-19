@@ -3,8 +3,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Contracts\NewsRepository;
+use App\Repositories\BaseRepository;
 
-class EloquentNewsRepository implements NewsRepository
+class EloquentNewsRepository extends BaseRepository implements NewsRepository
 {
     public function all()
     {

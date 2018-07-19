@@ -6,13 +6,13 @@ use App\Contracts\FilesRepository;
 use App\Helpers\IResizer;
 use App\Helpers\Uploader;
 use App\Models\File;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentFilesRepository implements FilesRepository
+class EloquentFilesRepository extends BaseRepository implements FilesRepository
 {
     private $uploader, $resizer;
-
-    private $model;
+    protected $model;
 
 
     public function setModel(Model $model)
