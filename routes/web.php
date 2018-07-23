@@ -45,5 +45,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
 Auth::routes();
 Route::group(['namespace' => 'Front'], function(){
     Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('/catalog', 'ProductCategoryController@categories')->name('catalog-categories');
 });
 

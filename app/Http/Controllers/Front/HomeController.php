@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Services\Front\HomePageService;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $service;
+    public function __construct(HomePageService $service)
     {
         $this->middleware('auth');
+        $this->service = $service;
     }
 
     /**
@@ -23,6 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $categories = $this->service->getParentCategories();
+        dd($categories);
         return view('front.home.index');
     }
 }

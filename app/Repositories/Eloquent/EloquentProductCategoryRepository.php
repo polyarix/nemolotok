@@ -20,7 +20,7 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
 
     public function create($data)
     {
-        $category = $this->model->create(['enabled' => $data->get('enabled')]);
+        $category = $this->model->create($data->only(['enabled', 'is_in_catalog']));
         $category->description()->create($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
 
         if($data->has('categories')) {
@@ -43,6 +43,7 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
     {
         $category = $this->model->with('description')->findOrFail($id);
         $category->enabled = $data->get('enabled');
+        $category->is_in_catalog = $data->get('is_in_catalog');
         $category->description()->update($data->only(['name', 'description', 'meta_title', 'meta_description', 'meta_keyword']));
         if($data->has('categories')){
             $category->parent()->associate($data->only('categories')['categories'][0]);
@@ -79,4 +80,10 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
         $category = $this->get($category_id);
         return $category->files->find($file_id)->delete();
     }
+
+    public function getAllParentCategories()
+    {
+        return $this->model->whereHas('children')->get();
+    }
+
 }

@@ -18,6 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->unsignedInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('product_categories');
             $table->integer('enabled');
+            $table->boolean('is_in_catalog');
             $table->timestamps();
         });
     }

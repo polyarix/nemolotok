@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label for="slug"
                            class=" form-control-label {{ !empty($errors->slug) ? 'is-invalid' : '' }}">Slug</label>
-                    <input type="text" id="slug" name="slug" value="{{$product->slug->first()->slug or ""}}"
+                    <input type="text" id="slug" name="slug" value="{{(!empty($product)) ? $product->slug->first()->slug : ""}}"
                            class="form-control">
                     <div class="text-danger">{{ !empty($errors->slug) ? $errors->slug[0] : ''}}</div>
                 </div>
