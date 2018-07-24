@@ -38,4 +38,15 @@ class ProductCategory extends Model
     {
         return $this->morphMany(Slug::class, 'morph');
     }
+
+    public function getSlug() : array
+    {
+        $result = [];
+        if(count($this->parent)) {
+            $result['parent'] = $this->parent->slug->first()->slug;
+        }
+        $result['category'] = $this->slug->first()->slug;
+
+        return $result;
+    }
 }

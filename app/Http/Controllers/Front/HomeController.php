@@ -10,7 +10,7 @@ class HomeController extends Controller
     protected $service;
     public function __construct(HomePageService $service)
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
         $this->service = $service;
     }
 
@@ -21,8 +21,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = $this->service->getParentCategories();
-        dd($categories);
-        return view('front.home.index');
+        $catalog_menu = $this->service->getCatalogMenu();
+        return view('front.home.index', [
+            'catalog_menu' => $catalog_menu
+        ]);
     }
 }

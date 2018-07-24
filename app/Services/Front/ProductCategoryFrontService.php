@@ -4,7 +4,7 @@ namespace App\Services\Front;
 
 use App\Contracts\ProductCategoryRepository;
 
-class HomePageService
+class ProductCategoryFrontService
 {
     protected $productCategoryRepository;
 
@@ -13,8 +13,8 @@ class HomePageService
         $this->productCategoryRepository = $productCategoryRepository;
     }
 
-    public function getCatalogMenu()
+    public function getCategoryBySlug($slug)
     {
-        return $this->productCategoryRepository->getMenuCategories();
+        return $this->productCategoryRepository->getBySlug($slug);
     }
 }
