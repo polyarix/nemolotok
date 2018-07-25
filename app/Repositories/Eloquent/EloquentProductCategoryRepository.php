@@ -81,17 +81,6 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
         return $category->files->find($file_id)->delete();
     }
 
-    public function getMenuCategories()
-    {
-        return $this->model->where('is_in_catalog', 1)
-            ->where('enabled', 1)
-            ->with(['children' => function ($query){
-                $query->where('enabled', 1)->with('description', 'files.images', 'slug');
-            }])
-            ->with('description', 'files.images', 'slug')
-            ->get();
-    }
-
     public function getBySlug($slug)
     {
         return ProductCategory::whereHas('slug', function($query) use ($slug){

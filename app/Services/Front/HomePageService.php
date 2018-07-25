@@ -12,9 +12,4 @@ class HomePageService
     {
         $this->productCategoryRepository = $productCategoryRepository;
     }
-
-    public function getCatalogMenu()
-    {
-        return $this->productCategoryRepository->getMenuCategories();
-    }
 }

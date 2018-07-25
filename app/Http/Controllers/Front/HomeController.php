@@ -21,9 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $catalog_menu = $this->service->getCatalogMenu();
-        return view('front.home.index', [
-            'catalog_menu' => $catalog_menu
-        ]);
+        return view('front.home.index');
     }
 }
