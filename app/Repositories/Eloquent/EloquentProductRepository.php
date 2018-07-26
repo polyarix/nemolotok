@@ -20,71 +20,51 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
 
     public function create($data)
     {
-        $product = $this->model->create($data->only([
-            'sku',
-            'enabled',
-            'sorting',
-            'price',
-            'amount',
-            'unit',
-            'discount',
-            'shippingprice',
-            'preorder',
-            'status'
-        ]));
-        $product->description()->create($data->only([
-            'name',
-            'description',
-            'meta_title',
-            'meta_description',
-            'meta_keyword'
-        ]));
+        $product = $this->model->create($this->dataPreaparing($data));
 
+        $product->description()->create($this->descriptionPreparing($data));
         $product->categories()->attach($data->get('categories'));
         $product->slug()->create(['slug' => $data->get('slug')]);
 
         if($data->images){
-            foreach($data->images as $original => $image){
-                $product->files()->create(['url' => $original])
+            foreach($data->images as $image){
+                $files = $product->files()->create(['url' => $image['original']['url'], 'mime' => $image['original']['mime']])
                     ->images()
-                    ->createMany($image);
+                    ->createMany($image['resized']);
+
+                if($image['original']['old_name'] === $data->cover_image){
+                    $product->cover_image = $files->first()->file_id;
+                }
+
             }
         }
+        $product->save();
         return $product;
     }
 
     public function update($id, $data)
     {
         $product = $this->model->with(['categories', 'description'])->findOrFail($id);
-        $product->update($data->only([
-            'sku',
-            'enabled',
-            'sorting',
-            'price',
-            'amount',
-            'unit',
-            'discount',
-            'shippingprice',
-            'preorder',
-            'status'
-        ]));
-        $product->description()->update($data->only([
-            'name',
-            'description',
-            'meta_title',
-            'meta_description',
-            'meta_keyword'
-        ]));
+
+        $product->update($this->dataPreaparing($data));
+
+        $product->description()->update($this->descriptionPreparing($data));
         $product->categories()->sync($data->get('categories'));
         $product->slug()->update(['slug' => $data->get('slug')]);
+
         if($data->images){
-            foreach($data->images as $original => $image){
-                $product->files()->create(['url' => $original])
+            foreach($data->images as $image){
+                $files = $product->files()->create(['url' => $image['original']['url'], 'mime' => $image['original']['mime']])
                     ->images()
-                    ->createMany($image);
+                    ->createMany($image['resized']);
+
+                if($image['original']['old_name'] === $data->cover_image){
+                    $product->cover_image = $files->first()->file_id;
+                }
             }
         }
 
+        $product->save();
         return $product;
     }
 
@@ -104,5 +84,38 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     {
         $product = $this->get($product_id);
         return $product->files->find($file_id)->delete();
+    }
+
+    private function dataPreaparing($data)
+    {
+        $result = $data->only([
+            'sku',
+            'enabled',
+            'sorting',
+            'price',
+            'amount',
+            'unit',
+            'discount',
+            'shippingprice',
+            'preorder',
+            'status'
+        ]);
+
+        if($data->has('cover_image') && preg_match('~^\d+$~', $data->cover_image)){
+            $result['cover_image'] = $data->cover_image;
+        }
+
+        return $result;
+    }
+
+    private function descriptionPreparing($data)
+    {
+        return $data->only([
+            'name',
+            'description',
+            'meta_title',
+            'meta_description',
+            'meta_keyword'
+        ]);
     }
 }

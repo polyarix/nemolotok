@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->string('shippingprice')->nullable();
             $table->integer('preorder')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('cover_image')->nullable();
             $table->timestamps();
         });
     }

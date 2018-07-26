@@ -28,7 +28,7 @@ class ProductCategoryController extends Controller
         if($second) $slug = $second;
 
         $category = $this->service->getCategoryBySlug($slug);
-
+        dd($category->products);
         return view('front.product-category.index', ['category' => $category]);
 
     }

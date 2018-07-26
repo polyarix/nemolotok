@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 use Carbon\Carbon;
+use function GuzzleHttp\Psr7\mimetype_from_extension;
 
 class Uploader
 {
@@ -29,9 +30,8 @@ class Uploader
 
         // This is our upload main function, storing the image in the storage that named 'public'
         $upload_success = $image->storeAs($directory, $filename, 'public');
-
         if($upload_success){
-            return ['url' => $upload_success];
+            return ['url' => $upload_success, 'mime' => $file->getMimeType(), 'old_name' => $file->getClientOriginalName()];
         } else {
             return 400;
         }

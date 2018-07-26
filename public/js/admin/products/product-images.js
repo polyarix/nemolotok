@@ -97,7 +97,7 @@
         return button;
     }
 
-    function getPreviewSection(image_id, input_name) {
+    function getPreviewSection(image_id, input_name, radio_val) {
 
         let html;
         html = '<section class="image-preview-section">';
@@ -108,6 +108,10 @@
         html += '<div class="col-lg-8">';
         html += '<table class="table table-striped table-bordered">';
         html += '<h5>Предпросмотр</h5>';
+        html += '<tr>';
+        html += '<th style="width: 250px;">Обложка</th>';
+        html += '<td><input type="radio" name="cover_image" value="'+radio_val+'"></td>';
+        html += '</tr>';
         html += '</table>';
         html += '</div>';
         html += '<div class="text-right col-lg-1">';
@@ -123,13 +127,15 @@
         if (input.files && input.files[0]) {
             let reader = new FileReader();
             reader.onload = function (e) {
-                jQuery('#images-info-block').append(getPreviewSection(image_id, input_name));
+                jQuery('#images-info-block').append(getPreviewSection(image_id, input_name, input.files[0].name));
                 jQuery('#'+image_id).attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+    // jQuery('input[type="radio"]').change(function(){
+    //     console.log(jQuery(this).val());
+    // });
 })();
 
 jQuery('.image-item-delete').click(function(e){

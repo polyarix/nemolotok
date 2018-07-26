@@ -6,10 +6,7 @@ use App\Contracts\FilesRepository;
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
 use App\Contracts\SettingsRepository;
-use App\Models\Product;
-use App\Models\Slug;
 use App\Traits\Validator;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 
 class ProductService
@@ -19,7 +16,7 @@ class ProductService
     private $validation_rules = [
         'name' => 'required|min:3|max:50|string|unique:products_descriptions',
         'price' => 'required|numeric',
-        'slug' => 'unique:slugs,slug,id,morph_id,morph_type,App\Models\Product',
+        'slug' => 'required|min:3|unique:slugs,slug,id,morph_id,morph_type,App\Models\Product',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
 
@@ -27,7 +24,7 @@ class ProductService
     {
             if($id){
                 $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
-                $this->validation_rules['slug'] = ['min:4', Rule::unique('slugs', 'slug')
+                $this->validation_rules['slug'] = ['required', 'min:3', Rule::unique('slugs', 'slug')
                     ->where('morph_type', $this->productRepository->getModel())
                     ->whereNot('morph_id', $id)];
             }
@@ -64,7 +61,6 @@ class ProductService
     public function createProduct($data)
     {
         if($errors = $this->hasErrors($data)) return $errors;
-
         if($data->has('image')) {
             $data->images = $this->filesRepository->createImage($data->allFiles()['image'], $this->settingsRepository->productImageSizes());
         }

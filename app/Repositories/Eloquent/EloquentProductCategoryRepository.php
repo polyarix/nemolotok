@@ -29,9 +29,9 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
 
         if($data->images){
             foreach($data->images as $original => $image){
-                $category->files()->create(['url' => $original])
+                $category->files()->create(['url' => $image['original']['url'], 'mime' => $image['original']['mime']])
                     ->images()
-                    ->createMany($image);
+                    ->createMany($image['resized']);
             }
         }
         $category->slug()->create(['slug' => $data->get('slug')]);
@@ -50,10 +50,10 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
         }
 
         if($data->images){
-            foreach($data->images as $original => $image){
-                $category->files()->create(['url' => $original])
+            foreach($data->images as $image){
+                $category->files()->create(['url' => $image['original']['url'], 'mime' => $image['original']['mime']])
                     ->images()
-                    ->createMany($image);
+                    ->createMany($image['resized']);
             }
         }
 
@@ -85,7 +85,8 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
     {
         return ProductCategory::whereHas('slug', function($query) use ($slug){
             $query->where('slug', $slug);
-        })->with('description', 'files.images', 'slug')->firstOrFail();
+        })->with('description', 'files.images', 'slug')->with('products')->firstOrFail();
     }
+
 
 }

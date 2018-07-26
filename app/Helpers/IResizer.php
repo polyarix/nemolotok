@@ -25,10 +25,6 @@ class IResizer
         }
     }
 
-    /**
-     * @param $image
-     * @return array
-     */
     private static function imageHandle($original_file_url) : array
     {
         $image = Image::make(storage_path('app/public/'.$original_file_url));

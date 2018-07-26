@@ -80,7 +80,10 @@ class EloquentFilesRepository extends BaseRepository implements FilesRepository
         $result = [];
         foreach ($originals as $original) {
             $resized = $this->resize($original['url'], $settings);
-            $result[$original['url']] = $resized;
+            $result[] = [
+                'original' => $original,
+                'resized' => $resized
+            ];
         }
 
         return $result;

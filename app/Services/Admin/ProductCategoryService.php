@@ -15,7 +15,7 @@ class ProductCategoryService
     protected $productCategoryRepository, $settingsRepository, $filesRepository;
     protected $validation_rules = [
         'name' => 'required|min:3|max:50|string|unique:product_categories_descriptions',
-        'slug' => 'min:3|unique:slugs,slug,id,morph_id,morph_type,App\Models\ProductCategory',
+        'slug' => 'required|min:3|unique:slugs,slug,id,morph_id,morph_type,App\Models\ProductCategory',
         'image.*' => 'max:5000|file|mimes:jpeg,png'
     ];
 
@@ -23,7 +23,7 @@ class ProductCategoryService
     {
         if ($id) {
             $this->validation_rules['name'] = $this->validation_rules['name'] . ',id,' . $id;
-            $this->validation_rules['slug'] = ['min:4', Rule::unique('slugs', 'slug')
+            $this->validation_rules['slug'] = ['required|min:3', Rule::unique('slugs', 'slug')
                 ->where('morph_type', $this->productCategoryRepository->getModel())
                 ->whereNot('morph_id', $id)];
         }
