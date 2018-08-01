@@ -29,8 +29,6 @@ class ProductCategoryController extends Controller
 
         $category = $this->service->getCategoryBySlug($slug);
 
-//        dd($category->products);
-
         return view('front.product-category.index', [
             'category' => $category,
             'products' => $category->products()->paginate(10)

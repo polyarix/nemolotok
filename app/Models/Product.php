@@ -44,4 +44,29 @@ class Product extends Model
             ->where('tag', 'list')
             ->first();
     }
+
+    public function discount() : String
+    {
+        $discount = '';
+        if($this->discount || $this->discount > 0){
+            $discount = ($this->price - $this->discount)/($this->price/100);
+        }
+
+        return number_format($discount, 0,'.', ' ')."%";
+    }
+
+    /**
+     * @param ProductCategory $category
+     * @return array = [
+     *                  'parent' => parent category slug,
+     *                  'category' => category slug,
+     *                  'product' => product slug
+     *                  ]
+     */
+    public function getSlug(ProductCategory $category) : array
+    {
+        $result = $category->getSlug();
+        $result['product'] = $this->slug->first()->slug;
+        return $result;
+    }
 }

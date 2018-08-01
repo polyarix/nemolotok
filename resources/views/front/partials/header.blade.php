@@ -91,7 +91,7 @@
                 <ul class="list">
                     @forelse($catalog_menu as $category)
                         <li>
-                            <a href="{{route('catalog-category-page', $category->getSlug())}}">{{$category->description->name or ""}}
+                            <a href="javascript:void(0)">{{$category->description->name or ""}}
                                 @if($category->has('files.images'))
                                     <svg>
                                         <use xlink:href="{{(count($category->files)) ? asset('storage/'.$category->files->first()->images->first()->url) : "" }}"></use>
@@ -114,42 +114,6 @@
                                 </ul>
                             @endif
                         </li>
-                        {{--<li>--}}
-                        {{--<a href="">Товары для хобби--}}
-                        {{--<svg>--}}
-                        {{--<use xlink:href="img/sprite-inline.svg#arrow-side"></use>--}}
-                        {{--</svg>--}}
-                        {{--</a>--}}
-                        {{--<ul class="sub-menu">--}}
-                        {{--<h6>Товары для хобби</h6>--}}
-                        {{--<li><a href="">--}}
-                        {{--<div class="image"><img src="img/pages/example/item1.jpg" alt=""></div>--}}
-                        {{--<span>Выжигатели</span></a></li>--}}
-                        {{--<li><a href="">--}}
-                        {{--<div class="image"><img src="img/pages/example/item2.jpg" alt=""></div>--}}
-                        {{--<span>Граверы</span></a></li>--}}
-                        {{--<li><a href="">--}}
-                        {{--<div class="image"><img src="img/pages/example/item3.jpg" alt=""></div>--}}
-                        {{--<span>Заготовки из фанеры</span></a></li>--}}
-                        {{--<li><a href="">--}}
-                        {{--<div class="image"><img src="img/pages/example/item4.jpg" alt=""></div>--}}
-                        {{--<span>Лобзики и наборы</span></a></li>--}}
-                        {{--<li><a href="">--}}
-                        {{--<div class="image"><img src="img/pages/example/item5.jpg" alt=""></div>--}}
-                        {{--<span>Инструменты для творчества</span></a></li>--}}
-                        {{--</ul>--}}
-                        {{--</li>--}}
-                        {{--<li><a href="">Алмазные заточные круги</a></li>--}}
-                        {{--<li><a href="">Шлифовальный инструмент</a></li>--}}
-                        {{--<li><a href="">Приспособления</a></li>--}}
-                        {{--<li><a href="">Сверла</a></li>--}}
-                        {{--<li><a href="">Режущий инструмент--}}
-                        {{--<svg>--}}
-                        {{--<use xlink:href="img/sprite-inline.svg#arrow-side"></use>--}}
-                        {{--</svg>--}}
-                        {{--</a></li>--}}
-                        {{--<li><a href="">Крепежная система SWISSREX</a></li>--}}
-                        {{--<li><a href="">Бренды</a></li>--}}
                     @empty
                         <li><a>Меню пусто</a></li>
                     @endforelse
