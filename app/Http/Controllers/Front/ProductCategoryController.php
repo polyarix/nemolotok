@@ -28,8 +28,18 @@ class ProductCategoryController extends Controller
         if($second) $slug = $second;
 
         $category = $this->service->getCategoryBySlug($slug);
-        dd($category->products);
-        return view('front.product-category.index', ['category' => $category]);
 
+//        dd($category->products);
+
+        return view('front.product-category.index', [
+            'category' => $category,
+            'products' => $category->products()->paginate(10)
+        ]);
+
+    }
+
+    public function product($first=null, $second=null, $third=null)
+    {
+        dd($third);
     }
 }

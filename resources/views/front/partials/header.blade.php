@@ -91,19 +91,20 @@
                 <ul class="list">
                     @forelse($catalog_menu as $category)
                         <li>
-                            <a href="{{route('catalog-category-page', $category->getSlug())}}">{{$category->description->name or ""}}</a>
-                            @if($category->has('files.images'))
-                                <svg>
-                                    <use xlink:href="{{asset('storage/'.$category->files->first()->images->first()->url)}}"></use>
-                                </svg>
-                            @endif
+                            <a href="{{route('catalog-category-page', $category->getSlug())}}">{{$category->description->name or ""}}
+                                @if($category->has('files.images'))
+                                    <svg>
+                                        <use xlink:href="{{(count($category->files)) ? asset('storage/'.$category->files->first()->images->first()->url) : "" }}"></use>
+                                    </svg>
+                                @endif
+                            </a>
                             @if($category->has('children'))
                                 <ul class="sub-menu">
                                     <h6>{{$category->description->name or "" }}</h6>
                                     @foreach($category->children as $child)
                                         <li><a href="{{route('catalog-category-page', $child->getSlug())}}">
                                                 <div class="image">
-                                                    <img src="{{asset('storage/'.$child->files->first()->images->first()->url)}}"
+                                                    <img src="{{ (count($child->files)) ? asset('storage/'.$child->files->first()->images->first()->url) : ""}}"
                                                          alt="">
                                                 </div>
                                                 <span>{{$child->description->name or ""}}</span>

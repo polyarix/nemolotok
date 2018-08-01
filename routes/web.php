@@ -43,13 +43,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
 });
 
 Auth::routes();
+
 Route::group(['namespace' => 'Front'], function(){
 
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/catalog', 'ProductCategoryController@categories')->name('catalog-categories');
-
     Route::get('/catalog/{parent_category_slug?}/{category_slug?}', 'ProductCategoryController@category')->name('catalog-category-page');
 
+    Route::get('/{parent_category_slug?}/{category_slug?}/{product_slug?}', 'ProductCategoryController@product')->name('product-page');
 });
 

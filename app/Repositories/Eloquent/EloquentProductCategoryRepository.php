@@ -85,7 +85,7 @@ class EloquentProductCategoryRepository extends BaseRepository implements Produc
     {
         return ProductCategory::whereHas('slug', function($query) use ($slug){
             $query->where('slug', $slug);
-        })->with('description', 'files.images', 'slug')->with('products')->firstOrFail();
+        })->with('description', 'files.images', 'slug')->firstOrFail();
     }
 
 

@@ -23,7 +23,7 @@ class ProductCategoryService
     {
         if ($id) {
             $this->validation_rules['name'] = $this->validation_rules['name'] . ',id,' . $id;
-            $this->validation_rules['slug'] = ['required|min:3', Rule::unique('slugs', 'slug')
+            $this->validation_rules['slug'] = ['required', 'min:3', Rule::unique('slugs', 'slug')
                 ->where('morph_type', $this->productCategoryRepository->getModel())
                 ->whereNot('morph_id', $id)];
         }

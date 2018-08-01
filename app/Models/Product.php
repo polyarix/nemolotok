@@ -34,4 +34,14 @@ class Product extends Model
     {
         return $this->morphMany(Slug::class, 'morph');
     }
+
+    public function cover()
+    {
+        return $this->files
+            ->where('id', $this->cover_image)
+            ->first()
+            ->images
+            ->where('tag', 'list')
+            ->first();
+    }
 }
