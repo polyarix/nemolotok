@@ -118,4 +118,11 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
             'meta_keyword'
         ]);
     }
+
+    public function getProductBySlug(String $slug)
+    {
+        return $this->model->whereHas('slug', function($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->with('description', 'files.images')->firstOrFail();
+    }
 }

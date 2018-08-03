@@ -16,11 +16,6 @@ class ProductCategoryController extends Controller
         $this->service = $productCategoryFrontService;
     }
 
-    public function categories()
-    {
-
-    }
-
     public function category($first=null, $second=null)
     {
         $slug = $first;
@@ -34,10 +29,5 @@ class ProductCategoryController extends Controller
             'products' => $category->products()->paginate(10)
         ]);
 
-    }
-
-    public function product($first=null, $second=null, $third=null)
-    {
-        dd($third);
     }
 }

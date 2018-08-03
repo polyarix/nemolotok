@@ -51,6 +51,6 @@ Route::group(['namespace' => 'Front'], function(){
     Route::get('/catalog', 'ProductCategoryController@categories')->name('catalog-categories');
     Route::get('/catalog/{parent_category_slug?}/{category_slug?}', 'ProductCategoryController@category')->name('catalog-category-page');
 
-    Route::get('/catalog/{parent}/{category}/{product}', 'ProductCategoryController@product')->name('product-page');
+    Route::get('/catalog/{parent}/{category}/{product}', 'ProductController@index')->name('product-page');
 });
 
