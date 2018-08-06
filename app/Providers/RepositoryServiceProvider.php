@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\AttributeRepository;
 use App\Contracts\CategoryRepository;
 use App\Contracts\FilesRepository;
 use App\Contracts\ImageSettingsRepository;
@@ -13,6 +14,7 @@ use App\Contracts\RoleRepository;
 use App\Contracts\RuleRepository;
 use App\Contracts\SettingsRepository;
 use App\Contracts\UserRepository;
+use App\Repositories\Eloquent\EloquentAttributeRepository;
 use App\Repositories\Eloquent\EloquentCategoryRepository;
 use App\Repositories\Eloquent\EloquentFilesRepository;
 use App\Repositories\Eloquent\EloquentImageSettingsRepository;
@@ -37,7 +39,8 @@ class RepositoryServiceProvider extends ServiceProvider
         ProductRepository::class => EloquentProductRepository::class,
         ProductCategoryRepository::class => EloquentProductCategoryRepository::class,
         SettingsRepository::class => EloquentSettingsRepository::class,
-        FilesRepository::class => EloquentFilesRepository::class
+        FilesRepository::class => EloquentFilesRepository::class,
+        AttributeRepository::class => EloquentAttributeRepository::class
     ];
     /**
      * Bootstrap services.

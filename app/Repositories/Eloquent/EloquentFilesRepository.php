@@ -12,13 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentFilesRepository extends BaseRepository implements FilesRepository
 {
     private $uploader, $resizer;
-    protected $model;
-
-
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
 
     public function __construct(Uploader $uploader, IResizer $resizer, File $model)
     {

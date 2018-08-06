@@ -23,6 +23,11 @@
                             <li><i class="fa fa-th-list"></i><a
                                         href="{{route('admin.products.index')}}">Товары</a></li>
                         @endif
+                        @if(\App\Helpers\Access::hasRouteAccess('admin.attributes.index'))
+                            <li><i class="fa fa-th-list"></i><a
+                                        href="{{route('admin.attributes.index')}}">Аттрибуты</a></li>
+                        @endif
+
                     </ul>
                 </li>
 
