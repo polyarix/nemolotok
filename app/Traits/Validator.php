@@ -19,10 +19,9 @@ trait Validator
 
     protected function rules($id = false)
     {
-        if($id){
-            $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
-            $this->validation_rules['email'] = $this->validation_rules['email'].',id,'.$id;
-        }
+//        if($id){
+//            $this->validation_rules['name'] = $this->validation_rules['name'].',id,'.$id;
+//        }
 
         return $this->validation_rules;
     }

@@ -46,7 +46,7 @@ class CategoryViewController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->categoryService->updateCategory($id, $request);
-        return $this->response('admin.category.view.index', $data);
+        return $this->response('admin.category.view.index', \GuzzleHttp\json_encode($data));
     }
 
     public function destroy($id)

@@ -20,21 +20,21 @@ class EloquentAttributeRepository extends BaseRepository implements AttributeRep
 
     public function create($data)
     {
-        // TODO: Implement create() method.
+       return $this->model->create($data->only('name'));
     }
 
     public function update($id, $data)
     {
-        // TODO: Implement update() method.
+        return $this->model->update($data->only('name'));
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->model->where('id', $id)->delete();
     }
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        return $this->model->findOrFail($id);
     }
 }

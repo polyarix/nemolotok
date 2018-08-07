@@ -50,7 +50,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">No Articles</td>
+                                        <td colspan="5" class="text-center">Нет товаров</td>
                                     </tr>
                                 @endforelse
 

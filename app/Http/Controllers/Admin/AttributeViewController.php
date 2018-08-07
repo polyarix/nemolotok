@@ -22,7 +22,9 @@ class AttributeViewController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.attributes.index', [
+            'attributes' => $this->service->getAllAttributes()
+        ]);
     }
 
     /**
@@ -32,7 +34,7 @@ class AttributeViewController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.attributes.create');
     }
 
     /**
@@ -43,7 +45,8 @@ class AttributeViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->service->createAttribute($request);
+        return $this->response('admin.attributes.index', \GuzzleHttp\json_encode($data));
     }
 
     /**
@@ -54,7 +57,9 @@ class AttributeViewController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.attributes.show', [
+            'attribute' => $this->service->getAttributeById($id)
+        ]);
     }
 
     /**
@@ -65,7 +70,9 @@ class AttributeViewController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.attributes.edit', [
+            'attribute' => $this->service->getAttributeById($id)
+        ]);
     }
 
     /**
@@ -77,7 +84,8 @@ class AttributeViewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->service->updateAttribute($id, $request);
+        return $this->response('admin.attributes.index', \GuzzleHttp\json_encode($data));
     }
 
     /**
@@ -88,6 +96,9 @@ class AttributeViewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->service->deleteAttribute($id)){
+            return 200;
+        }
+        return 404;
     }
 }
