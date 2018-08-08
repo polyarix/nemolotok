@@ -41,5 +41,5 @@
 </div>
 
 @section('scripts')
-    <script src="{{asset('js/admin/products/product-images.js')}}"></script>
+    <script type="module" src="{{asset('js/admin/products/product-images.js')}}"></script>
 @endsection

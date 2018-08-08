@@ -14,6 +14,8 @@
                    aria-controls="nav-relations" aria-selected="false">Связи</a>
                 <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images"
                    aria-controls="nav-images" aria-selected="false">Изображения</a>
+                <a class="nav-item nav-link" id="nav-attributes-tab" data-toggle="tab" href="#nav-attributes"
+                   aria-controls="nav-images" aria-selected="false">Атрибуты</a>
             </div>
         </nav>
         <div class="tab-content pl-3 pt-2 card-body" id="nav-tabContent">
@@ -129,6 +131,10 @@
 
             <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
                     @include('admin.partials.form.image.image-list', ['item' => $product, 'data_list_type' => 'multiplicity'])
+            </div>
+
+            <div class="tab-pane fade" id="nav-attributes" role="tabpanel" aria-labelledby="nav-attributes-tab">
+                @include('admin.partials.form.attributes.attributes')
             </div>
         </div>
     </div>

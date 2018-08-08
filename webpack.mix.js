@@ -24,3 +24,5 @@ mix.scripts([
 mix.scripts([
     'resources/assets/js/admin/product-images.js'
 ], 'public/js/admin/products/product-images.js');
+
+mix.scripts(['resources/assets/js/admin/generator.js'], 'public/js/admin/products/generator.js');

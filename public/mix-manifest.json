@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/admin/actions.js": "/js/admin/actions.js",
-    "/js/admin/products/product-images.js": "/js/admin/products/product-images.js"
+    "/js/admin/products/product-images.js": "/js/admin/products/product-images.js",
+    "/js/admin/products/generator.js": "/js/admin/products/generator.js"
 }
