@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth
 
         Route::post('products/image-delete/{id}', 'ProductViewController@deleteImage')->name('product.image-delete');
         Route::post('products/image-save', 'ProductViewController@uploadImage')->name('product.image-upload');
+        Route::get('products/attributes', 'ProductViewController@attributes')->name('product.attributes');
 
         Route::resource('product-categories', 'ProductCategoryViewController');
 

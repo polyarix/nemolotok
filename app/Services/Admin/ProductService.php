@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\AttributeRepository;
 use App\Contracts\FilesRepository;
 use App\Contracts\ProductCategoryRepository;
 use App\Contracts\ProductRepository;
@@ -12,7 +13,7 @@ use Illuminate\Validation\Rule;
 class ProductService
 {
     use Validator;
-    private $productRepository, $productCategoryRepository, $settingsRepository, $filesRepository;
+    private $productRepository, $productCategoryRepository, $settingsRepository, $filesRepository, $attributesRepository;
     private $validation_rules = [
         'name' => 'required|min:3|max:50|string|unique:products_descriptions',
         'price' => 'required|numeric',
@@ -35,13 +36,15 @@ class ProductService
         SettingsRepository $settingsRepository,
         ProductRepository $productRepository,
         ProductCategoryRepository $productCategoryRepository,
-        FilesRepository $filesRepository
+        FilesRepository $filesRepository,
+        AttributeRepository $attributeRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;
         $this->settingsRepository = $settingsRepository;
         $this->filesRepository = $filesRepository;
+        $this->attributesRepository = $attributeRepository;
     }
 
     public function getAllProducts()
@@ -92,5 +95,10 @@ class ProductService
     public function removeFile($product_id, $file_id)
     {
         return $this->productRepository->removeFile($product_id, $file_id);
+    }
+
+    public function getAttrubutes()
+    {
+        return $this->attributesRepository->all();
     }
 }

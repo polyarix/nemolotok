@@ -31,7 +31,8 @@ class ProductViewController extends Controller
     {
         return view('admin.products.create', [
             'categories' => $this->productService->getAllCategories(),
-            'product' => []
+            'product' => [],
+            'attributes' => \GuzzleHttp\json_encode($this->productService->getAttrubutes())
         ]);
     }
 
@@ -43,7 +44,6 @@ class ProductViewController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $this->productService->createProduct($request);
 
         return $this->response('admin.products.index', \GuzzleHttp\json_encode($data));
@@ -110,5 +110,11 @@ class ProductViewController extends Controller
     {
         $data = $this->productService->removeFile($id, $request->get('file_id'));
         return \Response::json($data,200);
+    }
+
+    public function attributes()
+    {
+        echo 'test';
+//        return $this->productService->getAttributes();
     }
 }

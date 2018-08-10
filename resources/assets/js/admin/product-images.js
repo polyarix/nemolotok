@@ -1,10 +1,10 @@
 import Generator from './generator.js';
 
-(function () {
-    jQuery('#new-image').click(function (e) {
+(function ($) {
+    $('#new-image').click(function (e) {
         e.preventDefault();
-        let i = jQuery(".image-section").length;
-        let list_type = jQuery(this).attr('data-list-type');
+        let i = $(".image-section").length;
+        let list_type = $(this).attr('data-list-type');
         let section = Generator.sectionGenerate('image-section col-lg-12');
         let input = Generator.inputGenerate(false, 'file', 'image[' + i + ']', true);
         let button = Generator.buttonGenerate('btn btn-outline-success', 'button' + i, 'Загрузить изображение');
@@ -13,45 +13,45 @@ import Generator from './generator.js';
 
         td.className = 'image-section';
 
-        jQuery(td).append(button).append(input);
-        jQuery(item).append(td);
+        $(td).append(button).append(input);
+        $(item).append(td);
 
         if((list_type === 'single' && i < 1)){
-            jQuery('#new-files').append(item);
-            jQuery(this).hide();
+            $('#new-files').append(item);
+            $(this).hide();
         } else if(list_type === 'single' && i === 1){
-            jQuery(this).hide();
+            $(this).hide();
         } else if(list_type === 'multiplicity') {
-            jQuery('#new-files').append(item);
+            $('#new-files').append(item);
         }
 
 
         // Opening file upload window
-        jQuery('body').delegate('#' + button.id, 'click', function () {
-            let elem = jQuery('body').find('input[name="' + input.name + '"]');
-            jQuery(elem).trigger('click');
+        $('body').delegate('#' + button.id, 'click', function () {
+            let elem = $('body').find('input[name="' + input.name + '"]');
+            $(elem).trigger('click');
         });
 
         // File size validate
-        jQuery('body').delegate('input[name="' + input.name + '"]', 'change', function () {
-            if (jQuery(this).prop('files')[0].size > 20000000) {
+        $('body').delegate('input[name="' + input.name + '"]', 'change', function () {
+            if ($(this).prop('files')[0].size > 20000000) {
                 alert("Файл слишком большой!");
                 this.value = "";
             } else {
-                jQuery(button).parent().parent().hide();
+                $(button).parent().parent().hide();
                 readURL(this, 'thumbnail'+i, input.name);
             }
         });
 
-        jQuery('body').delegate('.preview-delete', 'click', function(e){
+        $('body').delegate('.preview-delete', 'click', function(e){
 
             e.preventDefault();
-            let input_name = jQuery(this).attr('data-input-name');
-            let section_class = jQuery(this).parents('section').attr('class');
+            let input_name = $(this).attr('data-input-name');
+            let section_class = $(this).parents('section').attr('class');
 
-            jQuery('input[name="'+input_name+'"]').remove();
+            $('input[name="'+input_name+'"]').remove();
 
-            jQuery(this).parents('.'+section_class).remove();
+            $(this).parents('.'+section_class).remove();
         });
     });
 
@@ -85,41 +85,41 @@ import Generator from './generator.js';
         if (input.files && input.files[0]) {
             let reader = new FileReader();
             reader.onload = function (e) {
-                jQuery('#images-info-block').append(getPreviewSection(image_id, input_name, input.files[0].name));
-                jQuery('#'+image_id).attr('src', e.target.result);
+                $('#images-info-block').append(getPreviewSection(image_id, input_name, input.files[0].name));
+                $('#'+image_id).attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
-})();
 
-jQuery('.image-item-delete').click(function(e){
-    e.preventDefault();
-    if(confirm('Удалить?')){
+    $('.image-item-delete').click(function(e){
+        e.preventDefault();
+        if(confirm('Удалить?')){
 
-        let file_id = jQuery(this).attr('data-file-id');
-        let section = jQuery(this);
-        let section_class = jQuery(this).parents('section').attr('class');
+            let file_id = $(this).attr('data-file-id');
+            let section = $(this);
+            let section_class = $(this).parents('section').attr('class');
 
-        jQuery.ajax({
-            url: jQuery('.card').attr('data-image-remove-url'),
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'post',
-            dataType: 'json',
-            data: {
-                file_id: file_id
-            },
-            success: function(response){
-                if(response === true){
-                    console.log(section);
-                    jQuery(section).parents('.'+section_class).remove();
+            $.ajax({
+                url: $('.card').attr('data-image-remove-url'),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    file_id: file_id
+                },
+                success: function(response){
+                    if(response === true){
+                        console.log(section);
+                        $(section).parents('.'+section_class).remove();
+                    }
+                },
+                error: function(response){
+                    console.log(response.error);
                 }
-            },
-            error: function(response){
-                console.log(response.error);
-            }
-        });
-    }
-});
+            });
+        }
+    });
+})(jQuery);

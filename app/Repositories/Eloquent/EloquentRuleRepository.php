@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EloquentRuleRepository extends BaseRepository implements RuleRepository
 {
-    private $model;
-
     public function setModel(Model $model)
     {
         $this->model = $model;
@@ -23,7 +21,7 @@ class EloquentRuleRepository extends BaseRepository implements RuleRepository
 
     public function all()
     {
-        return $this->all();
+        return $this->model->all();
     }
 
     public function create($data)

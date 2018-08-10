@@ -39,10 +39,10 @@ import Generator from './generator.js';
     function getAttributeInput(i, attrib_id, attrib_name)
     {
         let html;
-        let name = "attributes["+attrib_id+"]";
+        let name = "attributes["+i+"]";
         html = '<div class="form-group">';
         html +=        '<label for="sorting" class=" form-control-label">'+attrib_name+'</label>';
-        html +=        '<input type="text" name="'+name+'" value="" placeholder="значение атрибута '+attrib_name+'" class="form-control">';
+        html +=        '<input type="text" name="'+name+'" value="" class="form-control">';
         html +='</div>';
 
         return html;

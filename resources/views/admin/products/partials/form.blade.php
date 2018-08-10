@@ -2,6 +2,9 @@
 @if(!empty($product))
     data-image-remove-url="{{route('admin.product.image-delete', ['id' => $product->id])}}"
 @endif
+@if(!empty($attributes))
+    data-attributes="{{$attributes}}"
+@endif
 >
     <div class="default-tab">
         <nav>

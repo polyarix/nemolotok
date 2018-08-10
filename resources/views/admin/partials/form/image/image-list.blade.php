@@ -19,12 +19,15 @@
                                 @endforeach
                                 <tr>
                                     <th>Обложка</th>
-                                    <td><input type="radio" name="cover_image" @if($file->id === $item->cover_image) checked @endif value="{{$file->id}}"></td>
+                                    <td><input type="radio" name="cover_image"
+                                               @if($file->id === $item->cover_image) checked
+                                               @endif value="{{$file->id}}"></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="text-right col-lg-1">
-                            <button class="btn btn-outline-danger btn-lg image-item-delete" data-file-id="{{$file->id}}"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-outline-danger btn-lg image-item-delete"
+                                    data-file-id="{{$file->id}}"><i class="fa fa-trash-o"></i></button>
                         </div>
                     </div>
                 </section>
@@ -35,11 +38,13 @@
     </table>
 </div>
 <div class="col-lg-12 text-center">
-    <button type="button" id="new-image" class="form-group btn btn-outline-primary btn-lg" data-list-type="{{$data_list_type}}">Добавить новое
+    <button type="button" id="new-image" class="form-group btn btn-outline-primary btn-lg"
+            data-list-type="{{$data_list_type}}">Добавить новое
         изображение
     </button>
 </div>
 
 @section('scripts')
+    @parent
     <script type="module" src="{{asset('js/admin/products/product-images.js')}}"></script>
-@endsection
+@stop
